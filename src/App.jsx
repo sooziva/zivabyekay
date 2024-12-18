@@ -23,29 +23,36 @@ const App = () => {
       repeatDelay: 0.5,
     });
 
-    gsap.set(".header", {
-      visibility: "hidden",
-    });
-    gsap.set(".header:first-child", {
-      visibility: "visible",
-    });
-    gsap.set(".header h1", {
-      opacity: 0,
-      y: 40,
+    const headers = document.querySelectorAll(".header");
+    headers.forEach((header, index) => {
+      gsap.set(header, {
+        visibility: index === 0 ? "visible" : "hidden",
+      });
+
+      const h1s = header.querySelectorAll("h1");
+      gsap.set(h1s, {
+        opacity: 0,
+        y: 40,
+        force3D: true,
+      });
     });
 
-    document.querySelectorAll(".header").forEach((header, index) => {
+    headers.forEach((header, index) => {
       const h1s = header.querySelectorAll("h1");
-      const nextHeader =
-        document.querySelectorAll(".header")[
-          (index + 1) % document.querySelectorAll(".header").length
-        ];
+      const nextHeader = headers[(index + 1) % headers.length];
+      const nextH1s = nextHeader.querySelectorAll("h1");
 
       const tl = gsap.timeline({
         paused: true,
       });
 
-      tl.set(header, { visibility: "visible" })
+      tl.set(nextH1s, {
+        opacity: 0,
+        y: 40,
+        force3D: true,
+        immediateRender: true,
+      })
+        .set(header, { visibility: "visible" })
         .to(h1s, {
           opacity: 1,
           y: 0,
@@ -69,7 +76,10 @@ const App = () => {
       timelineRef.current.add(tl.play(), index > 0 ? ">" : 0.5);
     });
 
-    timelineRef.current.play();
+    timelineRef.current.pause(0);
+    requestAnimationFrame(() => {
+      timelineRef.current.play();
+    });
   }, []);
 
   return (
