@@ -146,14 +146,7 @@ section.work {
 
 .project {
   position: relative;
-  opacity: 0.35;
   will-change: opacity;
-  transition: all 0.3s ease-in;
-}
-
-.project:hover {
-  opacity: 1;
-  transition: all 0.3s ease-in;
 }
 
 .project-img {

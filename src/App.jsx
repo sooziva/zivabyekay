@@ -13,9 +13,48 @@ import { HiArrowRight } from "react-icons/hi";
 
 const App = () => {
   const manifestoRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+
+    if (!isMobile) {
+      gsap.set(".project", { opacity: 0.35 });
+    }
+
+    if (!isMobile) {
+      const projects = document.querySelectorAll(".project");
+
+      projects.forEach((project) => {
+        project.addEventListener("mouseenter", () => {
+          gsap.to(project, {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        });
+
+        project.addEventListener("mouseleave", () => {
+          gsap.to(project, {
+            opacity: 0.35,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        });
+      });
+    }
 
     const manifestoText = new SplitType(".manifesto-title h1", {
       types: ["words", "chars"],
@@ -68,7 +107,7 @@ const App = () => {
       manifestoText.revert();
       style.remove();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <ReactLenis root>
