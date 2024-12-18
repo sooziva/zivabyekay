@@ -1,3 +1,8 @@
+section.hero {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .header {
   position: absolute;
   top: 50%;

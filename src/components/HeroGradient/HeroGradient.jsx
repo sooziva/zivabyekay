@@ -39,7 +39,7 @@ const fragmentShader = `
     float grid = (mod(floor((uvp.x)*iResolution.x/n),2.0)==0.0?1.0:0.0)*
                  (mod(floor((uvp.y)*iResolution.y/n),2.0)==0.0?1.0:0.0);
     
-    vec3 col = mix(vec3(0), vec3(0.2, 0.4, 1), 
+    vec3 col = mix(vec3(0.0), vec3(0.227, 0.275, 0.2), 
                    5.0*vec3(pow(1.0-noise(uv*4.0-vec2(0.0, iTime/2.0)),5.0)));
     col *= grid;
     col = pow(col, vec3(1.0/2.2));
