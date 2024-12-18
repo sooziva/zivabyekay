@@ -3,6 +3,12 @@ section.hero {
   overflow: hidden;
 }
 
+.header-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 .header {
   position: absolute;
   top: 50%;
@@ -12,11 +18,78 @@ section.hero {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
+  opacity: 0;
+  visibility: hidden;
   will-change: transform, opacity;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+
+.header h1 {
+  transform: translateY(40px);
+  opacity: 0;
+}
+
+.h-1 {
+  animation: cycleHeaders 16s infinite;
+}
+
+.h-2 {
+  animation: cycleHeaders 16s infinite 4s;
+}
+
+.h-3 {
+  animation: cycleHeaders 16s infinite 8s;
+}
+
+.h-4 {
+  animation: cycleHeaders 16s infinite 12s;
+}
+
+.header h1:first-child {
+  animation: slideIn 4s infinite;
+}
+
+.header h1:last-child {
+  animation: slideIn 4s infinite 0.2s;
+}
+
+@keyframes cycleHeaders {
+  0%,
+  2% {
+    opacity: 0;
+    visibility: visible;
+  }
+  5%,
+  20% {
+    opacity: 1;
+    visibility: visible;
+  }
+  23%,
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes slideIn {
+  0%,
+  2% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  5%,
+  20% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  23%,
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 900px) {
