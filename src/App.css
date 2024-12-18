@@ -117,13 +117,15 @@ section.work {
   height: 100%;
 }
 
-.work-header {
+.work-header,
+.manifesto-header {
   display: flex;
   gap: 1rem;
   margin-bottom: 4em;
 }
 
-.work-header p {
+.work-header p,
+.manifesto-header p {
   font-weight: 500;
 }
 
@@ -220,6 +222,23 @@ section.work {
   );
 }
 
+.manifesto {
+  position: relative;
+  height: max-content;
+}
+
+.manifesto-title h1 {
+  font-size: 6.5rem;
+  line-height: 1.125;
+}
+
+.manifesto-symbol {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
@@ -249,5 +268,9 @@ section.work {
 
   .cta-header h2 {
     font-size: 1.75rem;
+  }
+
+  .manifesto-title h1 {
+    font-size: 4rem;
   }
 }
