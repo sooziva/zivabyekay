@@ -1,12 +1,17 @@
 section.hero {
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
 .header-container {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 
 .header {
@@ -19,7 +24,7 @@ section.hero {
   gap: 0.5rem;
   width: 100%;
   opacity: 0;
-  visibility: hidden;
+  pointer-events: none;
   will-change: transform, opacity;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -28,64 +33,80 @@ section.hero {
 }
 
 .header h1 {
+  color: white;
+  margin: 0;
   transform: translateY(40px);
   opacity: 0;
 }
 
 .h-1 {
-  animation: cycleHeaders 16s infinite;
+  animation: fadeInOut 12s infinite 0s;
 }
-
 .h-2 {
-  animation: cycleHeaders 16s infinite 4s;
+  animation: fadeInOut 12s infinite 3s;
 }
-
 .h-3 {
-  animation: cycleHeaders 16s infinite 8s;
+  animation: fadeInOut 12s infinite 6s;
 }
-
 .h-4 {
-  animation: cycleHeaders 16s infinite 12s;
+  animation: fadeInOut 12s infinite 9s;
 }
 
-.header h1:first-child {
-  animation: slideIn 4s infinite;
+.h-1 h1:nth-child(1) {
+  animation: slideUp 12s infinite 0s;
+}
+.h-1 h1:nth-child(2) {
+  animation: slideUp 12s infinite 0.1s;
 }
 
-.header h1:last-child {
-  animation: slideIn 4s infinite 0.2s;
+.h-2 h1:nth-child(1) {
+  animation: slideUp 12s infinite 3s;
+}
+.h-2 h1:nth-child(2) {
+  animation: slideUp 12s infinite 3.1s;
 }
 
-@keyframes cycleHeaders {
+.h-3 h1:nth-child(1) {
+  animation: slideUp 12s infinite 6s;
+}
+.h-3 h1:nth-child(2) {
+  animation: slideUp 12s infinite 6.1s;
+}
+
+.h-4 h1:nth-child(1) {
+  animation: slideUp 12s infinite 9s;
+}
+.h-4 h1:nth-child(2) {
+  animation: slideUp 12s infinite 9.1s;
+}
+
+@keyframes fadeInOut {
   0%,
   2% {
     opacity: 0;
-    visibility: visible;
   }
-  5%,
-  20% {
+  8%,
+  21% {
     opacity: 1;
-    visibility: visible;
   }
-  23%,
+  24%,
   100% {
     opacity: 0;
-    visibility: hidden;
   }
 }
 
-@keyframes slideIn {
+@keyframes slideUp {
   0%,
   2% {
     transform: translateY(40px);
     opacity: 0;
   }
-  5%,
-  20% {
+  8%,
+  21% {
     transform: translateY(0);
     opacity: 1;
   }
-  23%,
+  24%,
   100% {
     transform: translateY(-40px);
     opacity: 0;
