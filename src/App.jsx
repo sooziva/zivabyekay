@@ -140,6 +140,25 @@ const App = () => {
             </div>
           </div>
         </section>
+
+        <section className="cta">
+          <div className="cta-bg-img">
+            <img src="/cta/cta-bg.png" alt="" />
+          </div>
+          <div className="cta-title">
+            <p>They trust us</p>
+          </div>
+          <div className="cta-header">
+            <h2>
+              Nike, Canada Goose, Mercari, Louis Vuitton, Shiseido, Amazon
+              Fashion, Adidas, Hypebeast, Chupa Chups, JAL airlines, JETRO,
+              Yonex, Toyota, Sony, Yamaha
+            </h2>
+          </div>
+          <div className="cta-btn">
+            <button>More details on origin.co</button>
+          </div>
+        </section>
       </div>
     </ReactLenis>
   );
