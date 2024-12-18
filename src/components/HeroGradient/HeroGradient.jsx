@@ -1,4 +1,3 @@
-// HeroGradient.jsx
 import React, { useEffect, useRef } from "react";
 import "./HeroGradient.css";
 
@@ -58,33 +57,27 @@ const HeroGradient = () => {
       return;
     }
 
-    // Create shader program
     const program = gl.createProgram();
 
-    // Compile vertex shader
     const vShader = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vShader, vertexShader);
     gl.compileShader(vShader);
 
-    // Compile fragment shader
     const fShader = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fShader, fragmentShader);
     gl.compileShader(fShader);
 
-    // Link program
     gl.attachShader(program, vShader);
     gl.attachShader(program, fShader);
     gl.linkProgram(program);
     gl.useProgram(program);
 
-    // Set up geometry
     const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
 
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-    // Set up attributes and uniforms
     const position = gl.getAttribLocation(program, "position");
     gl.enableVertexAttribArray(position);
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
@@ -92,7 +85,6 @@ const HeroGradient = () => {
     const iTime = gl.getUniformLocation(program, "iTime");
     const iResolution = gl.getUniformLocation(program, "iResolution");
 
-    // Handle resize
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -101,7 +93,6 @@ const HeroGradient = () => {
     window.addEventListener("resize", resize);
     resize();
 
-    // Animation loop
     const render = () => {
       const currentTime = (Date.now() - startTimeRef.current) / 1000;
       gl.uniform1f(iTime, currentTime);
@@ -111,7 +102,6 @@ const HeroGradient = () => {
     };
     render();
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", resize);
       if (rafRef.current) {
