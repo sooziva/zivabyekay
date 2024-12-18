@@ -58,7 +58,7 @@ const App = () => {
 
     const initialDelay = setTimeout(() => {
       createHeaderAnimation(0);
-    }, 1000);
+    }, 500);
 
     return () => {
       clearTimeout(initialDelay);

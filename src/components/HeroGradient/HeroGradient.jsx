@@ -13,33 +13,38 @@ const fragmentShader = `
   uniform float iTime;
   uniform vec2 iResolution;
 
-  mat2 m(float a) {
-    float c = cos(a), s = sin(a);
-    return mat2(c, -s, s, c);
+  float rand(vec2 p) {
+    return fract(sin(dot(p, vec2(12.543,514.123)))*4732.12);
   }
 
-  float map(vec3 p) {
-    p.xz *= m(iTime * 0.4);
-    p.xy *= m(iTime * 0.3);
-    vec3 q = p * 2.0 + iTime;
-    return length(p + vec3(sin(iTime * 0.7))) * log(length(p) + 1.) + sin(q.x + sin(q.z + sin(q.y))) * 0.5 - 1.0;
+  float noise(vec2 p) {
+    vec2 f = smoothstep(0.0, 1.0, fract(p));
+    vec2 i = floor(p);
+    
+    float a = rand(i);
+    float b = rand(i+vec2(1.0,0.0));
+    float c = rand(i+vec2(0.0,1.0));
+    float d = rand(i+vec2(1.0,1.0));
+    
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
   }
 
   void main() {
-    vec2 p = (gl_FragCoord.xy / iResolution.y - vec2(0.9, 0.5));
-    vec3 cl = vec3(0.0);
-    float d = 2.5;
+    float n = 2.0;
+    vec2 uv = gl_FragCoord.xy/iResolution.y;
+    vec2 uvp = gl_FragCoord.xy/iResolution.xy;
     
-    for(int i = 0; i <= 5; i++) {
-      vec3 p3 = vec3(0.0, 0.0, 5.0) + normalize(vec3(p, -1.0)) * d;
-      float rz = map(p3);
-      float f = clamp((rz - map(p3 + 0.1)) * 0.5, -0.1, 1.0);
-      vec3 l = vec3(0.1, 0.3, 0.4) + vec3(5.0, 2.5, 3.0) * f;
-      cl = cl * l + (1.0 - smoothstep(0.0, 2.5, rz)) * 0.7 * l;
-      d += min(rz, 1.0);
-    }
+    uv += 0.75*noise(uv*3.0+iTime/2.0+noise(uv*7.0-iTime/3.0)/2.0)/2.0;
     
-    gl_FragColor = vec4(cl, 1.0);
+    float grid = (mod(floor((uvp.x)*iResolution.x/n),2.0)==0.0?1.0:0.0)*
+                 (mod(floor((uvp.y)*iResolution.y/n),2.0)==0.0?1.0:0.0);
+    
+    vec3 col = mix(vec3(0), vec3(0.2, 0.4, 1), 
+                   5.0*vec3(pow(1.0-noise(uv*4.0-vec2(0.0, iTime/2.0)),5.0)));
+    col *= grid;
+    col = pow(col, vec3(1.0/2.2));
+    
+    gl_FragColor = vec4(col,1.0);
   }
 `;
 
@@ -58,7 +63,6 @@ const HeroGradient = () => {
     }
 
     const program = gl.createProgram();
-
     const vShader = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vShader, vertexShader);
     gl.compileShader(vShader);
@@ -73,7 +77,6 @@ const HeroGradient = () => {
     gl.useProgram(program);
 
     const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
-
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
@@ -90,6 +93,7 @@ const HeroGradient = () => {
       canvas.height = window.innerHeight;
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
+
     window.addEventListener("resize", resize);
     resize();
 
@@ -100,6 +104,7 @@ const HeroGradient = () => {
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       rafRef.current = requestAnimationFrame(render);
     };
+
     render();
 
     return () => {
@@ -114,7 +119,7 @@ const HeroGradient = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="hero-gradient-canvas" />;
+  return <canvas ref={canvasRef} />;
 };
 
 export default HeroGradient;

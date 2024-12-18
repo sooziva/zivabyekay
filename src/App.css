@@ -4,5 +4,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
 }
