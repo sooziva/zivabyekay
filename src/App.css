@@ -113,9 +113,75 @@ section.hero {
   }
 }
 
+section.work {
+  height: 100%;
+}
+
+.work-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 4em;
+}
+
+.work-header p {
+  font-weight: 500;
+}
+
+.projects {
+  display: flex;
+  gap: 4em;
+}
+
+.project-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6em;
+}
+
+.project-col:nth-child(2) {
+  margin-top: 10em;
+}
+
+.project {
+  position: relative;
+  opacity: 0.35;
+  will-change: opacity;
+  transition: all 0.3s ease-in;
+}
+
+.project:hover {
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+
+.project-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+}
+
+.project-name {
+  margin: 1.5em 0 0.65em 0;
+}
+
+.project-name h2 {
+  font-weight: 500;
+}
+
+.project-description p {
+  color: var(--light2);
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
     text-align: center;
+  }
+
+  .projects {
+    flex-direction: column;
+  }
+
+  .project-col:nth-child(2) {
+    margin-top: 0;
   }
 }
