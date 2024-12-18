@@ -3,6 +3,8 @@ import "./App.css";
 import HeroGradient from "./components/HeroGradient/HeroGradient";
 import ReactLenis from "@studio-freight/react-lenis";
 
+import { projects } from "./projects";
+
 import { HiArrowRight } from "react-icons/hi";
 
 const App = () => {
@@ -40,102 +42,39 @@ const App = () => {
 
             <div className="projects">
               <div className="project-col">
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project1.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Echo Fjord — Dreamscape Series</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>Art Installation, Visual Effects, Photography</p>
-                  </div>
-                </div>
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project2.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Stellar Horizon</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>
-                      Creative Campaign, Augmented Reality, Interactive Design
-                    </p>
-                  </div>
-                </div>
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project3.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Neon Veil by Ghost Atelier</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>Lighting Design, Concept Art, Event Production</p>
-                  </div>
-                </div>
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project4.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Monolith (2024)</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>Set Design, Experimental Film, Soundscape</p>
-                  </div>
-                </div>
+                {projects
+                  .filter((project) => project.column === 1)
+                  .map((project) => (
+                    <div className="project" key={project.id}>
+                      <div className="project-img">
+                        <img src={project.image} alt="Project Thumbnail" />
+                      </div>
+                      <div className="project-name">
+                        <h2>{project.title}</h2>
+                      </div>
+                      <div className="project-description">
+                        <p>{project.description}</p>
+                      </div>
+                    </div>
+                  ))}
               </div>
 
               <div className="project-col">
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project5.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Lunar Editions</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>Fashion Collaboration, Editorial, Immersive Media</p>
-                  </div>
-                </div>
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project6.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Velvet Mirage — Echo Chamber</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>Music Video, Color Grading, 3D Environments</p>
-                  </div>
-                </div>
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project7.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>Shadow Beacon by Lightforms</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>
-                      Interactive Installation, Projection Mapping, Visual
-                      Identity
-                    </p>
-                  </div>
-                </div>
-                <div className="project">
-                  <div className="project-img">
-                    <img src="/projects/project8.jpg" alt="Project Thumbnail" />
-                  </div>
-                  <div className="project-name">
-                    <h2>The Machina Chronicles</h2>
-                  </div>
-                  <div className="project-description">
-                    <p>Cinematic Trailer, Narrative Design, VFX</p>
-                  </div>
-                </div>
+                {projects
+                  .filter((project) => project.column === 2)
+                  .map((project) => (
+                    <div className="project" key={project.id}>
+                      <div className="project-img">
+                        <img src={project.image} alt="Project Thumbnail" />
+                      </div>
+                      <div className="project-name">
+                        <h2>{project.title}</h2>
+                      </div>
+                      <div className="project-description">
+                        <p>{project.description}</p>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

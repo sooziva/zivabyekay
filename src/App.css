@@ -230,6 +230,10 @@ section.work {
     flex-direction: column;
   }
 
+  .project {
+    opacity: 1;
+  }
+
   .project-col:nth-child(2) {
     margin-top: 0;
   }
