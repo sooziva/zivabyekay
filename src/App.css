@@ -232,6 +232,66 @@ section.work {
   width: 80px;
 }
 
+.manifesto .container {
+  padding: 2em 1em 1em 1em;
+}
+
+.processes {
+  height: max-content;
+  padding: 1em 1em 4em 1em;
+}
+
+.processes .container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 3em 1em;
+}
+
+.process {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1em 0 4em 0;
+}
+
+.process-title {
+  text-transform: uppercase;
+  display: flex;
+  gap: 0.25em;
+}
+
+.process-title p {
+  position: relative;
+  top: 0.125em;
+}
+
+.process-info {
+  display: flex;
+  padding: 2em 0;
+  gap: 10em;
+}
+
+.process-info p {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.process-icon {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.process-icon-wrapper {
+  width: 100px;
+  height: 100px;
+}
+
+.process-description {
+  flex: 3;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
@@ -264,6 +324,15 @@ section.work {
   }
 
   .manifesto-title h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
+  }
+
+  .process-info {
+    flex-direction: column;
+    gap: 2em;
+  }
+
+  .process-icon {
+    justify-content: flex-start;
   }
 }

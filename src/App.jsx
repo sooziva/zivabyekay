@@ -10,6 +10,7 @@ import SplitType from "split-type";
 import { projects } from "./projects";
 
 import { HiArrowRight } from "react-icons/hi";
+import { RiArrowRightDownLine } from "react-icons/ri";
 
 const App = () => {
   const manifestoRef = useRef(null);
@@ -216,7 +217,72 @@ const App = () => {
           </div>
         </section>
 
-        <section className="process"></section>
+        <section className="processes">
+          <div className="container">
+            <div className="process">
+              <div className="process-title">
+                <RiArrowRightDownLine />
+                <p>Integrate</p>
+              </div>
+              <div className="process-info">
+                <div className="process-icon">
+                  <div className="process-icon-wrapper">
+                    <img src="/processes/icon-1.png" alt="" />
+                  </div>
+                </div>
+                <div className="process-description">
+                  <p>
+                    Born in Asia, raised by the world. Origin is the global
+                    fulcrum between East and West. We blur boundaries of
+                    difference, creating design that stands the test of time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="process">
+              <div className="process-title">
+                <RiArrowRightDownLine />
+                <p>Collaborate</p>
+              </div>
+              <div className="process-info">
+                <div className="process-icon">
+                  <div className="process-icon-wrapper">
+                    <img src="/processes/icon-2.png" alt="" />
+                  </div>
+                </div>
+                <div className="process-description">
+                  <p>
+                    Collaboration over competition. Creativity, for origin
+                    saigon, is like having a nabe with friends where we combine
+                    the creativity that sets us apart.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="process">
+              <div className="process-title">
+                <RiArrowRightDownLine />
+                <p>Challenge</p>
+              </div>
+              <div className="process-info">
+                <div className="process-icon">
+                  <div className="process-icon-wrapper">
+                    <img src="/processes/icon-3.png" alt="" />
+                  </div>
+                </div>
+                <div className="process-description">
+                  <p>
+                    We create to evoke. We start where others stop, we question
+                    the norms, we refuse to be redundant, Origin saigon seeks to
+                    deliver original creative solutions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </ReactLenis>
   );
