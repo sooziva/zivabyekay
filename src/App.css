@@ -292,6 +292,23 @@ section.work {
   flex: 3;
 }
 
+.marquee {
+  width: 100vw;
+  padding: 2em 0;
+  overflow: hidden;
+}
+
+.marquee-text {
+  width: 300vw;
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.marquee-text h1 {
+  font-size: 12rem;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
@@ -334,5 +351,9 @@ section.work {
 
   .process-icon {
     justify-content: flex-start;
+  }
+
+  .marquee-text h1 {
+    font-size: 5rem;
   }
 }

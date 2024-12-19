@@ -102,6 +102,22 @@ const App = () => {
       );
     });
 
+    gsap.to(".marquee-text", {
+      scrollTrigger: {
+        trigger: ".marquee",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+        markers: false,
+        onUpdate: (self) => {
+          const moveAmount = self.progress * -2000;
+          gsap.set(".marquee-text", {
+            x: moveAmount,
+          });
+        },
+      },
+    });
+
     return () => {
       tl.kill();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -283,6 +299,14 @@ const App = () => {
             </div>
           </div>
         </section>
+
+        <div className="marquee">
+          <div className="marquee-text">
+            <h1>Discover the origin of the origin studio</h1>
+          </div>
+        </div>
+
+        <section className="showreel"></section>
       </div>
     </ReactLenis>
   );
