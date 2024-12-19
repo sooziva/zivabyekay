@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import HeroGradient from "./components/HeroGradient/HeroGradient";
 import ReactLenis from "@studio-freight/react-lenis";
+import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -110,7 +111,7 @@ const App = () => {
         scrub: 1,
         markers: false,
         onUpdate: (self) => {
-          const moveAmount = self.progress * -2000;
+          const moveAmount = self.progress * -1000;
           gsap.set(".marquee-text", {
             x: moveAmount,
           });
@@ -306,7 +307,11 @@ const App = () => {
           </div>
         </div>
 
-        <section className="showreel"></section>
+        <section className="showreel">
+          <VideoPlayer />
+        </section>
+
+        <section></section>
       </div>
     </ReactLenis>
   );

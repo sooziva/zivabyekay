@@ -309,6 +309,12 @@ section.work {
   text-align: center;
 }
 
+.showreel {
+  width: 100%;
+  height: 75vh;
+  background: black;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
