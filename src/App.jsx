@@ -127,6 +127,52 @@ const App = () => {
     };
   }, [isMobile]);
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const rows = document.querySelectorAll(".row");
+    const isMobileView = window.innerWidth <= 900;
+
+    const getStartX = (index) => {
+      const direction = index % 2 === 0 ? 1 : -1;
+      return direction * (isMobileView ? 150 : 300);
+    };
+
+    if (rows.length > 0) {
+      rows.forEach((row, index) => {
+        const existingTrigger = ScrollTrigger.getAll().find(
+          (st) => st.trigger === ".gallery" && st.vars?.targets === row
+        );
+        if (existingTrigger) {
+          existingTrigger.kill();
+        }
+
+        const startX = getStartX(index);
+
+        gsap.set(row, { x: startX });
+
+        gsap.to(row, {
+          scrollTrigger: {
+            trigger: ".gallery",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: isMobileView ? 0.5 : 1,
+            onUpdate: (self) => {
+              const moveAmount = startX * (1 - self.progress);
+              gsap.set(row, {
+                x: moveAmount,
+              });
+            },
+          },
+        });
+      });
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [isMobile]);
+
   return (
     <ReactLenis root>
       <div className="app">
@@ -334,6 +380,69 @@ const App = () => {
             </div>
           </div>
         </section>
+
+        <section className="gallery">
+          <div className="gallery-wrapper">
+            <div className="row">
+              <div className="img">
+                <img src="/projects/project1.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project2.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project3.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project4.jpg" alt="" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="img">
+                <img src="/projects/project3.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project4.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project1.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project2.jpg" alt="" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="img">
+                <img src="/projects/project4.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project1.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project2.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project3.jpg" alt="" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="img">
+                <img src="/projects/project2.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project3.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project1.jpg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/projects/project4.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section></section>
       </div>
     </ReactLenis>
   );
