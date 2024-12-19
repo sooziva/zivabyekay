@@ -442,7 +442,21 @@ const App = () => {
           </div>
         </section>
 
-        <section></section>
+        <section className="team">
+          <div className="container">
+            <div className="team-header">
+              <HiArrowRight />
+              <p>Team</p>
+            </div>
+
+            <div className="team-intro">
+              <h1>
+                From Tokyo to Saigon, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we come
+                from all &nbsp;&nbsp;&nbsp; over the world
+              </h1>
+            </div>
+          </div>
+        </section>
       </div>
     </ReactLenis>
   );

@@ -119,7 +119,8 @@ section.work {
 
 .work-header,
 .manifesto-header,
-.about-header {
+.about-header,
+.team-header {
   display: flex;
   gap: 1rem;
   margin-bottom: 4em;
@@ -127,8 +128,9 @@ section.work {
 
 .work-header p,
 .manifesto-header p,
-.about-header p {
-  font-weight: 500;
+.about-header p,
+.team-header p {
+  font-weight: 600;
 }
 
 .projects {
@@ -369,6 +371,19 @@ section.work {
   will-change: transform;
 }
 
+.team {
+  height: max-content;
+}
+
+.team-intro {
+  width: 75%;
+}
+
+.team-intro h1 {
+  font-size: 5rem;
+  font-weight: 300;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
@@ -442,5 +457,13 @@ section.work {
     height: 200px;
     padding: 0 1em 1em 1em;
     gap: 1em;
+  }
+
+  .team-intro {
+    width: 100%;
+  }
+
+  .team-intro h1 {
+    font-size: 3rem;
   }
 }
