@@ -118,14 +118,16 @@ section.work {
 }
 
 .work-header,
-.manifesto-header {
+.manifesto-header,
+.about-header {
   display: flex;
   gap: 1rem;
   margin-bottom: 4em;
 }
 
 .work-header p,
-.manifesto-header p {
+.manifesto-header p,
+.about-header p {
   font-weight: 500;
 }
 
@@ -315,6 +317,36 @@ section.work {
   background: black;
 }
 
+.about {
+  height: max-content;
+  padding: 4em 0;
+}
+
+.about .container {
+  display: flex;
+  gap: 2em;
+}
+
+.about .container > div {
+  flex: 1;
+}
+
+.about-copy p {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.5;
+  text-indent: 2em;
+}
+
+.about-col:nth-child(2) {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-col:nth-child(2) {
+  justify-content: flex-end;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
@@ -361,5 +393,17 @@ section.work {
 
   .marquee-text h1 {
     font-size: 5rem;
+  }
+
+  .about .container {
+    flex-direction: column;
+  }
+
+  .about .container {
+    gap: 4em;
+  }
+
+  .about-col:nth-child(2) {
+    justify-content: flex-start;
   }
 }

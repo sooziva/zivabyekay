@@ -84,7 +84,7 @@ const App = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".manifesto",
-        start: "top 50%",
+        start: "top 35%",
         end: "bottom 75%",
         scrub: true,
         markers: false,
@@ -311,7 +311,29 @@ const App = () => {
           <VideoPlayer />
         </section>
 
-        <section></section>
+        <section className="about">
+          <div className="container">
+            <div className="about-col">
+              <div className="about-header">
+                <HiArrowRight size={13} />
+                <p>Saigen Souls</p>
+              </div>
+              <div className="about-copy">
+                <p>
+                  Saigon Souls captures a state of mind. You are Saigonese if
+                  you feel like you are, whether you just arrived, just returned
+                  or have been living here your whole life. Most of all, just
+                  being in Saigon makes you part of the Saigon Souls.
+                </p>
+              </div>
+            </div>
+            <div className="about-col">
+              <div className="cta-btn">
+                <button>More details on origin.co</button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </ReactLenis>
   );
