@@ -373,6 +373,7 @@ section.work {
 
 .team {
   height: max-content;
+  overflow: hidden;
 }
 
 .team-intro {
@@ -382,6 +383,85 @@ section.work {
 .team-intro h1 {
   font-size: 5rem;
   font-weight: 300;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  margin: 4em 0;
+}
+
+.team-member-position p {
+  text-transform: uppercase;
+  margin-bottom: 0.75em;
+}
+
+.team-member-index p {
+  text-transform: uppercase;
+  margin-top: 0.75em;
+}
+
+.team-member-profile {
+  display: flex;
+  align-items: center;
+}
+
+.team-member-img {
+  width: 350px;
+  height: 500px;
+  overflow: hidden;
+}
+.team-member-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+  left: -2em;
+  width: calc(100% - 500px);
+}
+.team-member-details {
+  display: flex;
+  gap: 2em;
+}
+
+.team-member-name p {
+  font-size: 3rem;
+}
+
+.team-member-toggle {
+  width: 5rem;
+  height: 5rem;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 100%;
+}
+
+.team-member-copy {
+  width: 35%;
+}
+
+.team-member-copy p {
+  color: var(--light2);
+  line-height: 1.5;
+}
+
+.team-member-index h1 {
+  display: none;
+}
+
+.team-member {
+  position: relative;
+}
+
+.tm-2 {
+  left: 40%;
+}
+
+.tm-3 {
+  left: 15%;
 }
 
 @media (max-width: 900px) {
@@ -465,5 +545,27 @@ section.work {
 
   .team-intro h1 {
     font-size: 3rem;
+  }
+
+  .team-member-info {
+    display: none;
+  }
+
+  .team-member-img {
+    width: 100%;
+  }
+
+  .team-member-index p {
+    display: none;
+  }
+
+  .team-member-index h1 {
+    display: block;
+    margin-top: 0.5em;
+  }
+
+  .tm-2,
+  .tm-3 {
+    left: 0%;
   }
 }

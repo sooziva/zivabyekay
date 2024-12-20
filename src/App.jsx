@@ -12,6 +12,7 @@ import { projects } from "./projects";
 
 import { HiArrowRight } from "react-icons/hi";
 import { RiArrowRightDownLine } from "react-icons/ri";
+import { VscAdd } from "react-icons/vsc";
 
 const App = () => {
   const manifestoRef = useRef(null);
@@ -454,6 +455,110 @@ const App = () => {
                 From Tokyo to Saigon, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we come
                 from all &nbsp;&nbsp;&nbsp; over the world
               </h1>
+            </div>
+
+            <div className="team-member tm-1">
+              <div className="team-member-position">
+                <p>Lead Developer</p>
+              </div>
+              <div className="team-member-profile">
+                <div className="team-member-img">
+                  <img src="/team/team-1.jpg" alt="" />
+                </div>
+                <div className="team-member-info">
+                  <div className="team-member-name">
+                    <p>
+                      Alex <br />
+                      Johnson
+                    </p>
+                  </div>
+                  <div className="team-member-details">
+                    <div className="team-member-toggle">
+                      <VscAdd size={24} />
+                    </div>
+                    <div className="team-member-copy">
+                      <p>
+                        Alex is a skilled developer with expertise in modern web
+                        technologies and a passion for creating seamless user
+                        experiences.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="team-member-index">
+                <p>(01)</p>
+                <h1>Alex Johnson</h1>
+              </div>
+            </div>
+
+            <div className="team-member tm-2">
+              <div className="team-member-position">
+                <p>UI/UX Designer</p>
+              </div>
+              <div className="team-member-profile">
+                <div className="team-member-img">
+                  <img src="/team/team-2.jpg" alt="" />
+                </div>
+                <div className="team-member-info">
+                  <div className="team-member-name">
+                    <p>
+                      Sophia <br />
+                      Martinez
+                    </p>
+                  </div>
+                  <div className="team-member-details">
+                    <div className="team-member-toggle">
+                      <VscAdd size={24} />
+                    </div>
+                    <div className="team-member-copy">
+                      <p>
+                        Sophia specializes in crafting intuitive and visually
+                        appealing designs that bring digital products to life.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="team-member-index">
+                <p>(02)</p>
+                <h1>Sophia Martinez</h1>
+              </div>
+            </div>
+
+            <div className="team-member tm-3">
+              <div className="team-member-position">
+                <p>Project Manager</p>
+              </div>
+              <div className="team-member-profile">
+                <div className="team-member-img">
+                  <img src="/team/team-3.jpg" alt="" />
+                </div>
+                <div className="team-member-info">
+                  <div className="team-member-name">
+                    <p>
+                      Michael <br />
+                      Brown
+                    </p>
+                  </div>
+                  <div className="team-member-details">
+                    <div className="team-member-toggle">
+                      <VscAdd size={24} />
+                    </div>
+                    <div className="team-member-copy">
+                      <p>
+                        Michael ensures projects are delivered on time and
+                        within scope, maintaining excellent communication with
+                        clients and the team.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="team-member-index">
+                <p>(03)</p>
+                <h1>Michael Brown</h1>
+              </div>
             </div>
           </div>
         </section>
