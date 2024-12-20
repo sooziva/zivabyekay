@@ -474,7 +474,7 @@ const App = () => {
                   </div>
                   <div className="team-member-details">
                     <div className="team-member-toggle">
-                      <VscAdd size={24} />
+                      <HiArrowRight size={24} />
                     </div>
                     <div className="team-member-copy">
                       <p>
@@ -509,7 +509,7 @@ const App = () => {
                   </div>
                   <div className="team-member-details">
                     <div className="team-member-toggle">
-                      <VscAdd size={24} />
+                      <HiArrowRight size={24} />
                     </div>
                     <div className="team-member-copy">
                       <p>
@@ -543,7 +543,7 @@ const App = () => {
                   </div>
                   <div className="team-member-details">
                     <div className="team-member-toggle">
-                      <VscAdd size={24} />
+                      <HiArrowRight size={24} />
                     </div>
                     <div className="team-member-copy">
                       <p>
@@ -558,6 +558,97 @@ const App = () => {
               <div className="team-member-index">
                 <p>(03)</p>
                 <h1>Michael Brown</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="footer">
+          <div className="container">
+            <div className="footer-header">
+              <HiArrowRight />
+              <p>Contact</p>
+            </div>
+
+            <div className="footer-title">
+              <h1>Keep in touch</h1>
+            </div>
+
+            <div className="footer-email">
+              <p>Start a conversation</p>
+              <h2>contact@origin.co</h2>
+            </div>
+
+            <div className="footer-content">
+              <div className="footer-col">
+                <div className="footer-col-header">
+                  <p>Our offices</p>
+                </div>
+
+                <div className="footer-col-content">
+                  <div className="footer-sub-col">
+                    <div className="location">
+                      <h3>Saigon</h3>
+                      <p>Vietnam Business Center,</p>
+                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
+                      <p>Mậu, phường Bến Nghé,</p>
+                      <p>quận 1, HCM</p>
+
+                      <p>
+                        <HiArrowRight /> View on map
+                      </p>
+                    </div>
+
+                    <div className="location">
+                      <h3>Tokyo HQ</h3>
+                      <p>Vietnam Business Center,</p>
+                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
+                      <p>Mậu, phường Bến Nghé,</p>
+                      <p>quận 1, HCM</p>
+
+                      <p>
+                        <HiArrowRight /> View on map
+                      </p>
+                    </div>
+                  </div>
+                  <div className="footer-sub-col">
+                    <div className="location">
+                      <h3>Tokyo HQ</h3>
+                      <p>Vietnam Business Center,</p>
+                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
+                      <p>Mậu, phường Bến Nghé,</p>
+                      <p>quận 1, HCM</p>
+
+                      <p>
+                        <HiArrowRight /> View on map
+                      </p>
+                    </div>
+
+                    <div className="location">
+                      <h3>Tokyo HQ</h3>
+                      <p>Vietnam Business Center,</p>
+                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
+                      <p>Mậu, phường Bến Nghé,</p>
+                      <p>quận 1, HCM</p>
+
+                      <p>
+                        <HiArrowRight /> View on map
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="footer-col">
+                <div className="footer-col-header">
+                  <p>Follow us</p>
+                </div>
+                <div className="footer-sub-col">
+                  <p>Facebook</p>
+                  <p>Instagram</p>
+                  <p>Twitter</p>
+                  <p>LinkedIn</p>
+                  <p>Vimeo</p>
+                </div>
               </div>
             </div>
           </div>

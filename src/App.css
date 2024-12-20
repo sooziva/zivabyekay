@@ -120,7 +120,8 @@ section.work {
 .work-header,
 .manifesto-header,
 .about-header,
-.team-header {
+.team-header,
+.footer-header {
   display: flex;
   gap: 1rem;
   margin-bottom: 4em;
@@ -129,7 +130,8 @@ section.work {
 .work-header p,
 .manifesto-header p,
 .about-header p,
-.team-header p {
+.team-header p,
+.footer-header p {
   font-weight: 600;
 }
 
@@ -464,6 +466,109 @@ section.work {
   left: 15%;
 }
 
+.footer {
+  height: max-content;
+}
+
+.footer-header {
+  margin-bottom: 2em;
+}
+
+.footer .container {
+  padding: 2em 1em 1em 1em;
+}
+
+.footer-title h1 {
+  font-size: 5rem;
+  font-weight: 300;
+}
+
+.footer-email {
+  padding: 4em 0;
+}
+
+.footer-email p,
+.footer-col-header p {
+  color: var(--light2);
+}
+
+.footer-email h2 {
+  font-size: 2.5rem;
+  background: #958151;
+  background: linear-gradient(
+    to left,
+    #958151 0%,
+    #b99c5c 30%,
+    #a8b177 70%,
+    #647756 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-content {
+  display: flex;
+  gap: 4em;
+}
+
+.footer-col:nth-child(1) {
+  flex: 4;
+}
+
+.footer-col:nth-child(2) {
+  flex: 2;
+}
+
+.footer-col-content {
+  display: flex;
+  gap: 4em;
+}
+
+.footer-sub-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.location {
+  margin-bottom: 4em;
+}
+
+.location h3 {
+  font-weight: 400;
+  margin-bottom: 0.75em;
+}
+
+.location p {
+  margin-bottom: 0.25em;
+  color: var(--light2);
+}
+
+.location p:last-child {
+  margin: 2em 0 1em 0;
+  color: var(--light1);
+  display: flex;
+  gap: 1em;
+}
+
+.footer-col-header {
+  margin-bottom: 1em;
+}
+
+.footer-col-header p {
+  margin-bottom: 3em;
+}
+
+.footer-col:nth-child(2) .footer-sub-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+}
+
+.footer-col:nth-child(2) .footer-sub-col p {
+  font-size: 1.25rem;
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
@@ -567,5 +672,23 @@ section.work {
   .tm-2,
   .tm-3 {
     left: 0%;
+  }
+
+  .footer-content,
+  .footer-col-content {
+    flex-direction: column;
+    gap: 0em;
+  }
+
+  .footer .container {
+    padding: 2em 1em 8em 1em;
+  }
+
+  .footer-title h1 {
+    font-size: 3.5rem;
+  }
+
+  .footer-email h2 {
+    font-size: 2rem;
   }
 }
