@@ -33,6 +33,19 @@ const App = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    ScrollTrigger.create({
+      trigger: ".footer",
+      start: "top 80%",
+      onEnter: () => {
+        document.querySelector(".team").classList.add("light");
+        document.querySelector(".footer").classList.add("light");
+      },
+      onLeaveBack: () => {
+        document.querySelector(".team").classList.remove("light");
+        document.querySelector(".footer").classList.remove("light");
+      },
+    });
+
     if (!isMobile) {
       gsap.set(".project", { opacity: 0.35 });
     }

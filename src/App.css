@@ -569,6 +569,45 @@ section.work {
   font-size: 1.25rem;
 }
 
+/* light mode */
+.team,
+.footer {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.team-member-toggle {
+  transition: border-color 0.5s ease;
+}
+
+.footer .footer-email p,
+.footer .footer-col-header p,
+.footer .location p {
+  transition: color 0.5s ease;
+}
+
+.team.light {
+  background-color: #fff;
+  color: #000;
+}
+
+.team.light .team-member-toggle {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.footer.light {
+  background-color: #fff;
+  color: #000;
+}
+
+.footer.light .footer-email p,
+.footer.light .footer-col-header p {
+  color: var(--light3);
+}
+
+.footer.light .location p {
+  color: var(--light3);
+}
+
 @media (max-width: 900px) {
   .header {
     flex-direction: column;
