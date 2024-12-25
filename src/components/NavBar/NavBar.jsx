@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./NavBar.css";
-import { Link } from "react-router";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -19,8 +18,27 @@ const NavBar = () => {
       },
     });
 
+    const handleClick = (e) => {
+      e.preventDefault();
+      const href = e.currentTarget.getAttribute("href");
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    };
+
+    const links = document.querySelectorAll(".nav-links a, .logo a");
+    links.forEach((link) => {
+      link.addEventListener("click", handleClick);
+    });
+
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      links.forEach((link) => {
+        link.removeEventListener("click", handleClick);
+      });
     };
   }, []);
 
@@ -28,9 +46,9 @@ const NavBar = () => {
     <div className="navbar">
       <div className="navbar-container">
         <div className="logo">
-          <Link to="/">
+          <a href="#hero">
             <h3>origin</h3>
-          </Link>
+          </a>
         </div>
 
         <div className="nav-items">
@@ -41,21 +59,21 @@ const NavBar = () => {
           </div>
 
           <div className="nav-links">
-            <Link to="/">
+            <a href="#work">
               <p>Work</p>
-            </Link>
-            <Link to="/">
+            </a>
+            <a href="#manifesto">
               <p>Manifesto</p>
-            </Link>
-            <Link to="/">
+            </a>
+            <a href="#about">
               <p>Souls</p>
-            </Link>
-            <Link to="/">
+            </a>
+            <a href="#team">
               <p>Team</p>
-            </Link>
-            <Link to="/">
+            </a>
+            <a href="#contact">
               <p>Contact</p>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

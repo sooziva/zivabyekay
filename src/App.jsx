@@ -192,7 +192,7 @@ const App = () => {
     <ReactLenis root>
       <div className="app">
         <NavBar />
-        <section className="hero">
+        <section className="hero" id="hero">
           <HeroGradient />
           <div className="header-container">
             <div className="header h-1">
@@ -214,7 +214,7 @@ const App = () => {
           </div>
         </section>
 
-        <section className="work">
+        <section className="work" id="work">
           <div className="container">
             <div className="work-header">
               <HiArrowRight size={13} />
@@ -280,7 +280,7 @@ const App = () => {
           </div>
         </section>
 
-        <section className="manifesto" ref={manifestoRef}>
+        <section className="manifesto" id="manifesto" ref={manifestoRef}>
           <div className="container">
             <div className="manifesto-header">
               <HiArrowRight size={13} />
@@ -373,7 +373,7 @@ const App = () => {
           <VideoPlayer />
         </section>
 
-        <section className="about">
+        <section className="about" id="about">
           <div className="container">
             <div className="about-col">
               <div className="about-header">
@@ -458,7 +458,7 @@ const App = () => {
           </div>
         </section>
 
-        <section className="team">
+        <section className="team" id="team">
           <div className="container">
             <div className="team-header">
               <HiArrowRight />
@@ -578,7 +578,7 @@ const App = () => {
           </div>
         </section>
 
-        <section className="footer">
+        <section className="footer" id="contact">
           <div className="container">
             <div className="footer-header">
               <HiArrowRight />
