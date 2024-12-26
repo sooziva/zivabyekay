@@ -158,6 +158,12 @@ section.work {
 .project-img {
   width: 100%;
   aspect-ratio: 4/5;
+  overflow: hidden;
+}
+
+.project-img img {
+  transform-origin: center;
+  will-change: transform;
 }
 
 .project-name {

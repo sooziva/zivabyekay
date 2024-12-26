@@ -55,9 +55,17 @@ const App = () => {
       const projects = document.querySelectorAll(".project");
 
       projects.forEach((project) => {
+        const projectImg = project.querySelector(".project-img img");
+
         project.addEventListener("mouseenter", () => {
           gsap.to(project, {
             opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+
+          gsap.to(projectImg, {
+            scale: 1.2,
             duration: 0.5,
             ease: "power2.out",
           });
@@ -66,6 +74,12 @@ const App = () => {
         project.addEventListener("mouseleave", () => {
           gsap.to(project, {
             opacity: 0.35,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+
+          gsap.to(projectImg, {
+            scale: 1,
             duration: 0.5,
             ease: "power2.out",
           });
