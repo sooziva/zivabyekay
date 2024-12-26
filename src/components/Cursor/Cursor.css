@@ -20,3 +20,9 @@
   transform-origin: center;
   will-change: transform;
 }
+
+@media (max-width: 900px) {
+  .cursor {
+    display: none !important;
+  }
+}
