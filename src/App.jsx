@@ -4,6 +4,7 @@ import HeroGradient from "./components/HeroGradient/HeroGradient";
 import ReactLenis from "@studio-freight/react-lenis";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import NavBar from "./components/NavBar/NavBar";
+import Cursor from "./components/Cursor/Cursor";
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -205,6 +206,7 @@ const App = () => {
   return (
     <ReactLenis root>
       <div className="app">
+        <Cursor />
         <NavBar />
         <section className="hero" id="hero">
           <HeroGradient />
