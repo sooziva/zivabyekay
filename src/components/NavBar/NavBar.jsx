@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import "./NavBar.css";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -6,6 +6,8 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const lastScrollY = useRef(0);
+  const navbarRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -20,6 +22,28 @@ const NavBar = () => {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current) {
+        gsap.to(navbarRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      } else {
+        gsap.to(navbarRef.current, {
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
 
     ScrollTrigger.getAll().forEach((trigger) => {
       if (trigger.vars.trigger === ".footer") {
@@ -83,6 +107,7 @@ const NavBar = () => {
     });
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger === ".footer") {
           trigger.kill();
@@ -95,7 +120,7 @@ const NavBar = () => {
   }, [isMobile]);
 
   return (
-    <div className="navbar">
+    <div className="navbar" ref={navbarRef}>
       <div className="navbar-container">
         <div className="logo">
           <a href="#hero">
