@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./NavBar.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
