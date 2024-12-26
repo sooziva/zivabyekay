@@ -12,6 +12,7 @@
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",
     "dat.gui": "^0.7.9",
+    "framer-motion": "^11.15.0",
     "gsap": "^3.12.5",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
