@@ -16,7 +16,7 @@ function App() {
         top: 0,
         behavior: "instant",
       });
-    }, 750);
+    }, 2000);
 
     return () => clearTimeout(scrollTimeout);
   }, [location.pathname]);
