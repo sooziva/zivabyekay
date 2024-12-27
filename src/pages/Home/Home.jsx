@@ -23,6 +23,17 @@ const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const scrollTimeout = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "instant",
+      });
+    }, 0);
+
+    return () => clearTimeout(scrollTimeout);
+  }, []);
+
+  useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 900);
     };

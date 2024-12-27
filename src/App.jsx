@@ -10,17 +10,6 @@ import Work from "./pages/Work/Work";
 function App() {
   const location = useLocation();
 
-  useEffect(() => {
-    const scrollTimeout = setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "instant",
-      });
-    }, 2000);
-
-    return () => clearTimeout(scrollTimeout);
-  }, [location.pathname]);
-
   return (
     <ReactLenis root>
       <div className="app">

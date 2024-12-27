@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Work.css";
 import { Link } from "react-router";
 
@@ -13,6 +13,17 @@ import { IoMdArrowForward } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 const Work = () => {
+  useEffect(() => {
+    const scrollTimeout = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "instant",
+      });
+    }, 0);
+
+    return () => clearTimeout(scrollTimeout);
+  }, []);
+
   return (
     <ReactLenis root>
       <Cursor />
