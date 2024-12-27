@@ -1,5 +1,5 @@
 import "./App.css";
-
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { ReactLenis } from "@studio-freight/react-lenis";
@@ -9,6 +9,17 @@ import Work from "./pages/Work/Work";
 
 function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    const scrollTimeout = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "instant",
+      });
+    }, 750);
+
+    return () => clearTimeout(scrollTimeout);
+  }, [location.pathname]);
 
   return (
     <ReactLenis root>

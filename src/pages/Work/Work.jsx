@@ -5,41 +5,34 @@ import { Link } from "react-router";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import Cursor from "../../components/Cursor/Cursor";
 import Transition from "../../components/Transition/Transition";
+import BackButton from "../../components/BackButton/BackButton";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 
 import { IoMdArrowForward } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { IoMdArrowBack } from "react-icons/io";
 
 const Work = () => {
   return (
     <ReactLenis root>
       <Cursor />
       <div className="sample-project">
-        <div className="back-btn">
-          <Link to="/">
-            <div className="back-btn-fill"></div>
-            <div className="back-btn-icon">
-              <IoMdArrowBack size={26} />
-            </div>
-          </Link>
-        </div>
+        <BackButton />
 
         <section className="sp-title">
           <div className="container">
-            <h1>NIGHT GOGGLES by Mindchatter</h1>
+            <h1>Shadow Beacon by Lightforms</h1>
           </div>
         </section>
 
         <section className="sp-banner">
-          <img src="/projects/project1.jpg" alt="" />
+          <img src="/work/work1.jpg" alt="" />
         </section>
 
         <section className="sp-details">
           <div className="container">
             <div className="sp-details-col">
-              <p className="sp-details-name">Mind Goggles</p>
+              <p className="sp-details-name">Shadow Beacon</p>
 
               <div className="sp-tags">
                 <p>Motion Capture</p>
@@ -58,7 +51,7 @@ const Work = () => {
                     <div className="icon">
                       <IoIosArrowRoundForward size={16} />
                     </div>
-                    View project
+                    View Project
                   </button>
                 </Link>
               </div>
@@ -66,17 +59,15 @@ const Work = () => {
             <div className="sp-details-col">
               <p>Challenge</p>
               <p>
-                The label' Mind of a Genius' reached out to us to create a music
-                video for the artist Mindchatter and gave us complete control
-                over the creative concept and direction. As the project happened
-                to be during the pandemic, the inspiration came from the moment
-                we ask ourselves this question: where would the outside of earth
-                want to be happy and be dancing forever, especially during this
-                pandemic? We tried to describe a world where we could be running
-                on the massive fields, breathing the fresh air without having to
-                come back from where we were, discovering worlds endlessly, as
-                an echo to one of the big question humanity have been asking:
-                what's next?
+                Shadow Beacon is a tribute to the interplay between light and
+                form. During a time when the world seemed paused, we set out to
+                create a piece that celebrates movement, space, and emotion.
+                Combining motion capture with imaginative 3D landscapes, the
+                project envisions a dreamlike realm where light becomes a
+                storyteller. Through thoughtful creative direction and intricate
+                post-production, we crafted a narrative that feels both intimate
+                and expansive—a beacon for those searching for connection and
+                inspiration in uncertain times.
               </p>
             </div>
           </div>
@@ -94,17 +85,13 @@ const Work = () => {
 
             <div className="sp-info-desc">
               <p>
-                This song reminds us about being free of the burdens of every
-                day, so we thought of a character with no physical being to
-                represent that idea. We want to convey a good story. Thus, the
-                man who finds a pair of goggles that changes his life came into
-                our minds. He represents the enlightened being that figures out
-                the common problems but decides to be joyful instead, eventually
-                starts dancing his ways to happiness. We only had one month to
-                finish and we also wanted to develop a personal dancing style
-                and human-like movements for the character. As a note, the
-                client was in New York, so we had to make everything entirely
-                remotely.
+                Shadow Beacon explores the idea of finding clarity in moments of
+                obscurity. Inspired by the duality of light and shadow, we
+                imagined a character who navigates a surreal world, guided by
+                beams of light that reveal hidden paths and truths. This
+                character, free from physical constraints, embodies the
+                liberation from everyday burdens, moving fluidly through spaces
+                that are both familiar and otherworldly.
               </p>
             </div>
           </div>
@@ -112,7 +99,7 @@ const Work = () => {
 
         <section className="sp-img">
           <div className="container">
-            <img src="/projects/project2.jpg" alt="" />
+            <img src="/work/work2.jpg" alt="" />
           </div>
         </section>
 
@@ -124,19 +111,14 @@ const Work = () => {
 
             <div className="sp-info-desc">
               <p>
-                We wanted to emphasize escapism as the primary goal. Hence, the
-                actual shoot versus the dreamy 3D part came into place. With the
-                street of Saigon, our friend and Director of Photography, Ray
-                Lavers, quickly did the real-life shoots in 2 hours during the
-                quarantine time. To ensure our main character is getting lost,
-                we thought dancing is the best way to portray it, especially
-                when the main character is invisible. We asked our choreographer
-                La Zung to do a quick freestyle on top of the music,
-                motion-captured for 3D animation. Vicki and Robin worked
-                together to create the worlds and rhythms inside the MV to
-                deliver the feeling of being free. It is not like we knew every
-                step what the MV would look like, but we wanted to be free to
-                create, just like the song itself.
+                To bring Shadow Beacon to life, we focused on creating a
+                seamless blend of reality and surrealism. Escapism became our
+                guiding principle, leading us to juxtapose real-life moments
+                with ethereal 3D landscapes. Shot on the quiet streets of
+                Saigon, our Director of Photography, Ray Lavers, captured
+                fleeting glimpses of reality in just two hours during
+                quarantine. These grounded visuals set the stage for the
+                dreamlike sequences that followed.
               </p>
             </div>
           </div>
@@ -144,7 +126,7 @@ const Work = () => {
 
         <section className="sp-img">
           <div className="container">
-            <img src="/projects/project3.jpg" alt="" />
+            <img src="/work/work3.jpg" alt="" />
           </div>
         </section>
 
@@ -158,17 +140,17 @@ const Work = () => {
                   <p>Project</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Mind Goggles</p>
+                  <p>Shadow Beacon</p>
                 </div>
               </div>
               <div className="credits-col">
                 <div className="credits-header">
-                  <p>Our role</p>
+                  <p>Our Role</p>
                 </div>
                 <div className="credits-copy">
                   <p>
-                    Motion Capture, Creative and 3D art Direction, Direction,
-                    Post production
+                    Motion Capture, Creative Direction, 3D Design, Atmospheric
+                    Post-Production
                   </p>
                 </div>
               </div>
@@ -184,12 +166,10 @@ const Work = () => {
               </div>
               <div className="credits-col">
                 <div className="credits-header">
-                  <p>Directories</p>
+                  <p>Directors</p>
                 </div>
                 <div className="credits-copy">
-                  <p>
-                    Vicki Dang (monopo Saigon), Robin Mahieux (monopo Saigon)
-                  </p>
+                  <p>Lila Morrin (Lightforms), Kai Rivers (Lightforms)</p>
                 </div>
               </div>
             </div>
@@ -198,10 +178,10 @@ const Work = () => {
               <div className="credits-col"></div>
               <div className="credits-col">
                 <div className="credits-header">
-                  <p>Executive Producer</p>
+                  <p>Creative Producer</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Bryce Connolly</p>
+                  <p>Eli Dawson</p>
                 </div>
               </div>
             </div>
@@ -213,7 +193,7 @@ const Work = () => {
                   <p>Art Direction & Animation</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Vicki Dang (monopo Saigon)</p>
+                  <p>Lila Morrin (Lightforms)</p>
                 </div>
               </div>
             </div>
@@ -225,7 +205,7 @@ const Work = () => {
                   <p>Editing & Compositing</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Robin Mahieux (monopo Saigon)</p>
+                  <p>Kai Rivers (Lightforms)</p>
                 </div>
               </div>
             </div>
@@ -234,10 +214,10 @@ const Work = () => {
               <div className="credits-col"></div>
               <div className="credits-col">
                 <div className="credits-header">
-                  <p>Director of Photography & Color</p>
+                  <p>Cinematography & Color Grading</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Ray Lavers</p>
+                  <p>Rhea Clarke</p>
                 </div>
               </div>
             </div>
@@ -246,10 +226,10 @@ const Work = () => {
               <div className="credits-col"></div>
               <div className="credits-col">
                 <div className="credits-header">
-                  <p>Choregrapher</p>
+                  <p>Choreography</p>
                 </div>
                 <div className="credits-copy">
-                  <p>La Zung</p>
+                  <p>Juno Evers</p>
                 </div>
               </div>
             </div>
@@ -261,7 +241,7 @@ const Work = () => {
                   <p>Sound Design</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Aurae Production</p>
+                  <p>Echo Chamber Studios</p>
                 </div>
               </div>
             </div>
@@ -273,7 +253,7 @@ const Work = () => {
                   <p>Label</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Mind Of A Genius</p>
+                  <p>Lightforms Collective</p>
                 </div>
               </div>
             </div>
@@ -282,10 +262,10 @@ const Work = () => {
               <div className="credits-col"></div>
               <div className="credits-col">
                 <div className="credits-header">
-                  <p>Special Thanks</p>
+                  <p>Acknowledgments</p>
                 </div>
                 <div className="credits-copy">
-                  <p>Anh Phi Cako, Andrew Boggs, & Connor Boggs</p>
+                  <p>Mira Solis, Adrian Wren, & Camille Trest</p>
                 </div>
               </div>
             </div>
@@ -305,7 +285,7 @@ const Work = () => {
                 </h1>
               </div>
               <div className="next-project-title">
-                <h1>Super Dan Origin Digital Graphic Novel</h1>
+                <h1>The Machina Chronicles by Narratives Studio</h1>
               </div>
             </div>
           </div>

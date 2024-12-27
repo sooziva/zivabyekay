@@ -143,7 +143,7 @@ const NavBar = () => {
               <p>Manifesto</p>
             </a>
             <a href="#about">
-              <p>Souls</p>
+              <p>Spirit</p>
             </a>
             <a href="#team">
               <p>Team</p>

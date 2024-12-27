@@ -214,20 +214,20 @@ const Home = () => {
           <HeroGradient />
           <div className="header-container">
             <div className="header h-1">
-              <h1>United,</h1>
-              <h1>Unbound</h1>
+              <h1>Made to Move,</h1>
+              <h1>Built to Inspire</h1>
             </div>
             <div className="header h-2">
-              <h1>Tokyo-born,</h1>
-              <h1>Creative studio</h1>
+              <h1>Ideas Born,</h1>
+              <h1>Boundaries Broken</h1>
             </div>
             <div className="header h-3">
-              <h1>Hoi tu,</h1>
-              <h1>Khong gioi han</h1>
+              <h1>Nơi sáng tạo,</h1>
+              <h1>Không giới hạn</h1>
             </div>
             <div className="header h-4">
-              <h1>Creative studio,</h1>
-              <h1>Den tu Tokyo</h1>
+              <h1>Where Vision Meets,</h1>
+              <h1>Limitless Design</h1>
             </div>
           </div>
         </section>
@@ -236,7 +236,7 @@ const Home = () => {
           <div className="container">
             <div className="work-header">
               <HiArrowRight size={13} />
-              <p>Selected project</p>
+              <p>Selected projects</p>
             </div>
 
             <div className="projects">
@@ -288,17 +288,17 @@ const Home = () => {
             <img src="/cta/cta-bg.png" alt="" />
           </div>
           <div className="cta-title">
-            <p>They trust us</p>
+            <p>Trusted by visionaries</p>
           </div>
           <div className="cta-header">
             <h2>
-              Nike, Canada Goose, Mercari, Louis Vuitton, Shiseido, Amazon
-              Fashion, Adidas, Hypebeast, Chupa Chups, JAL airlines, JETRO,
-              Yonex, Toyota, Sony, Yamaha
+              Apple, Netflix, Gucci, Tesla, Uniqlo, Sephora, Google, Moët &
+              Chandon, Spotify, BMW, Montblanc, Panasonic, Nespresso, L’Oréal,
+              Samsung
             </h2>
           </div>
           <div className="cta-btn">
-            <button>More details on origin.co</button>
+            <button>Discover more at origin.co</button>
           </div>
         </section>
 
@@ -333,9 +333,10 @@ const Home = () => {
                 </div>
                 <div className="process-description">
                   <p>
-                    Born in Asia, raised by the world. Origin is the global
-                    fulcrum between East and West. We blur boundaries of
-                    difference, creating design that stands the test of time.
+                    Rooted in creativity, Origin bridges cultures to craft
+                    designs that transcend time and place. We thrive at the
+                    intersection of ideas, uniting diverse perspectives into a
+                    seamless vision.
                   </p>
                 </div>
               </div>
@@ -354,9 +355,9 @@ const Home = () => {
                 </div>
                 <div className="process-description">
                   <p>
-                    Collaboration over competition. Creativity, for origin
-                    saigon, is like having a nabe with friends where we combine
-                    the creativity that sets us apart.
+                    Creativity is a collective process. At Origin, collaboration
+                    is our foundation—merging ideas, talents, and visions to
+                    create experiences that resonate universally.
                   </p>
                 </div>
               </div>
@@ -375,9 +376,9 @@ const Home = () => {
                 </div>
                 <div className="process-description">
                   <p>
-                    We create to evoke. We start where others stop, we question
-                    the norms, we refuse to be redundant, Origin saigon seeks to
-                    deliver original creative solutions.
+                    We challenge conventions and redefine possibilities. At
+                    Origin, we dare to push boundaries, delivering solutions
+                    that are as bold as they are impactful.
                   </p>
                 </div>
               </div>
@@ -387,7 +388,7 @@ const Home = () => {
 
         <div className="marquee">
           <div className="marquee-text">
-            <h1>Discover the origin of the origin studio</h1>
+            <h1>Explore the essence of Origin Studio</h1>
           </div>
         </div>
 
@@ -400,20 +401,21 @@ const Home = () => {
             <div className="about-col">
               <div className="about-header">
                 <HiArrowRight size={13} />
-                <p>Saigen Souls</p>
+                <p>Origin Spirit</p>
               </div>
               <div className="about-copy">
                 <p>
-                  Saigon Souls captures a state of mind. You are Saigonese if
-                  you feel like you are, whether you just arrived, just returned
-                  or have been living here your whole life. Most of all, just
-                  being in Saigon makes you part of the Saigon Souls.
+                  The Origin Spirit embodies creativity without boundaries.
+                  Whether you’re a lifelong dreamer, a new explorer, or someone
+                  returning to familiar grounds, Origin welcomes those who dare
+                  to imagine. Being part of Origin means embracing inspiration,
+                  collaboration, and limitless potential.
                 </p>
               </div>
             </div>
             <div className="about-col">
               <div className="cta-btn">
-                <button>More details on origin.co</button>
+                <button>Discover more at origin.co</button>
               </div>
             </div>
           </div>
@@ -423,58 +425,58 @@ const Home = () => {
           <div className="gallery-wrapper">
             <div className="row">
               <div className="img">
-                <img src="/projects/project1.jpg" alt="" />
+                <img src="/marquee/img1.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project2.jpg" alt="" />
+                <img src="/marquee/img2.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project3.jpg" alt="" />
+                <img src="/marquee/img3.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project4.jpg" alt="" />
-              </div>
-            </div>
-            <div className="row">
-              <div className="img">
-                <img src="/projects/project3.jpg" alt="" />
-              </div>
-              <div className="img">
-                <img src="/projects/project4.jpg" alt="" />
-              </div>
-              <div className="img">
-                <img src="/projects/project1.jpg" alt="" />
-              </div>
-              <div className="img">
-                <img src="/projects/project2.jpg" alt="" />
+                <img src="/marquee/img4.jpeg" alt="" />
               </div>
             </div>
             <div className="row">
               <div className="img">
-                <img src="/projects/project4.jpg" alt="" />
+                <img src="/marquee/img5.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project1.jpg" alt="" />
+                <img src="/marquee/img6.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project2.jpg" alt="" />
+                <img src="/marquee/img7.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project3.jpg" alt="" />
+                <img src="/marquee/img8.jpeg" alt="" />
               </div>
             </div>
             <div className="row">
               <div className="img">
-                <img src="/projects/project2.jpg" alt="" />
+                <img src="/marquee/img9.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project3.jpg" alt="" />
+                <img src="/marquee/img10.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project1.jpg" alt="" />
+                <img src="/marquee/img11.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/projects/project4.jpg" alt="" />
+                <img src="/marquee/img12.jpeg" alt="" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="img">
+                <img src="/marquee/img13.jpeg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/marquee/img14.jpeg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/marquee/img15.jpeg" alt="" />
+              </div>
+              <div className="img">
+                <img src="/marquee/img16.jpeg" alt="" />
               </div>
             </div>
           </div>
@@ -489,8 +491,8 @@ const Home = () => {
 
             <div className="team-intro">
               <h1>
-                From Tokyo to Saigon, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we come
-                from all &nbsp;&nbsp;&nbsp; over the world
+                From corners of globe, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we are
+                united by &nbsp;&nbsp;&nbsp; creativity
               </h1>
             </div>
 
@@ -612,24 +614,24 @@ const Home = () => {
             </div>
 
             <div className="footer-email">
-              <p>Start a conversation</p>
-              <h2>contact@origin.co</h2>
+              <p>We’d love to hear from you</p>
+              <h2>hello@origin.co</h2>
             </div>
 
             <div className="footer-content">
               <div className="footer-col">
                 <div className="footer-col-header">
-                  <p>Our offices</p>
+                  <p>Our Spaces</p>
                 </div>
 
                 <div className="footer-col-content">
                   <div className="footer-sub-col">
                     <div className="location">
-                      <h3>Saigon</h3>
-                      <p>Vietnam Business Center,</p>
-                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
-                      <p>Mậu, phường Bến Nghé,</p>
-                      <p>quận 1, HCM</p>
+                      <h3>New York</h3>
+                      <p>123 Creative Hub,</p>
+                      <p>5th Avenue, Suite 101</p>
+                      <p>New York, NY, 10010</p>
+                      <p>USA</p>
 
                       <p>
                         <HiArrowRight /> View on map
@@ -637,11 +639,11 @@ const Home = () => {
                     </div>
 
                     <div className="location">
-                      <h3>Tokyo HQ</h3>
-                      <p>Vietnam Business Center,</p>
-                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
-                      <p>Mậu, phường Bến Nghé,</p>
-                      <p>quận 1, HCM</p>
+                      <h3>Tokyo</h3>
+                      <p>Innovators Tower,</p>
+                      <p>Shibuya City, 8th Floor</p>
+                      <p>Tokyo, 150-0001</p>
+                      <p>Japan</p>
 
                       <p>
                         <HiArrowRight /> View on map
@@ -650,11 +652,11 @@ const Home = () => {
                   </div>
                   <div className="footer-sub-col">
                     <div className="location">
-                      <h3>Tokyo HQ</h3>
-                      <p>Vietnam Business Center,</p>
-                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
-                      <p>Mậu, phường Bến Nghé,</p>
-                      <p>quận 1, HCM</p>
+                      <h3>London</h3>
+                      <p>Design District,</p>
+                      <p>Greenwich Peninsula</p>
+                      <p>London, SE10 0ER</p>
+                      <p>UK</p>
 
                       <p>
                         <HiArrowRight /> View on map
@@ -662,11 +664,11 @@ const Home = () => {
                     </div>
 
                     <div className="location">
-                      <h3>Tokyo HQ</h3>
-                      <p>Vietnam Business Center,</p>
-                      <p>Phong 802, lầu 8, 57-59 Hồ Tùng</p>
-                      <p>Mậu, phường Bến Nghé,</p>
-                      <p>quận 1, HCM</p>
+                      <h3>Singapore</h3>
+                      <p>Marina Bay Financial Center,</p>
+                      <p>10 Marina Blvd, Tower 2</p>
+                      <p>Singapore, 018983</p>
+                      <p>Singapore</p>
 
                       <p>
                         <HiArrowRight /> View on map
@@ -677,14 +679,14 @@ const Home = () => {
               </div>
               <div className="footer-col">
                 <div className="footer-col-header">
-                  <p>Follow us</p>
+                  <p>Follow Us</p>
                 </div>
                 <div className="footer-sub-col">
-                  <p>Facebook</p>
                   <p>Instagram</p>
-                  <p>Twitter</p>
                   <p>LinkedIn</p>
-                  <p>Vimeo</p>
+                  <p>Twitter</p>
+                  <p>Behance</p>
+                  <p>Dribbble</p>
                 </div>
               </div>
             </div>

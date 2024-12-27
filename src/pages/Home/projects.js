@@ -3,7 +3,7 @@ export const projects = [
     id: 1,
     title: "Echo Fjord — Dreamscape Series",
     description: "Art Installation, Visual Effects, Photography",
-    image: "/projects/project1.jpg",
+    image: "/projects/project7.jpg",
     column: 1,
   },
   {
@@ -46,7 +46,7 @@ export const projects = [
     title: "Shadow Beacon by Lightforms",
     description:
       "Interactive Installation, Projection Mapping, Visual Identity",
-    image: "/projects/project7.jpg",
+    image: "/projects/project1.jpg",
     column: 2,
   },
   {

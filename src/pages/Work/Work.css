@@ -46,6 +46,7 @@
 
 .sp-title h1 {
   font-size: 5rem;
+  line-height: 1.125;
 }
 
 .sp-banner {
@@ -212,6 +213,15 @@ p.sp-details-name {
   width: 75%;
   display: flex;
   gap: 0.75em;
+}
+
+.next-project-title h1 {
+  line-height: 1.25;
+}
+
+.next-project-icon {
+  position: relative;
+  top: 8px;
 }
 
 @media (max-width: 900px) {
