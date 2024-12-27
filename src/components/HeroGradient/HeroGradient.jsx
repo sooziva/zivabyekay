@@ -19,6 +19,8 @@ const HeroGradient = () => {
   const sphereRef = useRef(null);
   const programRef = useRef(null);
   const contextRef = useRef(null);
+  const mousePosition = useRef({ x: 0, y: 0 });
+  const targetPosition = useRef({ x: 2, y: 2, z: 2 });
   const [brightnessValue, setBrightnessValue] = useState(1.25);
 
   const hexToRgb = (hex) => {
@@ -120,8 +122,31 @@ const HeroGradient = () => {
     );
     scene.add(sphere);
 
+    const handleMouseMove = (event) => {
+      const { clientX, clientY } = event;
+      mousePosition.current = {
+        x: (clientX / window.innerWidth) * 2 - 1,
+        y: -(clientY / window.innerHeight) * 2 + 1,
+      };
+
+      targetPosition.current = {
+        x: 2 + mousePosition.current.x * 0.5,
+        y: 2 + mousePosition.current.y * 0.5,
+        z: 2,
+      };
+    };
+
     const animateSphere = () => {
       const currentTime = Date.now() - startTimeRef.current;
+
+      if (sphere) {
+        sphere.position.x +=
+          (targetPosition.current.x - sphere.position.x) * 0.05;
+        sphere.position.y +=
+          (targetPosition.current.y - sphere.position.y) * 0.05;
+        sphere.position.z +=
+          (targetPosition.current.z - sphere.position.z) * 0.05;
+      }
 
       if (sphere.material) {
         sphere.material.uniforms.time.value = currentTime;
@@ -157,10 +182,12 @@ const HeroGradient = () => {
     };
 
     window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
     animateSphere();
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
 
       if (geometry) geometry.dispose();
