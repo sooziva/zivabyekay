@@ -8,17 +8,17 @@ const Transition = (OriginalComponent) => {
 
       <motion.div
         className="slide-in"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{ duration: 1, ease: [0.9, 0, 0.1, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0 }}
+        exit={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       />
       <motion.div
         className="slide-out"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{ duration: 1, delay: 0.25, ease: [0.9, 0, 0.1, 1] }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5, delay: 1 }}
       />
     </>
   );
