@@ -220,7 +220,7 @@ const Home = () => {
     <ReactLenis root>
       <div className="home">
         <Cursor />
-        <NavBar />
+        {/* <NavBar /> */}
         <section className="hero" id="hero">
           <HeroGradient />
           <div className="header-container">
