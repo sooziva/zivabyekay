@@ -83,7 +83,8 @@ p.current-lang {
   transition: color 0.5s ease;
 }
 
-.navbar.dark .logo a h3 {
+.navbar.dark .logo a h3,
+.navbar.dark .logo a span {
   color: var(--dark);
 }
 
