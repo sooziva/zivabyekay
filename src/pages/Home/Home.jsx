@@ -255,8 +255,8 @@ const Home = () => {
                 {projects
                   .filter((project) => project.column === 1)
                   .map((project) => (
-                    <Link to="/work">
-                      <div className="project" key={project.id}>
+                    <Link to="/work" key={project.id}>
+                      <div className="project">
                         <div className="project-img">
                           <img src={project.image} alt="Project Thumbnail" />
                         </div>
@@ -275,8 +275,8 @@ const Home = () => {
                 {projects
                   .filter((project) => project.column === 2)
                   .map((project) => (
-                    <Link to="/work">
-                      <div className="project" key={project.id}>
+                    <Link to="/work" key={project.id}>
+                      <div className="project">
                         <div className="project-img">
                           <img src={project.image} alt="Project Thumbnail" />
                         </div>
