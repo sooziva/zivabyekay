@@ -32,7 +32,7 @@ const Work = () => {
 
         <section className="sp-title">
           <div className="container">
-            <h1>Shadow Beacon by Lightforms</h1>
+            <h1>Introducing Rizzbrand AI</h1>
           </div>
         </section>
 

@@ -233,8 +233,8 @@ const Home = () => {
               <h1>Boundaries Broken</h1>
             </div>
             <div className="header h-3">
-              <h1>Nơi sáng tạo,</h1>
-              <h1>Không giới hạn</h1>
+              <h1>Infinite Possibilities,</h1>
+              <h1>Realized!</h1>
             </div>
             <div className="header h-4">
               <h1>Where Vision Meets,</h1>
@@ -255,7 +255,8 @@ const Home = () => {
                 {projects
                   .filter((project) => project.column === 1)
                   .map((project) => (
-                    <Link to="/work" key={project.id}>
+                    <a href={project.link} 
+                    key={project.id}>
                       <div className="project">
                         <div className="project-img">
                           <img src={project.image} alt="Project Thumbnail" />
@@ -267,7 +268,7 @@ const Home = () => {
                           <p>{project.description}</p>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   ))}
               </div>
 
@@ -303,13 +304,11 @@ const Home = () => {
           </div>
           <div className="cta-header">
             <h2>
-              Apple, Netflix, Gucci, Tesla, Uniqlo, Sephora, Google, Moët &
-              Chandon, Spotify, BMW, Montblanc, Panasonic, Nespresso, L’Oréal,
-              Samsung
+              Gelos, Theglamplugg, Payaza, RB creators, Moodify
             </h2>
           </div>
           <div className="cta-btn">
-            <button>Discover more at origin.co</button>
+            <button>Discover more at rizzbrand.site</button>
           </div>
         </section>
 
@@ -626,7 +625,7 @@ const Home = () => {
 
             <div className="footer-email">
               <p>We’d love to hear from you</p>
-              <h2>hello@origin.co</h2>
+              <h2>info@rizzbrand.studio</h2>
             </div>
 
             <div className="footer-content">
