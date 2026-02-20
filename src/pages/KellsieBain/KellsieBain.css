@@ -1,0 +1,838 @@
+/* Override global section rule (index.css sets section height: 100vh) */
+.kellsie-bain section {
+  height: auto;
+  min-height: 0;
+  width: 100%;
+}
+
+.kellsie-bain {
+  min-height: 100vh;
+  background: #fff;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* Top announcement bar - light beige */
+.kellsie-top-banner {
+  display: block;
+  text-align: center;
+  padding: 0.65em 1em;
+  background: #e8e4dc;
+  color: #1a1a1a;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.kellsie-top-banner:hover {
+  background: #ddd9d0;
+  color: #1a1a1a;
+}
+
+/* Page header - white, logo + nav */
+.ekay-page-header {
+  background: #fff;
+  padding: 1.25em 2em 1em;
+  border-bottom: 1px solid #eee;
+}
+
+.ekay-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ekay-header-icon {
+  background: none;
+  border: none;
+  padding: 0.5em;
+  color: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.ekay-header-icon:hover {
+  opacity: 0.7;
+}
+
+.ekay-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.ekay-logo {
+  text-decoration: none;
+  color: #1a1a1a;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ekay-logo-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.ekay-logo-tagline {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-top: 0.15em;
+}
+
+.ekay-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 1.25em;
+  padding-top: 0.75em;
+}
+
+.ekay-nav-link {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.ekay-nav-link:hover,
+.ekay-nav-link.active {
+  border-bottom-color: #1a1a1a;
+}
+
+/* Hero: text + full-width image */
+.ekay-hero {
+  padding: 0 0 6rem;
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.ekay-hero-text {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3.5em 2em 2em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.ekay-hero-image {
+  max-width: 900px;
+  margin: 2em auto 0;
+  padding: 0 2em;
+  overflow: hidden;
+}
+
+.ekay-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 75vh;
+  vertical-align: bottom;
+  border: 1px solid #d4d0c8;
+}
+
+.ekay-hero-quote {
+  max-width: 700px;
+  margin: 2.5rem auto 0;
+  padding: 0 2rem 4rem;
+  text-align: center;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #333;
+  line-height: 1.6;
+  display: block;
+}
+
+/* Weddings section: top quote, two-column block, bottom quote */
+.ekay-block-quote {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 2em;
+  text-align: center;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #333;
+  line-height: 1.6;
+}
+
+.ekay-quote-bottom {
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+  display: block;
+  max-width: 700px;
+  clear: both;
+}
+
+.ekay-weddings-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4em;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5em;
+  border: 1px solid #d4d0c8;
+  border-radius: 4px;
+}
+
+.ekay-weddings-image {
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  min-width: 0;
+}
+
+.ekay-weddings-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.ekay-weddings-content {
+  padding-top: 0.5em;
+  min-width: 0;
+}
+
+.ekay-weddings-title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.25em;
+  font-family: inherit;
+}
+
+.ekay-weddings-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+  margin: 0 0 2em;
+}
+
+.ekay-weddings-btn {
+  display: inline-block;
+  padding: 1em 2.25em;
+  background: #ddc8b6;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  border-radius: 6px;
+  border: none;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.ekay-weddings-btn:hover {
+  background: #d4bda8;
+  color: #1a1a1a;
+}
+
+/* Education section: text left, image right */
+.kellsie-section.kellsie-education {
+  margin-top: 0;
+  padding: 5rem 0 6rem;
+  display: block;
+  clear: both;
+}
+
+.ekay-education-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4em;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5em;
+  border: 1px solid #d4d0c8;
+  border-radius: 4px;
+}
+
+.ekay-education-content {
+  padding-top: 0.5em;
+  min-width: 0;
+}
+
+.ekay-education-title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.25em;
+  font-family: inherit;
+}
+
+.ekay-education-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+  margin: 0 0 2em;
+}
+
+.ekay-education-image {
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  min-width: 0;
+}
+
+.ekay-education-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Online Masterclass section: landscape image first, then text, CTA below */
+.kellsie-section.kellsie-masterclass {
+  padding: 5rem 0 6rem;
+  display: block;
+  clear: both;
+}
+
+.ekay-masterclass-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  overflow: hidden;
+}
+
+.ekay-masterclass-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ekay-masterclass-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.ekay-masterclass-content {
+  padding: 2rem 2rem 2.5rem;
+  min-width: 0;
+}
+
+.ekay-masterclass-title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.25em;
+  font-family: inherit;
+}
+
+.ekay-masterclass-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+  margin: 0 0 2em;
+}
+
+.kellsie-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2em;
+}
+
+.kellsie-narrow {
+  max-width: 650px;
+}
+
+.kellsie-section {
+  padding: 5em 0 4em;
+  position: relative;
+  display: block;
+}
+
+.kellsie-section.kellsie-weddings {
+  padding: 6rem 0 0;
+  margin-top: 0;
+  display: block;
+  clear: both;
+}
+
+.kellsie-section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  margin: 0 0 1em;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.kellsie-section-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 1em;
+  color: #333;
+}
+
+.kellsie-section-text:last-of-type {
+  margin-bottom: 2em;
+}
+
+.kellsie-italic {
+  font-style: italic;
+  color: #555;
+}
+
+.kellsie-cta {
+  display: inline-block;
+  padding: 0.9em 2em;
+  background: #1a1a1a;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.kellsie-cta:hover {
+  background: #333;
+  color: #fff;
+}
+
+.kellsie-cta-outline {
+  background: transparent;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
+}
+
+.kellsie-cta-outline:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.kellsie-cta-small {
+  padding: 0.6em 1.5em;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+.kellsie-education-intro {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.kellsie-footer {
+  padding: 5em 0 3em;
+  border-top: 1px solid #e5e2dc;
+  margin-top: 0;
+  background: #fafaf9;
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.kellsie-footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2em;
+}
+
+.kellsie-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3em;
+  margin-bottom: 3em;
+}
+
+.kellsie-footer-col {
+  min-width: 0;
+}
+
+.kellsie-footer-col h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 1em;
+  color: #1a1a1a;
+}
+
+.kellsie-footer-col p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 1em;
+}
+
+.kellsie-footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kellsie-footer-col ul li {
+  margin-bottom: 0.5em;
+}
+
+.kellsie-footer-col ul a {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.kellsie-footer-col ul a:hover {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
+.kellsie-footer-social {
+  text-align: center;
+  padding: 2em 2em;
+  border-top: 1px solid #e5e2dc;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.kellsie-footer-social a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.kellsie-footer-social a:hover {
+  color: #1a1a1a;
+}
+
+.kellsie-footer-bottom {
+  text-align: center;
+  padding: 2em 2em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.kellsie-back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.kellsie-back-home:hover {
+  color: #555;
+}
+
+.kellsie-credit {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0;
+}
+
+.kellsie-credit a {
+  color: #666;
+  text-decoration: underline;
+}
+
+.kellsie-credit a:hover {
+  color: #1a1a1a;
+}
+
+/* Tablet and below */
+@media (max-width: 900px) {
+  .ekay-hero {
+    padding-bottom: 4rem;
+  }
+
+  .ekay-hero-quote {
+    padding: 0 2rem 3rem;
+  }
+
+  .kellsie-section.kellsie-weddings {
+    padding-top: 4rem;
+  }
+
+  .ekay-weddings-block,
+  .ekay-education-block {
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .ekay-masterclass-block {
+    padding: 0 1rem;
+  }
+
+  .kellsie-section.kellsie-education {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .kellsie-section.kellsie-masterclass {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .kellsie-top-banner {
+    padding: 0.6em 0.75em;
+    font-size: 0.75rem;
+  }
+
+  .ekay-page-header {
+    padding: 1em 1em 0.75em;
+  }
+
+  .ekay-header-inner {
+    padding: 0;
+  }
+
+  .ekay-logo-name {
+    font-size: 1.4rem;
+  }
+
+  .ekay-logo-tagline {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+  }
+
+  .ekay-nav {
+    gap: 1em;
+    margin-top: 1em;
+    padding-top: 0.6em;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ekay-nav-link {
+    font-size: 0.8rem;
+  }
+
+  /* Hero */
+  .ekay-hero {
+    padding-bottom: 3rem;
+  }
+
+  .ekay-hero-text {
+    padding: 2rem 1.25rem 1.5rem;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+  }
+
+  .ekay-hero-image {
+    margin-top: 1.5rem;
+    padding: 0 1.25rem;
+  }
+
+  .ekay-hero-image img {
+    max-height: 60vh;
+  }
+
+  .ekay-hero-quote {
+    margin-top: 1.5rem;
+    padding: 0 1.25rem 3rem;
+    font-size: 0.95rem;
+  }
+
+  /* Weddings section */
+  .kellsie-section.kellsie-weddings {
+    padding-top: 3rem;
+  }
+
+  .ekay-weddings-block {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 1.25rem;
+    margin: 0 1rem;
+    max-width: none;
+  }
+
+  .ekay-weddings-title {
+    font-size: 1.4rem;
+  }
+
+  .ekay-weddings-text {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .ekay-weddings-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.7rem;
+  }
+
+  .ekay-block-quote {
+    padding: 0 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .ekay-quote-bottom {
+    margin: 0 auto;
+    padding: 3rem 1.25rem 3rem;
+  }
+
+  /* Education section */
+  .kellsie-section.kellsie-education {
+    padding: 3rem 0 4rem;
+  }
+
+  .ekay-education-block {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 1.25rem;
+    margin: 0 1rem;
+    max-width: none;
+  }
+
+  .ekay-education-title {
+    font-size: 1.4rem;
+  }
+
+  .ekay-education-text {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Masterclass section */
+  .kellsie-section.kellsie-masterclass {
+    padding: 3rem 0 4rem;
+  }
+
+  .ekay-masterclass-block {
+    padding: 0 1rem;
+    margin: 0 0.5rem;
+  }
+
+  .ekay-masterclass-content {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .ekay-masterclass-title {
+    font-size: 1.4rem;
+  }
+
+  .ekay-masterclass-text {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Footer */
+  .kellsie-footer {
+    padding: 3em 0 2em;
+  }
+
+  .kellsie-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2em;
+    margin-bottom: 2em;
+  }
+
+  .kellsie-footer-inner {
+    padding: 0 1.25em;
+  }
+
+  .kellsie-footer-col h4 {
+    font-size: 0.75rem;
+  }
+
+  .kellsie-footer-col p,
+  .kellsie-footer-col ul a {
+    font-size: 0.9rem;
+  }
+
+  .kellsie-footer-social {
+    padding: 1.5em 1.25em;
+    gap: 1.25em;
+  }
+
+  .kellsie-footer-social a {
+    font-size: 0.85rem;
+  }
+
+  .kellsie-footer-bottom {
+    padding: 1.5em 1.25em 0;
+    gap: 0.75em;
+  }
+
+  .kellsie-back-home,
+  .kellsie-credit {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .ekay-nav {
+    gap: 0.75em;
+  }
+
+  .ekay-nav-link {
+    font-size: 0.75rem;
+  }
+
+  .ekay-hero-text {
+    padding: 1.5em 1em 1em;
+  }
+
+  .ekay-hero-image {
+    padding: 0 1em;
+  }
+
+  .ekay-hero-quote {
+    padding: 0 1em 3em;
+  }
+
+  .ekay-weddings-block,
+  .ekay-education-block {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    padding: 1.25em 1em;
+  }
+
+  .ekay-masterclass-block {
+    margin: 0 0.5em;
+    padding: 0 0.75em;
+  }
+
+  .ekay-quote-bottom {
+    padding: 2.5rem 1rem 2.5rem;
+  }
+
+  .kellsie-footer-inner {
+    padding: 0 1em;
+  }
+
+  .kellsie-footer-social {
+    gap: 1em;
+  }
+}

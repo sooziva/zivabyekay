@@ -1,0 +1,702 @@
+.booking {
+  min-height: 100vh;
+  background-color: var(--dark);
+  color: var(--light);
+  padding-top: 100px;
+  overflow-x: hidden;
+  overflow-y: visible;
+  position: relative;
+  height: auto;
+}
+
+.booking-header {
+  padding: 4em 0 2em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.booking-header-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4em;
+  align-items: center;
+}
+
+.booking-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-header-image {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+}
+
+.booking-header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--light2);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 2em;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: var(--light);
+}
+
+.booking-title {
+  font-size: 3.5rem;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+
+.booking-subtitle {
+  font-size: 1rem;
+  color: var(--light2);
+  font-weight: 400;
+}
+
+.booking-content {
+  padding: 4em 0;
+  min-height: auto;
+  overflow: visible;
+  position: relative;
+  pointer-events: auto;
+}
+
+.booking-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin-bottom: 4em;
+  flex-wrap: wrap;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.progress-step.active {
+  opacity: 1;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--light2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-number {
+  border-color: var(--light);
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+.progress-step .step-number {
+  color: var(--light);
+}
+
+.progress-step span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--light);
+}
+
+.progress-line {
+  width: 60px;
+  height: 2px;
+  background-color: var(--light2);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.progress-line.active {
+  opacity: 1;
+  background-color: var(--light);
+}
+
+.booking-step {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: none;
+  border: none;
+  color: var(--light2);
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 2em;
+  padding: 0.5em 0;
+  transition: color 0.3s ease;
+  font-family: "Roobert";
+}
+
+.back-button:hover {
+  color: var(--light);
+}
+
+.step-title {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+  color: var(--light);
+}
+
+.step-description {
+  font-size: 1rem;
+  color: var(--light2);
+  margin-bottom: 3em;
+}
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2em;
+  margin-top: 2em;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.service-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.05);
+}
+
+.service-card > .service-header,
+.service-card > .service-description,
+.service-card > .service-footer {
+  padding: 0 2em;
+}
+
+.service-card > .service-header {
+  padding-top: 2em;
+}
+
+.service-card > .service-footer {
+  padding-bottom: 2em;
+}
+
+.service-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.service-header h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  flex: 1;
+  color: var(--light);
+}
+
+.service-duration {
+  font-size: 0.85rem;
+  color: var(--light2);
+  white-space: nowrap;
+}
+
+.service-description {
+  font-size: 0.9rem;
+  color: var(--light2);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.service-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+/* Date & Time Selection */
+.date-time-selection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3em;
+  margin-top: 2em;
+  overflow: visible;
+}
+
+.date-selection h3,
+.time-selection h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1.5em;
+  color: var(--light);
+}
+
+.dates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1em;
+  max-height: none;
+  overflow: visible;
+}
+
+.date-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5em 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  will-change: transform;
+}
+
+.date-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.date-card.selected {
+  background: var(--light);
+  color: var(--dark);
+  border-color: var(--light);
+}
+
+.date-card.selected .date-day,
+.date-card.selected .date-number,
+.date-card.selected .date-month {
+  color: var(--dark);
+  opacity: 1;
+}
+
+.date-day {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  color: var(--light);
+}
+
+.date-number {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+.date-month {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  color: var(--light);
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1em;
+  max-height: none;
+  overflow: visible;
+}
+
+.time-slot {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--light);
+  font-family: "Roobert";
+  will-change: transform;
+}
+
+.time-slot:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.time-slot.selected {
+  background: var(--light);
+  color: var(--dark);
+  border-color: var(--light);
+}
+
+/* Booking Summary */
+.booking-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2em;
+  margin-bottom: 3em;
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2em;
+}
+
+.summary-card h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--light2);
+  margin-bottom: 0.5em;
+}
+
+.summary-card p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5em;
+  color: var(--light);
+}
+
+.summary-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+/* Booking Form */
+.booking-form {
+  max-width: 600px;
+  margin-top: 2em;
+}
+
+.form-group {
+  margin-bottom: 2em;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--light2);
+  margin-bottom: 0.75em;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1em;
+  color: var(--light);
+  font-size: 1rem;
+  font-family: "Roobert";
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--light3);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn {
+  padding: 1em 2.5em;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Roobert";
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--light);
+  color: var(--dark);
+}
+
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--light);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 1em;
+}
+
+/* Booking Confirmation */
+.booking-container {
+  width: 100%;
+  min-height: auto;
+  overflow: visible;
+}
+
+.booking-confirmation {
+  max-width: 600px;
+  margin: 4em auto;
+  text-align: center;
+  padding: 4em 2em;
+  min-height: auto;
+  overflow: visible;
+}
+
+.confirmation-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--light);
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2em;
+  animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.booking-confirmation h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1em;
+  color: var(--light);
+}
+
+.confirmation-message {
+  font-size: 1.1rem;
+  color: var(--light2);
+  line-height: 1.6;
+  margin-bottom: 3em;
+}
+
+.booking-details-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2em;
+  margin-bottom: 3em;
+  text-align: left;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  color: var(--light2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.summary-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--light);
+}
+
+.confirmation-actions {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.confirmation-actions .btn {
+  min-width: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .booking {
+    padding-top: 80px;
+  }
+
+  .booking-title {
+    font-size: 2rem;
+  }
+
+  .booking-header {
+    padding: 2em 0 1.5em;
+  }
+
+  .booking-header-content {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+
+  .booking-header-image {
+    height: 250px;
+    order: -1;
+  }
+
+  .booking-content {
+    padding: 2em 0;
+  }
+
+  .booking-progress {
+    gap: 0.5em;
+    margin-bottom: 2em;
+  }
+
+  .progress-line {
+    width: 30px;
+  }
+
+  .progress-step span {
+    font-size: 0.65rem;
+  }
+
+  .step-title {
+    font-size: 1.75rem;
+  }
+
+  .step-description {
+    margin-bottom: 2em;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+
+  .dates-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75em;
+  }
+
+  .time-slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75em;
+  }
+
+  .booking-summary {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+
+  .confirmation-actions {
+    flex-direction: column;
+  }
+
+  .confirmation-actions .btn {
+    width: 100%;
+  }
+
+  .date-time-selection {
+    gap: 2em;
+  }
+}
+

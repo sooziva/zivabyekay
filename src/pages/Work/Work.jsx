@@ -57,7 +57,7 @@ const Work = () => {
               </div>
 
               <div className="sp-link">
-                <Link to="/">
+                <Link to="/sooziva">
                   <button>
                     <div className="icon">
                       <IoIosArrowRoundForward size={16} />
@@ -138,6 +138,46 @@ const Work = () => {
         <section className="sp-img">
           <div className="container">
             <img src="/work/work3.jpg" alt="" />
+          </div>
+        </section>
+
+        <section className="sp-info">
+          <div className="container">
+            <div className="sp-info-title">
+              <h3>Portfolio Showcase</h3>
+            </div>
+
+            <div className="sp-info-desc">
+              <p>
+                Our artistry extends beyond the canvas, creating stunning transformations
+                that celebrate individual beauty. Each look is carefully crafted to enhance
+                natural features while expressing personal style and confidence.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="sp-img">
+          <div className="container">
+            <img src="/models/model1.JPEG" alt="Makeup Portfolio" />
+          </div>
+        </section>
+
+        <section className="sp-img">
+          <div className="container">
+            <img src="/models/model3.JPEG" alt="Makeup Portfolio" />
+          </div>
+        </section>
+
+        <section className="sp-img">
+          <div className="container">
+            <img src="/models/model5.JPEG" alt="Makeup Portfolio" />
+          </div>
+        </section>
+
+        <section className="sp-img">
+          <div className="container">
+            <img src="/models/model7.JPEG" alt="Makeup Portfolio" />
           </div>
         </section>
 

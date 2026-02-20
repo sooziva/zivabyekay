@@ -1,0 +1,113 @@
+.education-page {
+  min-height: 100vh;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+/* Three-column cards */
+.education-main {
+  padding: 4em 2em 6em;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.education-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+  align-items: stretch;
+}
+
+.education-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid #e8e4dc;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.education-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.education-card-image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #fafaf9;
+}
+
+.education-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.education-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #888;
+  background: linear-gradient(to top, rgba(232, 228, 220, 0.95), transparent);
+}
+
+.education-card-cta {
+  padding: 1.75em 1em;
+  background: #e8e4dc;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #1a1a1a;
+  transition: background 0.2s ease;
+}
+
+.education-card:hover .education-card-cta {
+  background: #ddd9d0;
+}
+
+.education-footer {
+  padding: 2em;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.education-back {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.education-back:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 900px) {
+  .education-cards {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .education-card-image {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 600px) {
+  .education-main {
+    padding: 3em 1.5em 4em;
+  }
+}

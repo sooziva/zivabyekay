@@ -1,0 +1,300 @@
+.bridal-inquiry-page {
+  min-height: 100vh;
+  background: #1a1a1a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.bridal-inquiry-header {
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+}
+
+.bridal-inquiry-header-badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: #999;
+  margin: 0 0 0.75rem;
+}
+
+.bridal-inquiry-brand {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.bridal-inquiry-brand-ziva {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.bridal-inquiry-brand-ekay {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.75em;
+  color: #ddc8b6;
+}
+
+.bridal-inquiry-header-location {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: #888;
+  margin: 0 0 1rem;
+}
+
+.bridal-inquiry-tagline {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #999;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
+}
+
+/* Progress */
+.bridal-inquiry-progress {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+}
+
+.bridal-inquiry-progress-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bridal-inquiry-progress-num {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.bridal-inquiry-progress-step--active .bridal-inquiry-progress-num {
+  background: #ddc8b6;
+  color: #1a1a1a;
+}
+
+.bridal-inquiry-progress-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #888;
+}
+
+.bridal-inquiry-progress-step--active .bridal-inquiry-progress-label {
+  color: #ddc8b6;
+}
+
+/* Main */
+.bridal-inquiry-main {
+  flex: 1;
+  padding: 0 2rem 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.bridal-inquiry-form {
+  width: 100%;
+  max-width: 640px;
+}
+
+.bridal-inquiry-form-card {
+  background: #f5f3f0;
+  border-radius: 12px;
+  padding: 2.5rem 2.5rem 2rem;
+  color: #1a1a1a;
+}
+
+.bridal-inquiry-step-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #888;
+  margin: 0 0 1rem;
+}
+
+.bridal-inquiry-form-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem;
+}
+
+.bridal-inquiry-form-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0 0 1.75rem;
+  line-height: 1.5;
+}
+
+/* Fields */
+.bridal-inquiry-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 1.5rem;
+}
+
+.bridal-inquiry-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bridal-inquiry-field--full {
+  grid-column: 1 / -1;
+}
+
+.bridal-inquiry-field label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #444;
+}
+
+.bridal-inquiry-field input,
+.bridal-inquiry-field select,
+.bridal-inquiry-field textarea {
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: 1px solid #e0ddd8;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #1a1a1a;
+  transition: border-color 0.2s ease;
+}
+
+.bridal-inquiry-field input:focus,
+.bridal-inquiry-field select:focus,
+.bridal-inquiry-field textarea:focus {
+  outline: none;
+  border-color: #ddc8b6;
+}
+
+.bridal-inquiry-field input::placeholder,
+.bridal-inquiry-field textarea::placeholder {
+  color: #999;
+}
+
+.bridal-inquiry-field select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.bridal-inquiry-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Form footer */
+.bridal-inquiry-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8e4dc;
+}
+
+.bridal-inquiry-form-pagination {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.bridal-inquiry-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.75rem;
+  background: #ddc8b6;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.bridal-inquiry-submit:hover {
+  background: #d4bda8;
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.bridal-inquiry-footer {
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+}
+
+.bridal-inquiry-footer span {
+  opacity: 0.9;
+}
+
+.bridal-inquiry-back-link {
+  width: 100%;
+  margin-top: 1rem;
+  color: #999;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.bridal-inquiry-back-link:hover {
+  color: #ddc8b6;
+}
+
+@media (max-width: 640px) {
+  .bridal-inquiry-header {
+    padding: 2rem 1.25rem 2rem;
+  }
+
+  .bridal-inquiry-main {
+    padding: 0 1.25rem 2rem;
+  }
+
+  .bridal-inquiry-form-card {
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+
+  .bridal-inquiry-fields {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .bridal-inquiry-form-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .bridal-inquiry-submit {
+    justify-content: center;
+  }
+}

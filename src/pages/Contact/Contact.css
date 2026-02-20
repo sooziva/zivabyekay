@@ -1,0 +1,237 @@
+.contact-page {
+  min-height: 100vh;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.contact-page section {
+  height: auto;
+  min-height: 0;
+  width: 100%;
+}
+
+.contact-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Left: image + details */
+.contact-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-image-wrap {
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4 / 5;
+  background: #f5f3f0;
+}
+
+.contact-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.contact-details {
+  padding: 0 0.25rem;
+}
+
+.contact-heading {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 1rem;
+  letter-spacing: 0.02em;
+}
+
+.contact-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+  margin: 0 0 1.5rem;
+}
+
+.contact-email {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  border-bottom: 2px solid #ddc8b6;
+  padding-bottom: 0.2rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-email:hover {
+  border-bottom-color: #1a1a1a;
+  color: #1a1a1a;
+}
+
+/* Right: form */
+.contact-form-wrap {
+  background: #fafaf9;
+  padding: 2.5rem;
+  border-radius: 12px;
+}
+
+.contact-form-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #333;
+  display: block;
+  margin-bottom: -0.5rem;
+}
+
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #e5e2dc;
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-input::placeholder,
+.contact-textarea::placeholder {
+  color: #999;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+  outline: none;
+  border-color: #d4d0c8;
+  box-shadow: 0 0 0 3px rgba(221, 200, 182, 0.2);
+}
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.contact-submit {
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  background: #ddc8b6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-submit:hover {
+  background: #d4bda8;
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.contact-footer {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+  background: #fafaf9;
+}
+
+.contact-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.contact-back:hover {
+  opacity: 0.7;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .contact-main {
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .contact-image-wrap {
+    max-width: 400px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .contact-form-wrap {
+    padding: 2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .contact-main {
+    padding: 2.5rem 1rem 3.5rem;
+  }
+
+  .contact-layout {
+    gap: 2.5rem;
+  }
+
+  .contact-image-wrap {
+    max-width: 100%;
+  }
+
+  .contact-form-wrap {
+    padding: 1.5rem;
+  }
+
+  .contact-input,
+  .contact-textarea {
+    padding: 0.9rem 1rem;
+  }
+
+  .contact-submit {
+    padding: 0.9rem 1.5rem;
+  }
+
+  .contact-footer {
+    padding: 2rem 1rem;
+  }
+}

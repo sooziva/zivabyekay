@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import "./Home.css";
+import "./Vouchers.css";
 import { Link } from "react-router";
 
 import HeroGradient from "../../components/HeroGradient/HeroGradient";
@@ -9,18 +10,44 @@ import Cursor from "../../components/Cursor/Cursor";
 import Transition from "../../components/Transition/Transition";
 
 import { projects } from "./projects";
+import { beautyProducts } from "../BeautyStore/products";
+import { vouchers } from "./vouchers";
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import ReactLenis from "@studio-freight/react-lenis";
 
-import { HiArrowRight } from "react-icons/hi";
+import { HiArrowRight, HiStar, HiClipboardCopy } from "react-icons/hi";
 import { RiArrowRightDownLine } from "react-icons/ri";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Home = () => {
   const manifestoRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [beautySlide, setBeautySlide] = useState(0);
+  const [copiedCode, setCopiedCode] = useState(null);
+  const projectsCarouselRef = useRef(null);
+  const beautyCarouselRef = useRef(null);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const beautyTouchStartX = useRef(0);
+  const beautyTouchEndX = useRef(0);
+  
+  // Calculate how many projects to show based on screen size
+  const getProjectsPerView = () => {
+    if (isMobile) return 1;
+    return 3;
+  };
+  
+  const projectsPerView = getProjectsPerView();
+  const maxSlide = Math.max(0, Math.ceil(projects.length / projectsPerView) - 1);
+  
+  // Get featured beauty products
+  const featuredBeautyProducts = beautyProducts.filter(product => product.featured);
+  const beautyPerView = isMobile ? 1 : 3;
+  const maxBeautySlide = Math.max(0, Math.ceil(featuredBeautyProducts.length / beautyPerView) - 1);
 
   useEffect(() => {
     const scrollTimeout = setTimeout(() => {
@@ -46,6 +73,83 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    if (projects.length === 0) return;
+    
+    const handleKeyDown = (e) => {
+      const maxSlide = Math.max(0, Math.ceil(projects.length / getProjectsPerView()) - 1);
+      if (e.key === 'ArrowLeft') {
+        setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
+      } else if (e.key === 'ArrowRight') {
+        setCurrentSlide((prev) => (prev === maxSlide ? 0 : prev + 1));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [projects.length, isMobile]);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current || projects.length === 0) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50;
+    const maxSlide = Math.max(0, Math.ceil(projects.length / getProjectsPerView()) - 1);
+
+    if (distance > minSwipeDistance) {
+      // Swipe left - next slide
+      setCurrentSlide((prev) => (prev === maxSlide ? 0 : prev + 1));
+    } else if (distance < -minSwipeDistance) {
+      // Swipe right - previous slide
+      setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
+    }
+
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
+  const handleBeautyTouchStart = (e) => {
+    beautyTouchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleBeautyTouchMove = (e) => {
+    beautyTouchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleBeautyTouchEnd = () => {
+    if (!beautyTouchStartX.current || !beautyTouchEndX.current || featuredBeautyProducts.length === 0) return;
+    
+    const distance = beautyTouchStartX.current - beautyTouchEndX.current;
+    const minSwipeDistance = 50;
+
+    if (distance > minSwipeDistance) {
+      // Swipe left - next slide
+      setBeautySlide((prev) => (prev === maxBeautySlide ? 0 : prev + 1));
+    } else if (distance < -minSwipeDistance) {
+      // Swipe right - previous slide
+      setBeautySlide((prev) => (prev === 0 ? maxBeautySlide : prev - 1));
+    }
+
+    beautyTouchStartX.current = 0;
+    beautyTouchEndX.current = 0;
+  };
+
+  useEffect(() => {
+    // Reset to first slide if current slide is out of bounds
+    const maxSlide = Math.max(0, Math.ceil(projects.length / getProjectsPerView()) - 1);
+    if (currentSlide > maxSlide && projects.length > 0) {
+      setCurrentSlide(0);
+    }
+  }, [projects.length, currentSlide, isMobile]);
+
+  useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.create({
@@ -62,36 +166,20 @@ const Home = () => {
     });
 
     if (!isMobile) {
-      gsap.set(".project", { opacity: 0.35 });
-    }
-
-    if (!isMobile) {
       const projects = document.querySelectorAll(".project");
 
       projects.forEach((project) => {
         const projectImg = project.querySelector(".project-img img");
 
         project.addEventListener("mouseenter", () => {
-          gsap.to(project, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.out",
-          });
-
           gsap.to(projectImg, {
-            scale: 1.2,
+            scale: 1.1,
             duration: 0.5,
             ease: "power2.out",
           });
         });
 
         project.addEventListener("mouseleave", () => {
-          gsap.to(project, {
-            opacity: 0.35,
-            duration: 0.5,
-            ease: "power2.out",
-          });
-
           gsap.to(projectImg, {
             scale: 1,
             duration: 0.5,
@@ -222,23 +310,69 @@ const Home = () => {
         <Cursor />
         <NavBar />
         <section className="hero" id="hero">
-          <HeroGradient />
-          <div className="header-container">
-            <div className="header h-1">
-              <h1>Made to Move,</h1>
-              <h1>Built to Inspire</h1>
-            </div>
-            <div className="header h-2">
-              <h1>Ideas Born,</h1>
-              <h1>Boundaries Broken</h1>
-            </div>
-            <div className="header h-3">
-              <h1>Infinite Possibilities,</h1>
-              <h1>Realized!</h1>
-            </div>
-            <div className="header h-4">
-              <h1>Where Vision Meets,</h1>
-              <h1>Limitless Design</h1>
+          <div className="container">
+            <div className="hero-content">
+              <div className="hero-left">
+                {/* <div className="hero-header">
+                  <HiArrowRight />
+                  <p>About Founder</p>
+                </div> */}
+
+                <div className="hero-intro">
+                  <h1>
+                    The vision behind &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ziva by Ekay
+                  </h1>
+                </div>
+
+                <div className="hero-founder-info">
+                  <div className="hero-founder-name">
+                    <p>
+                      Ekay <br />
+                      Gabriel
+                    </p>
+                  </div>
+                  <div className="hero-founder-position">
+                    <p>Founder & Lead Makeup Artist</p>
+                  </div>
+                  <div className="hero-founder-description">
+                    <p>
+                      Ekay is the creative force and founder behind Ziva by Ekay, with
+                      over a decade of experience in professional makeup artistry.
+                      Specializing in bridal, editorial, and special event makeup,
+                      she brings passion and precision to every look. Her vision is to
+                      create a space where beauty meets artistry, helping each client
+                      discover their unique style and confidence.
+                    </p>
+                  </div>
+                  <div className="hero-cta-buttons">
+                    <div className="cta-btn">
+                      <Link to="/booking">
+                        <button>Book Appointment</button>
+                      </Link>
+                    </div>
+                    <div className="cta-btn">
+                      <Link to="/beauty-store">
+                        <button>Shop products</button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="hero-right">
+                <div className="hero-video-container">
+                  <video
+                    className="hero-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    src="/video/ekay.mp4"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -247,50 +381,77 @@ const Home = () => {
           <div className="container">
             <div className="work-header">
               <HiArrowRight size={13} />
-              <p>Selected projects</p>
+              <p>Beauty Services</p>
             </div>
 
-            <div className="projects">
-              <div className="project-col">
-                {projects
-                  .filter((project) => project.column === 1)
-                  .map((project) => (
-                    <a href={project.link} 
-                    key={project.id}>
-                      <div className="project">
-                        <div className="project-img">
-                          <img src={project.image} alt="Project Thumbnail" />
+            <div className="projects-carousel-wrapper">
+              <div 
+                className="projects-carousel" 
+                ref={projectsCarouselRef}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                <div 
+                  className="projects-carousel-track"
+                  style={{
+                    transform: `translateX(-${currentSlide * (100 / projectsPerView)}%)`
+                  }}
+                >
+                  {projects.map((project) => (
+                    <div className="project-slide" key={project.id}>
+                      <Link to="/booking">
+                        <div className="project">
+                          <div className="project-img">
+                            <img src={project.image} alt="Project Thumbnail" />
+                          </div>
+                          <div className="project-name">
+                            <h2>{project.title}</h2>
+                          </div>
+                          <div className="project-description">
+                            <p>{project.description}</p>
+                          </div>
                         </div>
-                        <div className="project-name">
-                          <h2>{project.title}</h2>
-                        </div>
-                        <div className="project-description">
-                          <p>{project.description}</p>
-                        </div>
-                      </div>
-                    </a>
+                      </Link>
+                    </div>
                   ))}
+                </div>
               </div>
 
-              <div className="project-col">
-                {projects
-                  .filter((project) => project.column === 2)
-                  .map((project) => (
-                    <Link to="/work" key={project.id}>
-                      <div className="project">
-                        <div className="project-img">
-                          <img src={project.image} alt="Project Thumbnail" />
-                        </div>
-                        <div className="project-name">
-                          <h2>{project.title}</h2>
-                        </div>
-                        <div className="project-description">
-                          <p>{project.description}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-              </div>
+              {projects.length > projectsPerView && (
+                <div className="carousel-controls">
+                  <button 
+                    className="carousel-btn carousel-btn-prev"
+                    onClick={() => {
+                      const maxSlide = Math.max(0, Math.ceil(projects.length / projectsPerView) - 1);
+                      setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
+                    }}
+                    aria-label="Previous projects"
+                  >
+                    <IoIosArrowBack size={24} />
+                  </button>
+                  <div className="carousel-dots">
+                    {Array.from({ length: Math.ceil(projects.length / projectsPerView) }).map((_, index) => (
+                      <button
+                        key={index}
+                        className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+                        onClick={() => setCurrentSlide(index)}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button 
+                    className="carousel-btn carousel-btn-next"
+                    onClick={() => {
+                      const maxSlide = Math.max(0, Math.ceil(projects.length / projectsPerView) - 1);
+                      setCurrentSlide((prev) => (prev === maxSlide ? 0 : prev + 1));
+                    }}
+                    aria-label="Next projects"
+                  >
+                    <IoIosArrowForward size={24} />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -300,15 +461,153 @@ const Home = () => {
             <img src="/cta/cta-bg.png" alt="" />
           </div>
           <div className="cta-title">
-            <p>Trusted by visionaries</p>
+            <p>Trusted by beauty enthusiasts</p>
           </div>
           <div className="cta-header">
             <h2>
-              Gelos, Theglamplugg, Payaza, RB creators, Moodify
+             Discover luxury beauty services
             </h2>
           </div>
-          <div className="cta-btn">
-            <button>Discover more at rizzbrand.site</button>
+          <div className="cta-buttons">
+            <div className="cta-btn">
+              <Link to="/beauty-store">
+                <button>Shop now</button>
+              </Link>
+            </div>
+            <div className="cta-btn">
+              <Link to="/booking">
+                <button>Book Appointment</button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="featured-beauty">
+          <div className="container">
+            <div className="featured-beauty-header">
+              <h1 className="featured-beauty-title">Shop All</h1>
+              <p className="featured-beauty-count">{featuredBeautyProducts.length} products</p>
+            </div>
+
+            <div className="beauty-carousel-wrapper">
+              <div 
+                className="beauty-carousel" 
+                ref={beautyCarouselRef}
+                onTouchStart={handleBeautyTouchStart}
+                onTouchMove={handleBeautyTouchMove}
+                onTouchEnd={handleBeautyTouchEnd}
+              >
+                <div 
+                  className="beauty-carousel-track"
+                  style={{
+                    transform: `translateX(-${beautySlide * (100 / beautyPerView)}%)`
+                  }}
+                >
+                  {featuredBeautyProducts.map((product) => (
+                    <div className="beauty-product-slide" key={product.id}>
+                      <Link to="/beauty-store" className="beauty-product-link">
+                        <div className="beauty-product-card">
+                          <div className="beauty-product-image-wrapper">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="beauty-product-image"
+                            />
+                          </div>
+                          <div className="beauty-product-info">
+                            <h3 className="beauty-product-name">{product.name}</h3>
+                            <p className="beauty-product-description">
+                              {product.description.split('.')[0]}.
+                            </p>
+                            <div className="beauty-product-price-rating">
+                              <div className="beauty-product-price">
+                                <span className="beauty-current-price">${product.price}</span>
+                              </div>
+                              <div className="beauty-product-rating">
+                                {[...Array(5)].map((_, i) => (
+                                  <HiStar
+                                    key={i}
+                                    size={16}
+                                    className={i < Math.floor(product.rating) ? "filled" : ""}
+                                  />
+                                ))}
+                                <span className="rating-count">({product.reviews || 0})</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {featuredBeautyProducts.length > beautyPerView && (
+                <div className="beauty-carousel-controls">
+                  <button 
+                    className="beauty-carousel-btn beauty-carousel-btn-prev"
+                    onClick={() => {
+                      setBeautySlide((prev) => (prev === 0 ? maxBeautySlide : prev - 1));
+                    }}
+                    aria-label="Previous products"
+                  >
+                    <IoIosArrowBack size={24} />
+                  </button>
+                  <div className="beauty-carousel-dots">
+                    {Array.from({ length: Math.ceil(featuredBeautyProducts.length / beautyPerView) }).map((_, index) => (
+                      <button
+                        key={index}
+                        className={`beauty-carousel-dot ${index === beautySlide ? 'active' : ''}`}
+                        onClick={() => setBeautySlide(index)}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button 
+                    className="beauty-carousel-btn beauty-carousel-btn-next"
+                    onClick={() => {
+                      setBeautySlide((prev) => (prev === maxBeautySlide ? 0 : prev + 1));
+                    }}
+                    aria-label="Next products"
+                  >
+                    <IoIosArrowForward size={24} />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="vouchers" id="vouchers">
+          <div className="container">
+            <div className="vouchers-header">
+              <HiArrowRight size={13} />
+              <p>Special Offers</p>
+            </div>
+            <div className="vouchers-grid">
+              {vouchers.map((voucher) => (
+                <div key={voucher.id} className="voucher-card">
+                  <div className="voucher-content">
+                    <h3 className="voucher-title">{voucher.title}</h3>
+                    <div className="voucher-discount">{voucher.discount}</div>
+                    <div className="voucher-code-wrapper">
+                      <span className="voucher-code">{voucher.code}</span>
+                      <button
+                        className={`voucher-copy-btn ${copiedCode === voucher.id ? 'copied' : ''}`}
+                        onClick={() => {
+                          navigator.clipboard.writeText(voucher.code);
+                          setCopiedCode(voucher.id);
+                          setTimeout(() => setCopiedCode(null), 2000);
+                        }}
+                        aria-label="Copy code"
+                      >
+                        <HiClipboardCopy size={16} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -320,9 +619,9 @@ const Home = () => {
             </div>
             <div className="manifesto-title">
               <h1>
-                We challenge norms, embrace change, pioneer progress. We are
-                innovators merging art and technology to craft experiences that
-                surprise, delight, and evolve.
+                We believe beauty is an art form, a celebration of individuality.
+                At Ziva by Ekay, we merge professional artistry with personalized
+                care to enhance your natural beauty and boost your confidence.
               </h1>
             </div>
           </div>
@@ -333,7 +632,7 @@ const Home = () => {
             <div className="process">
               <div className="process-title">
                 <RiArrowRightDownLine />
-                <p>Integrate</p>
+                <p>Consultation</p>
               </div>
               <div className="process-info">
                 <div className="process-icon">
@@ -343,10 +642,10 @@ const Home = () => {
                 </div>
                 <div className="process-description">
                   <p>
-                    Rooted in creativity, Origin bridges cultures to craft
-                    designs that transcend time and place. We thrive at the
-                    intersection of ideas, uniting diverse perspectives into a
-                    seamless vision.
+                    Every beauty journey begins with understanding your unique
+                    features, skin tone, and personal style. We take time to
+                    listen and create a customized look that enhances your
+                    natural beauty and reflects your personality.
                   </p>
                 </div>
               </div>
@@ -355,7 +654,7 @@ const Home = () => {
             <div className="process">
               <div className="process-title">
                 <RiArrowRightDownLine />
-                <p>Collaborate</p>
+                <p>Artistry</p>
               </div>
               <div className="process-info">
                 <div className="process-icon">
@@ -365,9 +664,10 @@ const Home = () => {
                 </div>
                 <div className="process-description">
                   <p>
-                    Creativity is a collective process. At Origin, collaboration
-                    is our foundation—merging ideas, talents, and visions to
-                    create experiences that resonate universally.
+                    With years of experience and a passion for perfection, our
+                    makeup artists use premium products and professional techniques
+                    to create flawless looks for any occasion—from natural everyday
+                    glam to stunning bridal transformations.
                   </p>
                 </div>
               </div>
@@ -376,7 +676,7 @@ const Home = () => {
             <div className="process">
               <div className="process-title">
                 <RiArrowRightDownLine />
-                <p>Challenge</p>
+                <p>Excellence</p>
               </div>
               <div className="process-info">
                 <div className="process-icon">
@@ -386,9 +686,10 @@ const Home = () => {
                 </div>
                 <div className="process-description">
                   <p>
-                    We challenge conventions and redefine possibilities. At
-                    Origin, we dare to push boundaries, delivering solutions
-                    that are as bold as they are impactful.
+                    We are committed to excellence in every detail. From the
+                    quality of products we use to the precision of our application,
+                    we ensure every client leaves feeling beautiful, confident,
+                    and ready to shine.
                   </p>
                 </div>
               </div>
@@ -398,7 +699,7 @@ const Home = () => {
 
         <div className="marquee">
           <div className="marquee-text">
-            <h1>Explore the essence of Origin Studio</h1>
+            <h1>Experience the artistry of Ziva by Ekay Beauty Studio</h1>
           </div>
         </div>
 
@@ -411,21 +712,24 @@ const Home = () => {
             <div className="about-col">
               <div className="about-header">
                 <HiArrowRight size={13} />
-                <p>Origin Spirit</p>
+                <p>Our Philosophy</p>
               </div>
               <div className="about-copy">
                 <p>
-                  The Origin Spirit embodies creativity without boundaries.
-                  Whether you’re a lifelong dreamer, a new explorer, or someone
-                  returning to familiar grounds, Origin welcomes those who dare
-                  to imagine. Being part of Origin means embracing inspiration,
-                  collaboration, and limitless potential.
+                  At Ziva by Ekay, we believe beauty is about enhancing your
+                  natural features and celebrating your unique style. Whether
+                  you're preparing for a special occasion, seeking everyday glamour,
+                  or learning new techniques, we're here to help you look and feel
+                  your absolute best. Every face tells a story, and we're honored
+                  to be part of yours.
                 </p>
               </div>
             </div>
             <div className="about-col">
               <div className="cta-btn">
-                <button>Discover more at origin.co</button>
+                <Link to="/booking">
+                  <button>Book Your Appointment</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -438,24 +742,24 @@ const Home = () => {
                 <img src="/marquee/img1.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/marquee/img2.jpeg" alt="" />
+                <img src="/models/model1.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
                 <img src="/marquee/img3.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/marquee/img4.jpeg" alt="" />
+                <img src="/models/model2.JPEG" alt="Model Portfolio" />
               </div>
             </div>
             <div className="row">
               <div className="img">
-                <img src="/marquee/img5.jpeg" alt="" />
+                <img src="/models/model3.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
                 <img src="/marquee/img6.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/marquee/img7.jpeg" alt="" />
+                <img src="/models/model4.JPG" alt="Model Portfolio" />
               </div>
               <div className="img">
                 <img src="/marquee/img8.jpeg" alt="" />
@@ -466,10 +770,10 @@ const Home = () => {
                 <img src="/marquee/img9.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/marquee/img10.jpeg" alt="" />
+                <img src="/models/model5.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/marquee/img11.jpeg" alt="" />
+                <img src="/models/model6.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
                 <img src="/marquee/img12.jpeg" alt="" />
@@ -477,16 +781,30 @@ const Home = () => {
             </div>
             <div className="row">
               <div className="img">
-                <img src="/marquee/img13.jpeg" alt="" />
+                <img src="/models/model7.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
                 <img src="/marquee/img14.jpeg" alt="" />
               </div>
               <div className="img">
+                <img src="/models/model9.JPEG" alt="Model Portfolio" />
+              </div>
+              <div className="img">
+                <img src="/models/model10.JPEG" alt="Model Portfolio" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="img">
                 <img src="/marquee/img15.jpeg" alt="" />
               </div>
               <div className="img">
-                <img src="/marquee/img16.jpeg" alt="" />
+                <img src="/models/model11.JPEG" alt="Model Portfolio" />
+              </div>
+              <div className="img">
+                <img src="/models/model12.JPEG" alt="Model Portfolio" />
+              </div>
+              <div className="img">
+                <img src="/models/model13.JPEG" alt="Model Portfolio" />
               </div>
             </div>
           </div>
@@ -496,29 +814,37 @@ const Home = () => {
           <div className="container">
             <div className="team-header">
               <HiArrowRight />
-              <p>Team</p>
+              <p>About Founder</p>
             </div>
 
             <div className="team-intro">
               <h1>
-                From corners of globe, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; we are
-                united by &nbsp;&nbsp;&nbsp; creativity
+                The vision behind &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ziva by Ekay
               </h1>
             </div>
 
             <div className="team-member tm-1">
               <div className="team-member-position">
-                <p>Lead Developer</p>
+                <p>Founder & Lead Makeup Artist</p>
               </div>
               <div className="team-member-profile">
-                <div className="team-member-img">
-                  <img src="/team/team-1.jpg" alt="" />
+                <div className="founder-video-container">
+                  <video
+                    className="founder-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    src="/video/ekay.mp4"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
                 <div className="team-member-info">
                   <div className="team-member-name">
                     <p>
-                      Alex <br />
-                      Johnson
+                      Ekay <br />
+                      Gabriel
                     </p>
                   </div>
                   <div className="team-member-details">
@@ -527,86 +853,20 @@ const Home = () => {
                     </div>
                     <div className="team-member-copy">
                       <p>
-                        Alex is a skilled developer with expertise in modern web
-                        technologies and a passion for creating seamless user
-                        experiences.
+                        Ekay is the creative force and founder behind Ziva by Ekay, with
+                        over a decade of experience in professional makeup artistry.
+                        Specializing in bridal, editorial, and special event makeup,
+                        she brings passion and precision to every look. Her vision is to
+                        create a space where beauty meets artistry, helping each client
+                        discover their unique style and confidence.
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="team-member-index">
-                <p>(01)</p>
-                <h1>Alex Johnson</h1>
-              </div>
-            </div>
-
-            <div className="team-member tm-2">
-              <div className="team-member-position">
-                <p>UI/UX Designer</p>
-              </div>
-              <div className="team-member-profile">
-                <div className="team-member-img">
-                  <img src="/team/team-2.jpg" alt="" />
-                </div>
-                <div className="team-member-info">
-                  <div className="team-member-name">
-                    <p>
-                      Sophia <br />
-                      Martinez
-                    </p>
-                  </div>
-                  <div className="team-member-details">
-                    <div className="team-member-toggle">
-                      <HiArrowRight size={24} />
-                    </div>
-                    <div className="team-member-copy">
-                      <p>
-                        Sophia specializes in crafting intuitive and visually
-                        appealing designs that bring digital products to life.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="team-member-index">
-                <p>(02)</p>
-                <h1>Sophia Martinez</h1>
-              </div>
-            </div>
-
-            <div className="team-member tm-3">
-              <div className="team-member-position">
-                <p>Project Manager</p>
-              </div>
-              <div className="team-member-profile">
-                <div className="team-member-img">
-                  <img src="/team/team-3.jpg" alt="" />
-                </div>
-                <div className="team-member-info">
-                  <div className="team-member-name">
-                    <p>
-                      Michael <br />
-                      Brown
-                    </p>
-                  </div>
-                  <div className="team-member-details">
-                    <div className="team-member-toggle">
-                      <HiArrowRight size={24} />
-                    </div>
-                    <div className="team-member-copy">
-                      <p>
-                        Michael ensures projects are delivered on time and
-                        within scope, maintaining excellent communication with
-                        clients and the team.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="team-member-index">
-                <p>(03)</p>
-                <h1>Michael Brown</h1>
+                <p>Founder</p>
+                <h1>Ekay Gabriel</h1>
               </div>
             </div>
           </div>
@@ -624,64 +884,64 @@ const Home = () => {
             </div>
 
             <div className="footer-email">
-              <p>We’d love to hear from you</p>
-              <h2>info@rizzbrand.studio</h2>
+              <p>We'd love to hear from you</p>
+              <h2>hello@zivabyekay.com</h2>
             </div>
 
             <div className="footer-content">
               <div className="footer-col">
                 <div className="footer-col-header">
-                  <p>Our Spaces</p>
+                  <p>Visit Us</p>
                 </div>
 
                 <div className="footer-col-content">
                   <div className="footer-sub-col">
                     <div className="location">
-                      <h3>New York</h3>
-                      <p>123 Creative Hub,</p>
-                      <p>5th Avenue, Suite 101</p>
-                      <p>New York, NY, 10010</p>
-                      <p>USA</p>
+                      <h3>Studio Location</h3>
+                      <p>Ziva by Ekay Beauty Studio</p>
+                      <p>By Appointment Only</p>
+                      <p>Private Studio Sessions</p>
+                      <p>Available</p>
 
                       <p>
-                        <HiArrowRight /> View on map
+                        <HiArrowRight /> Book Appointment
                       </p>
                     </div>
 
                     <div className="location">
-                      <h3>Tokyo</h3>
-                      <p>Innovators Tower,</p>
-                      <p>Shibuya City, 8th Floor</p>
-                      <p>Tokyo, 150-0001</p>
-                      <p>Japan</p>
+                      <h3>Mobile Services</h3>
+                      <p>We come to you</p>
+                      <p>Bridal & Special Events</p>
+                      <p>Available upon request</p>
+                      <p>Contact for details</p>
 
                       <p>
-                        <HiArrowRight /> View on map
+                        <HiArrowRight /> Inquire Now
                       </p>
                     </div>
                   </div>
                   <div className="footer-sub-col">
                     <div className="location">
-                      <h3>London</h3>
-                      <p>Design District,</p>
-                      <p>Greenwich Peninsula</p>
-                      <p>London, SE10 0ER</p>
-                      <p>UK</p>
+                      <h3>Hours</h3>
+                      <p>Monday - Friday: 9AM - 7PM</p>
+                      <p>Saturday: 10AM - 6PM</p>
+                      <p>Sunday: By Appointment</p>
+                      <p>Emergency bookings available</p>
 
                       <p>
-                        <HiArrowRight /> View on map
+                        <HiArrowRight /> View Availability
                       </p>
                     </div>
 
                     <div className="location">
-                      <h3>Singapore</h3>
-                      <p>Marina Bay Financial Center,</p>
-                      <p>10 Marina Blvd, Tower 2</p>
-                      <p>Singapore, 018983</p>
-                      <p>Singapore</p>
+                      <h3>Services</h3>
+                      <p>Bridal Makeup</p>
+                      <p>Editorial & Photoshoots</p>
+                      <p>Special Events</p>
+                      <p>Makeup Lessons</p>
 
                       <p>
-                        <HiArrowRight /> View on map
+                        <HiArrowRight /> View Services
                       </p>
                     </div>
                   </div>
@@ -693,10 +953,10 @@ const Home = () => {
                 </div>
                 <div className="footer-sub-col">
                   <p>Instagram</p>
-                  <p>LinkedIn</p>
-                  <p>Twitter</p>
-                  <p>Behance</p>
-                  <p>Dribbble</p>
+                  <p>Facebook</p>
+                  <p>TikTok</p>
+                  <p>Pinterest</p>
+                  <p>YouTube</p>
                 </div>
               </div>
             </div>

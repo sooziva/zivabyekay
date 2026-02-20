@@ -1,0 +1,437 @@
+.masterclasses-page {
+  min-height: 100vh;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.masterclasses-page section {
+  height: auto;
+  min-height: 0;
+  width: 100%;
+}
+
+.masterclasses-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+/* Hero: text + image */
+.masterclasses-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.masterclasses-hero-content {
+  padding-right: 1rem;
+}
+
+.masterclasses-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.masterclasses-lead {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: #333;
+  margin: 0 0 2rem;
+}
+
+.masterclasses-cta {
+  display: inline-block;
+  padding: 1rem 2.25rem;
+  background: #ddc8b6;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.masterclasses-cta:hover {
+  background: #d4bda8;
+  transform: translateY(-1px);
+}
+
+.masterclasses-hero-image {
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4 / 5;
+  background: #f5f3f0;
+}
+
+.masterclasses-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Modules */
+.masterclasses-modules {
+  margin-bottom: 5rem;
+}
+
+.masterclasses-modules-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 2.5rem;
+  text-align: center;
+}
+
+.masterclasses-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.masterclasses-module {
+  padding: 2rem;
+  background: #fafaf9;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.masterclasses-module-num {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #ddc8b6;
+  margin-bottom: 0.75rem;
+}
+
+.masterclasses-module-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem;
+  text-transform: capitalize;
+}
+
+.masterclasses-module-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #555;
+  margin: 0;
+}
+
+/* Product cards */
+.masterclasses-products {
+  margin-bottom: 5rem;
+}
+
+.masterclasses-products-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 2.5rem;
+  text-align: center;
+}
+
+.masterclasses-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+  max-width: 100%;
+}
+
+.masterclasses-product-card {
+  padding: 0;
+  background: #fafaf9;
+  border: 1px solid #e8e4dc;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.masterclasses-product-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border-color: #d4d0c8;
+}
+
+.masterclasses-product-card-featured {
+  border-color: #ddc8b6;
+  background: #fdfbf9;
+  box-shadow: 0 4px 24px rgba(221, 200, 182, 0.15);
+}
+
+.masterclasses-product-card-featured:hover {
+  border-color: #d4bda8;
+  box-shadow: 0 8px 32px rgba(221, 200, 182, 0.2);
+}
+
+.masterclasses-product-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f0eeea;
+}
+
+.masterclasses-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.masterclasses-product-card > .masterclasses-product-theme,
+.masterclasses-product-card > .masterclasses-product-desc,
+.masterclasses-product-card > .masterclasses-product-price,
+.masterclasses-product-card > .masterclasses-product-cta {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.masterclasses-product-theme {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ddc8b6;
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+  display: block;
+}
+
+.masterclasses-product-card-featured .masterclasses-product-theme {
+  color: #1a1a1a;
+}
+
+.masterclasses-product-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 1rem;
+  flex-grow: 1;
+  min-height: 3.5em;
+}
+
+.masterclasses-product-price {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.masterclasses-product-cta {
+  display: block;
+  text-align: center;
+  padding: 0.8rem 1.25rem;
+  margin: 0 1.25rem 1.25rem;
+  background: #ddc8b6;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.masterclasses-product-cta:hover {
+  background: #d4bda8;
+  transform: translateY(-1px);
+}
+
+.masterclasses-product-card-featured .masterclasses-product-cta {
+  background: #1a1a1a;
+  color: #fff;
+  margin: 0 1.25rem 1.25rem;
+}
+
+.masterclasses-product-card-featured .masterclasses-product-cta:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* CTA block */
+.masterclasses-cta-block {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fafaf9;
+  border-radius: 12px;
+}
+
+.masterclasses-cta-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+}
+
+.masterclasses-cta-large {
+  padding: 1.1rem 2.5rem;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.masterclasses-back-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #666;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.masterclasses-back-link:hover {
+  color: #1a1a1a;
+}
+
+/* Footer */
+.masterclasses-footer {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.masterclasses-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.masterclasses-back:hover {
+  opacity: 0.7;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .masterclasses-main {
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .masterclasses-hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .masterclasses-hero-content {
+    padding-right: 0;
+  }
+
+  .masterclasses-hero-image {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .masterclasses-modules-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .masterclasses-modules {
+    margin-bottom: 3.5rem;
+  }
+
+  .masterclasses-products {
+    margin-bottom: 3.5rem;
+  }
+
+  .masterclasses-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+
+  .masterclasses-product-desc {
+    min-height: auto;
+  }
+
+  .masterclasses-cta-block {
+    padding: 3rem 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .masterclasses-main {
+    padding: 2.5rem 1rem 3.5rem;
+  }
+
+  .masterclasses-hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .masterclasses-title {
+    font-size: 1.75rem;
+  }
+
+  .masterclasses-lead {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .masterclasses-module {
+    padding: 1.5rem;
+  }
+
+  .masterclasses-products-grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .masterclasses-product-price {
+    font-size: 1.5rem;
+  }
+
+  .masterclasses-product-cta {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .masterclasses-product-card-featured .masterclasses-product-cta {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .masterclasses-product-card > .masterclasses-product-theme,
+  .masterclasses-product-card > .masterclasses-product-desc,
+  .masterclasses-product-card > .masterclasses-product-price {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .masterclasses-cta-block {
+    padding: 2.5rem 1rem;
+  }
+
+  .masterclasses-cta-text {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .masterclasses-footer {
+    padding: 2rem 1rem;
+  }
+}

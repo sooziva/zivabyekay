@@ -1,0 +1,136 @@
+.vouchers {
+  position: relative;
+  height: max-content;
+  padding: 3em 0;
+  background: #0a0a0a;
+  color: #fff;
+  overflow: hidden;
+}
+
+.vouchers .container {
+  position: relative;
+  z-index: 1;
+}
+
+.vouchers-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2em;
+  align-items: center;
+}
+
+.vouchers-header p {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.vouchers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5em;
+  width: 100%;
+}
+
+.voucher-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5em;
+  padding: 1.5em;
+  transition: border-color 0.3s ease;
+}
+
+.voucher-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.voucher-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.voucher-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.voucher-discount {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1;
+}
+
+.voucher-code-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding-top: 0.75em;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.voucher-code {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+}
+
+.voucher-copy-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5em 0.75em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 0.25em;
+}
+
+.voucher-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.voucher-copy-btn.copied {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 900px) {
+  .vouchers {
+    padding: 2.5em 0;
+  }
+
+  .vouchers-header {
+    margin-bottom: 1.5em;
+  }
+
+  .vouchers-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25em;
+  }
+
+  .voucher-card {
+    padding: 1.25em;
+  }
+
+  .voucher-title {
+    font-size: 1.25rem;
+  }
+
+  .voucher-discount {
+    font-size: 1.5rem;
+  }
+
+  .voucher-code {
+    font-size: 1.1rem;
+  }
+}

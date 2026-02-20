@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import "./NavBar.css";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -124,8 +125,8 @@ const NavBar = () => {
       <div className="navbar-container">
         <div className="logo">
           <a href="#hero">
-            <h3>Rizzbrand</h3>
-            <span>studio</span>
+            <h3>Ziva</h3>
+            <span>by Ekay</span>
           </a>
         </div>
 
@@ -146,6 +147,12 @@ const NavBar = () => {
             <a href="#about">
               <p>Spirit</p>
             </a>
+            <Link to="/booking">
+              <p>Book</p>
+            </Link>
+            <Link to="/ekay">
+              <p>Inspiration</p>
+            </Link>
             <a href="#team">
               <p>Team</p>
             </a>

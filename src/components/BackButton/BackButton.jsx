@@ -50,7 +50,7 @@ const BackButton = () => {
 
   return (
     <div className="back-btn" ref={buttonRef}>
-      <Link to="/">
+      <Link to="/sooziva">
         <div
           className="back-btn-fill"
           ref={fillRef}
