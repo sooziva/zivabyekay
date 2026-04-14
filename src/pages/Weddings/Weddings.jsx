@@ -125,13 +125,13 @@ const SERVICE_TIERS = [
     roman: "VI",
     name: "The Voyage Edit",
     subtitle: "Travel package",
-    investment: "5000 cedis",
-    investmentNote: "Investment",
+    investment: "prices quoted in package",
+    investmentNote: "please read travel terms & conditions",
     description: [
       "If your celebration is taking place outside Accra entirely. this Travel Package will bring the full experience directly to you. Every detail is handled with the same precision and intentionality you’d expect on home ground, wherever in the world your day unfolds.",
     ],
     bullets: [
-      "on-site presence of upto 3hrs with a same day return.",
+      "on-site presence of upto 3hrs with a same day return - 5000 cedis",
       "Full service for multiple days is billed individually as a full day service.",
       "Each day - 10000 cedis",
       "Full onsite presence for up to 12 hrs each day.",
@@ -139,7 +139,7 @@ const SERVICE_TIERS = [
   },
 ];
 
-const TIERS_BG_IMAGES = ["/ekay/bridal2.JPG", "/ekay/bridal1.JPG"];
+const TIERS_BG_IMAGES = ["/ekay/bridal1.JPG", "/ekay/bridal1.JPG"];
 
 const TESTIMONIALS = [
   {
@@ -581,7 +581,7 @@ const Weddings = () => {
                           to={`/ekay/weddings/inquiry?tier=${encodeURIComponent(tier.id)}`}
                           className="weddings-cta weddings-cta--block"
                         >
-                          Inquire for this tier
+                          Book package
                         </Link>
                       </div>
                     ))}

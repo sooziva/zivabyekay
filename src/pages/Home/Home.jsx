@@ -760,10 +760,10 @@ const Home = () => {
                 <img src="/models/model12.JPEG" alt="" />
               </div>
               <div className="img">
-                <img src="/models/model4.JPEG" alt="Model Portfolio" />
+                <img src="/models/model4.JPG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/models/model4.JPEG" alt="" />
+                <img src="/models/model4.JPG" alt="" />
               </div>
             </div>
             <div className="row">
