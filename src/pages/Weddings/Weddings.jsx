@@ -367,13 +367,14 @@ const TERMS_AND_CONDITIONS = [
 ];
 
 const ZIVA_EXPERIENCE_BULLETS = [
-  "An artist who genuinely loves what she does, and whose work shows it in every brushstroke",
+  "An artist who genuinely loves what she does, and whose love shows in every brushstroke",
   "A thorough pre-wedding consultation,your vision, your skin, your story, all understood",
-  "Full discretion, warmth, and calm professionalism from first contact to final photograph",
-  "Premium, skin loving products from the world's most coveted luxury beauty houses",
+  "Full discretion, warmth, and calm professionalism from first contact to final walk down the aisle",
+  "Premium, skin loving products from the world's most coveted luxury beauty houses to ensure a hydrated and well nourished canvas",
   "A clean, curated setup that brings the feel of a high-end beauty suite to your space",
-  "Impeccable time management, your schedule is protected, always",
- 
+  "Excellent customer Impeccable time management, to protect your schedule, always",
+  "Attention to detail, care and geniune concern for you comfort and satisfaction.",
+  "A commitment to deliver a flawless and unforgettable experience, while promising continous support and guidiance.",
 ];
 
 const ZIVA_PRODUCTS = {
