@@ -1,0 +1,10 @@
+.zb-dashboardPage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.zb-dsection {
+  scroll-margin-top: 90px;
+}
+

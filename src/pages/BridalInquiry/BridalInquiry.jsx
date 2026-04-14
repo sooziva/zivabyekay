@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { IoIosArrowForward } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { HiStar } from "react-icons/hi";
 import Transition from "../../components/Transition/Transition";
 import "./BridalInquiry.css";
@@ -23,18 +22,19 @@ const REFERRAL_OPTIONS = [
 ];
 
 const BridalInquiry = () => {
+  const [searchParams] = useSearchParams();
+  const selectedTier = (searchParams.get("tier") || "").trim();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+    tier: "",
     firstName: "",
-    lastName: "",
     whatsapp: "",
     email: "",
     cityCountry: "",
-    instagram: "",
     referral: "",
     weddingDate: "",
     venue: "",
-    guestCount: "",
+    weddingTime: "",
     bridalPartySize: "",
     bridesmaidsMakeup: "",
     stylePreference: "",
@@ -42,8 +42,17 @@ const BridalInquiry = () => {
     notes: "",
   });
 
+  useEffect(() => {
+    if (!selectedTier) return;
+    setFormData((prev) => (prev.tier ? prev : { ...prev, tier: selectedTier }));
+  }, [selectedTier]);
+
   const updateField = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const goToStep = (nextStep) => {
+    if (nextStep >= 1 && nextStep <= 5) setStep(nextStep);
   };
 
   const handleSubmit = (e) => {
@@ -59,7 +68,7 @@ const BridalInquiry = () => {
   return (
     <div className="bridal-inquiry-page">
       <header className="bridal-inquiry-header">
-        <p className="bridal-inquiry-header-badge">BRIDAL INQUIRY 2025</p>
+        <p className="bridal-inquiry-header-badge">BRIDAL INQUIRY 2026</p>
         <h1 className="bridal-inquiry-brand">
           <span className="bridal-inquiry-brand-ziva">Ziva</span>
           <span className="bridal-inquiry-brand-ekay"> by Ekay</span>
@@ -68,23 +77,40 @@ const BridalInquiry = () => {
         <p className="bridal-inquiry-tagline">
           Tell us about your special day — every detail helps us craft a truly bespoke experience for you.
         </p>
+        {formData.tier ? (
+          <p className="bridal-inquiry-tier-chip" aria-label={`Selected tier: ${formData.tier}`}>
+            Selected tier: {formData.tier}
+          </p>
+        ) : null}
 
-        <div className="bridal-inquiry-progress">
-          {STEPS.map((s) => (
-            <div
-              key={s.id}
-              className={`bridal-inquiry-progress-step ${step === s.id ? "bridal-inquiry-progress-step--active" : ""}`}
-            >
-              <span className="bridal-inquiry-progress-num">{s.id}</span>
-              <span className="bridal-inquiry-progress-label">{s.label}</span>
-            </div>
-          ))}
-        </div>
+        <nav className="bridal-inquiry-progress" aria-label="Form steps">
+          {STEPS.map((s) => {
+            const isActive = step === s.id;
+            const isComplete = step > s.id;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                className={`bridal-inquiry-progress-step${isActive ? " bridal-inquiry-progress-step--active" : ""}${isComplete ? " bridal-inquiry-progress-step--complete" : ""}`}
+                onClick={() => goToStep(s.id)}
+                aria-current={isActive ? "step" : undefined}
+                aria-label={`${s.label}, step ${s.id} of 5`}
+              >
+                <span className="bridal-inquiry-progress-num" aria-hidden>
+                  {s.id}
+                </span>
+                <span className="bridal-inquiry-progress-label">{s.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+        <p className="bridal-inquiry-progress-hint">Tap any step to jump back and edit.</p>
       </header>
 
       <main className="bridal-inquiry-main">
         <form onSubmit={handleSubmit} className="bridal-inquiry-form">
           <div className="bridal-inquiry-form-card">
+            <input type="hidden" name="tier" value={formData.tier} />
             <p className="bridal-inquiry-step-label">STEP {String(step).padStart(2, "0")} OF 05</p>
 
             {step === 1 && (
@@ -102,16 +128,6 @@ const BridalInquiry = () => {
                       value={formData.firstName}
                       onChange={(e) => updateField("firstName", e.target.value)}
                       placeholder=""
-                      required
-                    />
-                  </div>
-                  <div className="bridal-inquiry-field">
-                    <label htmlFor="lastName">LAST NAME *</label>
-                    <input
-                      id="lastName"
-                      type="text"
-                      value={formData.lastName}
-                      onChange={(e) => updateField("lastName", e.target.value)}
                       required
                     />
                   </div>
@@ -145,16 +161,6 @@ const BridalInquiry = () => {
                       onChange={(e) => updateField("cityCountry", e.target.value)}
                       placeholder="e.g. Accra, Ghana"
                       required
-                    />
-                  </div>
-                  <div className="bridal-inquiry-field">
-                    <label htmlFor="instagram">INSTAGRAM HANDLE</label>
-                    <input
-                      id="instagram"
-                      type="text"
-                      value={formData.instagram}
-                      onChange={(e) => updateField("instagram", e.target.value)}
-                      placeholder="e.g. @username"
                     />
                   </div>
                   <div className="bridal-inquiry-field bridal-inquiry-field--full">
@@ -206,13 +212,12 @@ const BridalInquiry = () => {
                     />
                   </div>
                   <div className="bridal-inquiry-field">
-                    <label htmlFor="guestCount">APPROXIMATE GUEST COUNT</label>
+                    <label htmlFor="weddingTime">CEREMONY OR GET-READY TIME</label>
                     <input
-                      id="guestCount"
-                      type="text"
-                      value={formData.guestCount}
-                      onChange={(e) => updateField("guestCount", e.target.value)}
-                      placeholder="e.g. 100-150"
+                      id="weddingTime"
+                      type="time"
+                      value={formData.weddingTime}
+                      onChange={(e) => updateField("weddingTime", e.target.value)}
                     />
                   </div>
                 </div>
@@ -308,11 +313,24 @@ const BridalInquiry = () => {
             )}
 
             <div className="bridal-inquiry-form-footer">
+              <div className="bridal-inquiry-form-footer-start">
+                {step > 1 && (
+                  <button
+                    type="button"
+                    className="bridal-inquiry-back-step"
+                    onClick={() => goToStep(step - 1)}
+                  >
+                    ← Back
+                  </button>
+                )}
+              </div>
               <span className="bridal-inquiry-form-pagination">{step} of 5</span>
-              <button type="submit" className="bridal-inquiry-submit">
-                {step === 5 ? "Submit" : "Continue"}
-                <HiStar size={14} />
-              </button>
+              <div className="bridal-inquiry-form-footer-end">
+                <button type="submit" className="bridal-inquiry-submit">
+                  {step === 5 ? "Submit" : "Continue"}
+                  <HiStar size={14} />
+                </button>
+              </div>
             </div>
           </div>
         </form>

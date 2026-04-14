@@ -17,7 +17,7 @@ export const projects = [
     id: 3,
     title: "Natural Glam",
     description: "Everyday elegance, subtle enhancement, natural beauty",
-    image: "/models/model3.JPEG",
+    image: "/models/model5.JPEG",
     column: 1,
   },
   {
@@ -27,13 +27,13 @@ export const projects = [
     image: "/models/model4.JPG",
     column: 1,
   },
-  {
-    id: 5,
-    title: "Artistic Makeup",
-    description: "Creative expression, bold looks, artistic transformations",
-    image: "/models/model5.JPEG",
-    column: 1,
-  },
+  // {
+  //   id: 5,
+  //   title: "Artistic Makeup",
+  //   description: "Creative expression, bold looks, artistic transformations",
+  //   image: "/models/model5.JPEG",
+  //   column: 1,
+  // },
   {
     id: 6,
     title: "Professional Makeup",
@@ -41,13 +41,13 @@ export const projects = [
     image: "/models/model6.JPEG",
     column: 1,
   },
-  {
-    id: 7,
-    title: "Special Event Makeup",
-    description: "Party ready, celebration looks, memorable moments",
-    image: "/models/model7.JPEG",
-    column: 1,
-  },
+  // {
+  //   id: 7,
+  //   title: "Special Event Makeup",
+  //   description: "Party ready, celebration looks, memorable moments",
+  //   image: "/models/model7.JPEG",
+  //   column: 1,
+  // },
   {
     id: 8,
     title: "Photoshoot Makeup",

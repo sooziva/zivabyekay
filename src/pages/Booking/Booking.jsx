@@ -3,7 +3,7 @@ import "./Booking.css";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosCalendar, IoIosTime } from "react-icons/io";
 import { HiCheck, HiX } from "react-icons/hi";
-import NavBar from "../../components/NavBar/NavBar";
+import SoozivaHeader from "../../components/SoozivaHeader/SoozivaHeader";
 import Transition from "../../components/Transition/Transition";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -265,7 +265,7 @@ const Booking = () => {
   if (bookingConfirmed) {
     return (
       <div className="booking" ref={bookingRef}>
-        <NavBar />
+        <SoozivaHeader />
         <div className="booking-container">
           <div className="booking-confirmation">
             <div className="confirmation-icon">
@@ -322,7 +322,7 @@ const Booking = () => {
 
   return (
     <div className="booking" ref={bookingRef}>
-      <NavBar />
+      <SoozivaHeader />
       <div className="booking-header">
         <div className="container">
           <div className="booking-header-content">

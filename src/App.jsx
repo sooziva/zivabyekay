@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { ReactLenis } from "@studio-freight/react-lenis";
 
@@ -21,12 +21,31 @@ import Guide from "./pages/Guide/Guide";
 import GuideText from "./pages/Guide/GuideText";
 import Checklist from "./pages/Checklist/Checklist";
 import BridalInquiry from "./pages/BridalInquiry/BridalInquiry";
+import EMA from "./pages/EMA/EMA";
+
+import DashboardLayout from "./dashboard/layout/DashboardLayout";
+import Dashboard from "./dashboard/pages/Dashboard/Dashboard";
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isDashboardSubdomain = window.location.hostname.startsWith("dashboard.");
+    if (isDashboardSubdomain && window.location.pathname === "/") {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate]);
 
   return (
-    <ReactLenis root>
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.08,
+        smoothWheel: false,
+        wheelMultiplier: 1,
+      }}
+    >
       <div className="app">
         <AnimatePresence mode="wait" initial={false}>
           <Routes location={location} key={location.pathname}>
@@ -39,6 +58,7 @@ function App() {
             <Route path="/ekay/about" element={<About />} />
             <Route path="/ekay/weddings" element={<Weddings />} />
             <Route path="/ekay/weddings/inquiry" element={<BridalInquiry />} />
+            <Route path="/ekay/ema" element={<EMA />} />
             <Route path="/ekay/contact" element={<Contact />} />
             <Route path="/education" element={<Education />} />
             <Route path="/education/masterclasses" element={<Masterclasses />} />
@@ -47,6 +67,11 @@ function App() {
             <Route path="/education/resources/guide" element={<Guide />} />
             <Route path="/education/resources/guide-text" element={<GuideText />} />
             <Route path="/education/resources/checklist" element={<Checklist />} />
+
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Route>
           </Routes>
         </AnimatePresence>
       </div>

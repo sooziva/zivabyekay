@@ -8,7 +8,8 @@ const Transition = (OriginalComponent, transitionText = "loading") => {
       document.body.style.overflow = "hidden";
 
       const timeoutId = setTimeout(() => {
-        document.body.style.overflow = "unset";
+        document.body.style.overflow = "";
+        document.body.style.overflowY = "auto";
       }, 1000);
 
       window.scrollTo({
@@ -18,7 +19,8 @@ const Transition = (OriginalComponent, transitionText = "loading") => {
 
       return () => {
         clearTimeout(timeoutId);
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "";
+        document.body.style.overflowY = "";
       };
     }, []);
 

@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 import HeroGradient from "../../components/HeroGradient/HeroGradient";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
-import NavBar from "../../components/NavBar/NavBar";
+import SoozivaHeader from "../../components/SoozivaHeader/SoozivaHeader";
 import Cursor from "../../components/Cursor/Cursor";
 import Transition from "../../components/Transition/Transition";
 
@@ -308,7 +308,7 @@ const Home = () => {
     <ReactLenis root>
       <div className="home">
         <Cursor />
-        <NavBar />
+        <SoozivaHeader />
         <section className="hero" id="hero">
           <div className="container">
             <div className="hero-content">
@@ -344,22 +344,23 @@ const Home = () => {
                       discover their unique style and confidence.
                     </p>
                   </div>
-                  <div className="hero-cta-buttons">
-                    <div className="cta-btn">
-                      <Link to="/booking">
-                        <button>Book Appointment</button>
-                      </Link>
-                    </div>
-                    <div className="cta-btn">
-                      <Link to="/beauty-store">
-                        <button>Shop products</button>
-                      </Link>
-                    </div>
+                </div>
+
+                <div className="hero-cta-buttons">
+                  <div className="cta-btn">
+                    <Link to="/booking">
+                      <button>Book Appointment</button>
+                    </Link>
+                  </div>
+                  <div className="cta-btn">
+                    <Link to="/beauty-store">
+                      <button>Shop products</button>
+                    </Link>
                   </div>
                 </div>
               </div>
 
-              <div className="hero-right">
+              <div className="hero-right hero-video-block">
                 <div className="hero-video-container">
                   <video
                     className="hero-video"
@@ -464,9 +465,7 @@ const Home = () => {
             <p>Trusted by beauty enthusiasts</p>
           </div>
           <div className="cta-header">
-            <h2>
-             Discover luxury beauty services
-            </h2>
+            <h2>Discover luxury beauty services</h2>
           </div>
           <div className="cta-buttons">
             <div className="cta-btn">
@@ -578,6 +577,7 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Special Offers - commented out
         <section className="vouchers" id="vouchers">
           <div className="container">
             <div className="vouchers-header">
@@ -610,6 +610,7 @@ const Home = () => {
             </div>
           </div>
         </section>
+        */}
 
         <section className="manifesto" id="manifesto" ref={manifestoRef}>
           <div className="container">
@@ -739,16 +740,16 @@ const Home = () => {
           <div className="gallery-wrapper">
             <div className="row">
               <div className="img">
-                <img src="/marquee/img1.jpeg" alt="" />
+                <img src="/models/model1.JPEG" alt="" />
               </div>
               <div className="img">
                 <img src="/models/model1.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/marquee/img3.jpeg" alt="" />
+                <img src="/models/model8.JPEG" alt="" />
               </div>
               <div className="img">
-                <img src="/models/model2.JPEG" alt="Model Portfolio" />
+                <img src="/models/model12.JPEG" alt="Model Portfolio" />
               </div>
             </div>
             <div className="row">
@@ -756,18 +757,18 @@ const Home = () => {
                 <img src="/models/model3.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/marquee/img6.jpeg" alt="" />
+                <img src="/models/model12.JPEG" alt="" />
               </div>
               <div className="img">
-                <img src="/models/model4.JPG" alt="Model Portfolio" />
+                <img src="/models/model4.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/marquee/img8.jpeg" alt="" />
+                <img src="/models/model4.JPEG" alt="" />
               </div>
             </div>
             <div className="row">
               <div className="img">
-                <img src="/marquee/img9.jpeg" alt="" />
+                <img src="/models/model9.JPEG" alt="" />
               </div>
               <div className="img">
                 <img src="/models/model5.JPEG" alt="Model Portfolio" />
@@ -776,7 +777,7 @@ const Home = () => {
                 <img src="/models/model6.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/marquee/img12.jpeg" alt="" />
+                <img src="/models/model12.JPEG" alt="" />
               </div>
             </div>
             <div className="row">
@@ -784,7 +785,7 @@ const Home = () => {
                 <img src="/models/model7.JPEG" alt="Model Portfolio" />
               </div>
               <div className="img">
-                <img src="/marquee/img14.jpeg" alt="" />
+                <img src="/models/model3.JPEG" alt="" />
               </div>
               <div className="img">
                 <img src="/models/model9.JPEG" alt="Model Portfolio" />
@@ -795,7 +796,7 @@ const Home = () => {
             </div>
             <div className="row">
               <div className="img">
-                <img src="/marquee/img15.jpeg" alt="" />
+                <img src="/models/model11.JPEG" alt="" />
               </div>
               <div className="img">
                 <img src="/models/model11.JPEG" alt="Model Portfolio" />

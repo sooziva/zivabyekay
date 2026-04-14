@@ -4,7 +4,7 @@ import { beautyProducts, categories } from "./products";
 import { HiShoppingBag, HiHeart, HiStar, HiX } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar";
+import SoozivaHeader from "../../components/SoozivaHeader/SoozivaHeader";
 import Transition from "../../components/Transition/Transition";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -103,7 +103,7 @@ const BeautyStore = () => {
 
   return (
     <div className="beauty-store">
-      <NavBar />
+      <SoozivaHeader />
       
       <div className="store-header">
         <div className="container">

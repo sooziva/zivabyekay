@@ -55,7 +55,22 @@
   line-height: 1.5;
 }
 
-/* Progress */
+.bridal-inquiry-tier-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(221, 200, 182, 0.32);
+  background: rgba(221, 200, 182, 0.1);
+  color: #f3e6dc;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  margin: -0.75rem auto 1.35rem;
+  max-width: 90vw;
+}
+
+/* Progress — clickable steps to jump and edit */
 .bridal-inquiry-progress {
   display: flex;
   flex-wrap: wrap;
@@ -63,10 +78,39 @@
   gap: 0.5rem 1.5rem;
 }
 
-.bridal-inquiry-progress-step {
+.bridal-inquiry-progress-hint {
+  font-size: 0.72rem;
+  color: #777;
+  margin: 1rem 0 0;
+  letter-spacing: 0.04em;
+}
+
+button.bridal-inquiry-progress-step {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0.4rem 0.55rem;
+  margin: -0.4rem -0.55rem;
+  cursor: pointer;
+  border-radius: 10px;
+  font: inherit;
+  color: inherit;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.bridal-inquiry-progress-step:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bridal-inquiry-progress-step:focus-visible {
+  outline: 2px solid #ddc8b6;
+  outline-offset: 3px;
+}
+
+.bridal-inquiry-progress-step:active {
+  transform: scale(0.98);
 }
 
 .bridal-inquiry-progress-num {
@@ -80,6 +124,12 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: #fff;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bridal-inquiry-progress-step--complete .bridal-inquiry-progress-num {
+  background: rgba(221, 200, 182, 0.45);
+  color: #1a1a1a;
 }
 
 .bridal-inquiry-progress-step--active .bridal-inquiry-progress-num {
@@ -92,6 +142,11 @@
   font-weight: 600;
   letter-spacing: 0.15em;
   color: #888;
+  transition: color 0.2s ease;
+}
+
+.bridal-inquiry-progress-step--complete .bridal-inquiry-progress-label {
+  color: #aaa;
 }
 
 .bridal-inquiry-progress-step--active .bridal-inquiry-progress-label {
@@ -206,17 +261,58 @@
 
 /* Form footer */
 .bridal-inquiry-form-footer {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(5rem, 1fr) auto minmax(5rem, 1fr);
   align-items: center;
-  justify-content: space-between;
+  gap: 0.75rem 1rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e8e4dc;
 }
 
+.bridal-inquiry-form-footer-start {
+  justify-self: start;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.bridal-inquiry-form-footer-end {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+}
+
+.bridal-inquiry-back-step {
+  background: none;
+  border: 1px solid #c4bdb4;
+  color: #444;
+  padding: 0.65rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.bridal-inquiry-back-step:hover {
+  background: #fff;
+  border-color: #a0988c;
+  color: #1a1a1a;
+}
+
+.bridal-inquiry-back-step:focus-visible {
+  outline: 2px solid #ddc8b6;
+  outline-offset: 2px;
+}
+
 .bridal-inquiry-form-pagination {
   font-size: 0.8rem;
   color: #888;
+  justify-self: center;
+  text-align: center;
 }
 
 .bridal-inquiry-submit {
@@ -289,12 +385,34 @@
   }
 
   .bridal-inquiry-form-footer {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .bridal-inquiry-form-pagination {
+    order: 1;
+    justify-self: center;
+  }
+
+  .bridal-inquiry-form-footer-start {
+    order: 2;
+    justify-self: stretch;
+    min-height: 0;
+  }
+
+  .bridal-inquiry-back-step {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bridal-inquiry-form-footer-end {
+    order: 3;
+    justify-self: stretch;
+    width: 100%;
   }
 
   .bridal-inquiry-submit {
+    width: 100%;
     justify-content: center;
   }
 }

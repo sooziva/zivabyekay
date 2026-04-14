@@ -1,0 +1,144 @@
+/* Sooziva header - Ekay-style design */
+.sooziva-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  background: #fff;
+  padding: 1.25em 2em 1em;
+  border-bottom: 1px solid #eee;
+}
+
+.sooziva-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sooziva-header-icon {
+  background: none;
+  border: none;
+  padding: 0.5em;
+  color: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sooziva-header-icon:hover {
+  opacity: 0.7;
+}
+
+.sooziva-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.sooziva-logo {
+  text-decoration: none;
+  color: #1a1a1a;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sooziva-logo-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.sooziva-logo-tagline {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-top: 0.15em;
+}
+
+.sooziva-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 1.25em;
+  padding-top: 0.75em;
+}
+
+.sooziva-nav-link {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 400;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.sooziva-nav-link:hover {
+  border-bottom-color: #1a1a1a;
+}
+
+@media (max-width: 900px) {
+  .sooziva-header {
+    padding: 1em 1.25em 0.75em;
+  }
+
+  .sooziva-nav {
+    gap: 1.5em;
+    margin-top: 1em;
+    padding-top: 0.75em;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .sooziva-nav-link {
+    font-size: 1.1rem;
+  }
+
+  .sooziva-logo-name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sooziva-header {
+    padding: 0.85em 1em 0.6em;
+  }
+
+  .sooziva-header-inner {
+    padding: 0;
+  }
+
+  .sooziva-nav {
+    gap: 1.25em;
+    margin-top: 0.85em;
+    padding-top: 0.6em;
+  }
+
+  .sooziva-nav-link {
+    font-size: 1rem;
+  }
+
+  .sooziva-logo-name {
+    font-size: 1.35rem;
+  }
+
+  .sooziva-logo-tagline {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
+  .sooziva-header-icon {
+    padding: 0.35em;
+  }
+}

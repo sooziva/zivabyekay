@@ -135,6 +135,7 @@ const Checklist = () => {
           <Link to="/ekay/about" className="ekay-nav-link">About</Link>
           <Link to="/ekay/weddings" className="ekay-nav-link">Weddings</Link>
           <Link to="/education" className="ekay-nav-link active">Education</Link>
+          <Link to="/ekay/ema" className="ekay-nav-link">EMA</Link>
           <Link to="/ekay/contact" className="ekay-nav-link">Contact</Link>
         </nav>
       </header>
