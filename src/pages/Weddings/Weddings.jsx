@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart, IoIosHeart } from "react-icons/io";
 import Transition from "../../components/Transition/Transition";
@@ -72,7 +72,7 @@ const SERVICE_TIERS = [
     ],
   },
   {
-    id: "ivoire (package) - 2 separate affairs",
+    id: "ivoire",
     roman: "III",
     name: "Ivoire",
     subtitle: "2hr 30 mins per day",
@@ -139,7 +139,75 @@ const SERVICE_TIERS = [
   },
 ];
 
-const TIERS_BG_IMAGES = ["/ekay/bridal1.JPG", "/ekay/bridal1.JPG"];
+/**
+ * Tier card images on the Weddings “Service tiers” section (split layout).
+ * — Keys must match `SERVICE_TIERS[].id`.
+ * — Put files in `public/ekay/` and reference as `/ekay/your-file.jpg`.
+ * — If a tier id is missing, `WEDDINGS_TIER_CARD_FALLBACK` is used.
+ */
+const WEDDINGS_TIER_CARD_MEDIA = {
+  celeste: {
+    src: "/ekay/IMG_0589.jpg",
+    alt: "Bridal makeup — Céleste package",
+  },
+  "la-mariee": {
+    src: "/ekay/IMG_0584.jpg",
+    alt: "Bridal makeup — La Mariée package",
+  },
+  ivoire: {
+    src: "/ekay/IMG_0578.jpg",
+    alt: "Bridal makeup — Ivoire package",
+  },
+  "grand-affair": {
+    src: "/ekay/IMG_0582.jpg",
+    alt: "Bridal makeup — Grand Affair package",
+  },
+  "couture-day": {
+    src: "/ekay/IMG_0583.jpg",
+    alt: "Bridal makeup — The Couture Day package",
+  },
+  "voyage-edit": {
+    src: "/ekay/bridal5.jpg",
+    alt: "Bridal makeup — The Voyage Edit travel package",
+  },
+};
+
+const WEDDINGS_TIER_CARD_FALLBACK = {
+  src: "/ekay/bridal2.JPG",
+  alt: "Bridal makeup — Ziva by Ekay",
+};
+
+function getWeddingsTierCardMedia(tier, displayTitle) {
+  const row = WEDDINGS_TIER_CARD_MEDIA[tier.id];
+  return {
+    src: row?.src ?? WEDDINGS_TIER_CARD_FALLBACK.src,
+    alt: row?.alt ?? `${displayTitle} — bridal package`,
+  };
+}
+
+const WEDDINGS_HERO_SLIDES = [
+  {
+    id: "hero-celeste",
+    image: "/ekay/bridal.JPG",
+    eyebrow: "Bridal beauty with Ziva by Ekay",
+    title: "Soft Timeless Bridal Beauty",
+    tierId: "celeste",
+  },
+  {
+    id: "hero-la-mariee",
+    image: "/ekay/IMG_8637.JPG",
+    eyebrow: "Two looks, one unforgettable day",
+    title: "La Mariée",
+    tierId: "la-mariee",
+  },
+  {
+    id: "hero-grand-affair",
+    image: "/ekay/IMG_8638.JPG",
+    eyebrow: "Your celebration, fully yours",
+    title: "The Grand Affair",
+    tierId: "grand-affair",
+  },
+];
 
 const TESTIMONIALS = [
   {
@@ -338,6 +406,31 @@ const Weddings = () => {
     email: "",
   });
   const [sigSubmitted, setSigSubmitted] = useState(false);
+  const [heroSlide, setHeroSlide] = useState(0);
+  const [legalModal, setLegalModal] = useState(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return undefined;
+    const id = window.setInterval(() => {
+      setHeroSlide((s) => (s + 1) % WEDDINGS_HERO_SLIDES.length);
+    }, 6500);
+    return () => window.clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    if (!legalModal) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setLegalModal(null);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [legalModal]);
 
   const handleSignatureSubmit = (e) => {
     e.preventDefault();
@@ -382,7 +475,51 @@ const Weddings = () => {
         </nav>
       </header>
 
-      <main id="main-content" className="weddings-main" tabIndex={-1}>
+      <main id="main-content" className="weddings-page-main" tabIndex={-1}>
+        <section
+          className="weddings-hero"
+          aria-roledescription="carousel"
+          aria-label="Bridal highlights"
+        >
+          <div className="weddings-hero-slides">
+            {WEDDINGS_HERO_SLIDES.map((slide, i) => (
+              <div
+                key={slide.id}
+                className={`weddings-hero-slide${i === heroSlide ? " weddings-hero-slide--active" : ""}`}
+                style={{ backgroundImage: `url("${slide.image}")` }}
+                aria-hidden={i !== heroSlide}
+              >
+                <div className="weddings-hero-overlay" aria-hidden />
+                <div className="weddings-hero-content">
+                  <p className="weddings-hero-eyebrow">{slide.eyebrow}</p>
+                  <h1 className="weddings-hero-title">{slide.title}</h1>
+                  <div className="weddings-hero-line" aria-hidden />
+                  <Link
+                    to={`/ekay/weddings/inquiry?tier=${encodeURIComponent(slide.tierId)}`}
+                    className="weddings-hero-cta"
+                  >
+                    Book bridal experience
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="weddings-hero-controls" role="tablist" aria-label="Hero slides">
+            {WEDDINGS_HERO_SLIDES.map((slide, i) => (
+              <button
+                key={slide.id}
+                type="button"
+                role="tab"
+                className={`weddings-hero-dot${i === heroSlide ? " weddings-hero-dot--active" : ""}`}
+                aria-selected={i === heroSlide}
+                aria-label={`Slide ${i + 1}: ${slide.title}`}
+                onClick={() => setHeroSlide(i)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <div className="weddings-main">
         {/* <section className="weddings-intro" aria-label="Weddings introduction">
           <h1 className="weddings-title">Weddings</h1>
           <p className="weddings-lead">
@@ -444,8 +581,16 @@ const Weddings = () => {
 
         <section className="weddings-note" id="note" aria-labelledby="note-heading">
           <div className="weddings-note-inner">
-            <div className="weddings-note-image-wrap">
-              <img src="/ekay/bridal5.jpg" alt="Ekay Gabriel, bridal makeup artist" loading="lazy" />
+            <div className="weddings-note-image-wrap weddings-note-image-wrap--video">
+              <video
+                className="weddings-note-video"
+                src="/ekay/bridal.MP4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label="Ekay Gabriel, bridal makeup artist"
+              />
             </div>
             <div className="weddings-note-copy">
               <header className="weddings-note-header">
@@ -460,27 +605,108 @@ const Weddings = () => {
                 </div>
               </header>
               <p>
-              I started this journey with the believe that every woman,on every skin tone, in every shape and size
-              deserves to feel like the most beautiful version of herself on her wedding day. Not a version curated for the camera. 
-              but Her, Alive. Glowing. Undeniable.
-
+                I started this journey with the belief that every woman, on every skin tone, in every shape and size
+                deserves to feel like the most beautiful version of herself on her wedding day. Not a version curated for the
+                camera. but Her, Alive. Glowing. Undeniable.
               </p>
               <p>
-              I have spent years perfecting my bridalcraft, studying skin, and mastering the balance between longevity and luminosity 
-              so that when you sit in my chair, you do not have to worry about anything except the love waiting for you at the end of the aisle. we take on a limited number of weddings each year. 
-              Intentionally. Because your wedding is not just a booking on the calendar to us,it is a covenant we make with you. our full attention. our full heart. and our full artistry. Always.
-
-
+                I have spent years perfecting my bridalcraft, studying skin, and mastering the balance between longevity and
+                luminosity so that when you sit in my chair, you do not have to worry about anything except the love waiting
+                for you at the end of the aisle. we take on a limited number of weddings each year. Intentionally. Because
+                your wedding is not just a booking on the calendar to us, it is a covenant we make with you. our full attention.
+                our full heart. and our full artistry. Always.
               </p>
               <p>
-              I cannot wait to meet you, to hear about your vision, your story, the tiny details that make your love completely your own.
+                I cannot wait to meet you, to hear about your vision, your story, the tiny details that make your love
+                completely your own.
               </p>
-
-              <p>Thank you for considering us. It is a privilege we do not take lightly, not for a single moment.</p>
+              <p>
+                Thank you for considering us. It is a privilege we do not take lightly, not for a single moment.
+              </p>
               <footer className="weddings-note-footer">
                 <p className="weddings-note-signoff">— Ekay Gabriel</p>
               </footer>
             </div>
+          </div>
+        </section>
+
+        <section className="weddings-tiers" id="tiers" aria-labelledby="tiers-heading">
+          <span className="weddings-tiers-icon" aria-hidden>◆</span>
+          <h2 id="tiers-heading" className="weddings-section-title weddings-section-title--rate-card">
+            Service tiers &amp; investment
+          </h2>
+          <p className="weddings-tiers-intro">
+            Each tier has been thoughtfully designed to meet you exactly where you are.
+          </p>
+          <div className="weddings-tier-stack">
+            {SERVICE_TIERS.map((tier, index) => {
+              const displayTitle =
+                typeof tier.name === "string" && tier.name.includes("(")
+                  ? tier.name.split("(")[0].trim()
+                  : tier.name;
+              const { src: imgSrc, alt: imgAlt } = getWeddingsTierCardMedia(tier, displayTitle);
+              const mirrorLayout = index % 2 === 1;
+
+              return (
+                <article
+                  key={tier.id}
+                  className={`weddings-tier-card weddings-tier-card--split${
+                    mirrorLayout ? " weddings-tier-card--split-mirror" : ""
+                  }${tier.highlight ? " weddings-tier-card--featured" : ""}`}
+                >
+                  <div className="weddings-tier-card-media">
+                    <img src={imgSrc} alt={imgAlt} loading="lazy" />
+                  </div>
+                  <div className="weddings-tier-card-main">
+                    {tier.highlight ? (
+                      <span className="weddings-tier-ribbon weddings-tier-ribbon--split">Most booked</span>
+                    ) : null}
+                    <div className="weddings-tier-card-body">
+                      <p className="weddings-tier-card-roman" aria-hidden>
+                        {tier.roman}
+                      </p>
+                      <h3 className="weddings-tier-card-title">{displayTitle}</h3>
+                      <p className="weddings-tier-card-kicker">{tier.subtitle}</p>
+                      {tier.description ? (
+                        <div className="weddings-tier-card-copy">
+                          {tier.description.map((para) => (
+                            <p key={para}>{para}</p>
+                          ))}
+                        </div>
+                      ) : null}
+                      {tier.bullets?.length ? (
+                        <ul className="weddings-tier-list weddings-tier-list--split">
+                          {tier.bullets.map((b) => (
+                            <li key={b}>{b}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
+                    <div className="weddings-tier-card-foot">
+                      <p
+                        className="weddings-tier-card-invest-line"
+                        aria-label={`Investment: ${tier.investment}`}
+                      >
+                        <span className="weddings-tier-card-invest-prefix">Investment</span>
+                        <span className="weddings-tier-card-invest-sep" aria-hidden>
+                          :{" "}
+                        </span>
+                        <span className="weddings-tier-card-invest-amount">{tier.investment}</span>
+                      </p>
+                      {tier.investmentNote ? (
+                        <p className="weddings-tier-card-invest-note">{tier.investmentNote}</p>
+                      ) : null}
+                      <Link
+                        to={`/ekay/weddings/inquiry?tier=${encodeURIComponent(tier.id)}`}
+                        className="weddings-tier-card-cta"
+                      >
+                        Book package
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -513,83 +739,6 @@ const Weddings = () => {
             </ul>
           </div> */}
           <div className="weddings-experience-rule" aria-hidden />
-        </section>
-
-        <section className="weddings-tiers" id="tiers" aria-labelledby="tiers-heading">
-          <span className="weddings-tiers-icon" aria-hidden>◆</span>
-          <h2 id="tiers-heading" className="weddings-section-title weddings-section-title--rate-card">
-            Service tiers &amp; investment
-          </h2>
-          <p className="weddings-tiers-intro">
-            Each tier has been thoughtfully designed to meet you exactly where you are.
-          </p>
-          <div className="weddings-tiers-groups">
-            {[0, 1].map((groupIndex) => {
-              const start = groupIndex * 3;
-              const tiers = SERVICE_TIERS.slice(start, start + 3);
-              if (!tiers.length) return null;
-
-              const bg = TIERS_BG_IMAGES[groupIndex % TIERS_BG_IMAGES.length];
-
-              return (
-                <div
-                  key={`tier-group-${groupIndex}`}
-                    className="weddings-tiers-group weddings-tiers-group--glass"
-                  style={{ "--tiers-bg": `url("${bg}")` }}
-                >
-                  <div className="weddings-tiers-grid">
-                    {tiers.map((tier) => (
-                      <div
-                        key={tier.id}
-                        className={`weddings-tier-card${tier.highlight ? " weddings-tier-card--featured" : ""}`}
-                      >
-                        {tier.highlight && <span className="weddings-tier-ribbon">Most booked</span>}
-                        <div className="weddings-tier-header">
-                          <span className="weddings-tier-roman">{tier.roman}</span>
-                          <div className="weddings-tier-titles">
-                            <h3 className="weddings-tier-name">{tier.name}</h3>
-                            <p className="weddings-tier-subtitle">{tier.subtitle}</p>
-                          </div>
-                        </div>
-                        {tier.description ? (
-                          <>
-                            <div className="weddings-tier-desc">
-                              {tier.description.map((para) => (
-                                <p key={para}>{para}</p>
-                              ))}
-                            </div>
-                            {tier.bullets?.length ? (
-                              <ul className="weddings-tier-list">
-                                {tier.bullets.map((b) => (
-                                  <li key={b}>{b}</li>
-                                ))}
-                              </ul>
-                            ) : null}
-                          </>
-                        ) : (
-                          <ul className="weddings-tier-list">
-                            {tier.bullets.map((b) => (
-                              <li key={b}>{b}</li>
-                            ))}
-                          </ul>
-                        )}
-                        <div className="weddings-tier-price-block">
-                          <p className="weddings-tier-investment">{tier.investment}</p>
-                          <p className="weddings-tier-investment-note">{tier.investmentNote}</p>
-                        </div>
-                        <Link
-                          to={`/ekay/weddings/inquiry?tier=${encodeURIComponent(tier.id)}`}
-                          className="weddings-cta weddings-cta--block"
-                        >
-                          Book package
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </section>
 
         {/*
@@ -656,51 +805,115 @@ const Weddings = () => {
           </div>
         </section>
 
-        <section className="weddings-legal" id="agreement" aria-labelledby="agreement-heading">
-          <h2 id="agreement-heading" className="weddings-section-title">Client service agreement</h2>
-          <p className="weddings-legal-intro">
-            The following reflects the agreement provided with your booking. Your signed contract may include additional
-            dates, fees, and specifics.
+        <section className="weddings-legal-triggers" id="legal-documents" aria-labelledby="legal-triggers-heading">
+          <h2 id="legal-triggers-heading" className="weddings-section-title">
+            Client service agreement &amp; terms
+          </h2>
+          <p className="weddings-legal-triggers-intro">
+            Read the full summaries here. Your signed contract may include additional dates, fees, and specifics.
           </p>
-          <div className="weddings-legal-box" tabIndex={0}>
-            <p className="weddings-legal-contract-intro">{CLIENT_SERVICE_AGREEMENT.intro}</p>
-            {CLIENT_SERVICE_AGREEMENT.sections.map((sec) => (
-              <div key={sec.id} className="weddings-legal-section">
-                <h3 className="weddings-legal-section-title">{sec.title}</h3>
-                {sec.paragraphs?.map((para) => (
-                  <p key={para}>{para}</p>
-                ))}
-                {sec.list && (
-                  <ul className="weddings-legal-list">
-                    {sec.list.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                )}
-                {sec.afterList && <p>{sec.afterList}</p>}
-              </div>
-            ))}
+          <div className="weddings-legal-triggers-row">
+            <button
+              type="button"
+              className="weddings-legal-open-btn"
+              onClick={() => setLegalModal("agreement")}
+            >
+              View client service agreement
+            </button>
+            <button
+              type="button"
+              className="weddings-legal-open-btn"
+              onClick={() => setLegalModal("terms")}
+            >
+              View terms &amp; conditions
+            </button>
           </div>
         </section>
 
-        <section className="weddings-legal" id="terms" aria-labelledby="terms-heading">
-          <h2 id="terms-heading" className="weddings-section-title">Terms &amp; conditions</h2>
-          <p className="weddings-legal-intro">
-            Additional terms that apply together with your client service agreement and quote.
-          </p>
-          <div className="weddings-legal-box" tabIndex={0}>
-            {TERMS_AND_CONDITIONS.map((term) => (
-              <div key={term.id} className="weddings-legal-term">
-                <h3 className="weddings-legal-term-title">{term.title}</h3>
-                <p>{term.text}</p>
+        {legalModal ? (
+          <div
+            className="weddings-modal-backdrop"
+            role="presentation"
+            onClick={() => setLegalModal(null)}
+          >
+            <div
+              className="weddings-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={
+                legalModal === "agreement" ? "weddings-modal-agreement-title" : "weddings-modal-terms-title"
+              }
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="weddings-modal-header">
+                {legalModal === "agreement" ? (
+                  <h2 id="weddings-modal-agreement-title" className="weddings-modal-title">
+                    Client service agreement
+                  </h2>
+                ) : (
+                  <h2 id="weddings-modal-terms-title" className="weddings-modal-title">
+                    Terms &amp; conditions
+                  </h2>
+                )}
+                <button
+                  type="button"
+                  className="weddings-modal-close"
+                  onClick={() => setLegalModal(null)}
+                  aria-label="Close dialog"
+                >
+                  ×
+                </button>
               </div>
-            ))}
-            <p className="weddings-legal-contact">
-              This page does not replace your signed contract. For questions, contact{" "}
-              <a href="mailto:hello@zivabyekay.com">hello@zivabyekay.com</a>.
-            </p>
+              <div className="weddings-modal-body">
+                {legalModal === "agreement" ? (
+                  <>
+                    <p className="weddings-legal-intro weddings-legal-intro--modal">
+                      The following reflects the agreement provided with your booking. Your signed contract may include
+                      additional dates, fees, and specifics.
+                    </p>
+                    <div className="weddings-legal-box weddings-legal-box--modal" tabIndex={0}>
+                      <p className="weddings-legal-contract-intro">{CLIENT_SERVICE_AGREEMENT.intro}</p>
+                      {CLIENT_SERVICE_AGREEMENT.sections.map((sec) => (
+                        <div key={sec.id} className="weddings-legal-section">
+                          <h3 className="weddings-legal-section-title">{sec.title}</h3>
+                          {sec.paragraphs?.map((para) => (
+                            <p key={para}>{para}</p>
+                          ))}
+                          {sec.list && (
+                            <ul className="weddings-legal-list">
+                              {sec.list.map((item) => (
+                                <li key={item}>{item}</li>
+                              ))}
+                            </ul>
+                          )}
+                          {sec.afterList && <p>{sec.afterList}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="weddings-legal-intro weddings-legal-intro--modal">
+                      Additional terms that apply together with your client service agreement and quote.
+                    </p>
+                    <div className="weddings-legal-box weddings-legal-box--modal" tabIndex={0}>
+                      {TERMS_AND_CONDITIONS.map((term) => (
+                        <div key={term.id} className="weddings-legal-term">
+                          <h3 className="weddings-legal-term-title">{term.title}</h3>
+                          <p>{term.text}</p>
+                        </div>
+                      ))}
+                      <p className="weddings-legal-contact">
+                        This page does not replace your signed contract. For questions, contact{" "}
+                        <a href="mailto:hello@zivabyekay.com">hello@zivabyekay.com</a>.
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </section>
+        ) : null}
 
         <section className="weddings-signature" id="signature" aria-labelledby="signature-heading">
           <h2 id="signature-heading" className="weddings-section-title">Agreement acknowledgement</h2>
@@ -796,6 +1009,7 @@ const Weddings = () => {
             })}
           </div>
         </section>
+        </div>
       </main>
 
       <footer className="weddings-footer">
