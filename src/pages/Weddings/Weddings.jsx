@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart, IoIosHeart } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
+import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart, IoIosHeart, IoIosCopy } from "react-icons/io";
 import "../KellsieBain/KellsieBain.css";
 import "./Weddings.css";
 
@@ -48,95 +47,124 @@ const SERVICE_TIERS = [
   {
     id: "celeste",
     roman: "I",
-    name: "Céleste (package) - 1 day affair ",
-    subtitle: "2hr 30mins on site",
-    investment: "Inquire",
-    investmentNote: "Starting investment",
+    name: "Céleste - 1 day event",
+    subtitle: "2hrs 30mins on site",
+    investment: "GHS 3,950",
+    investmentNote: "The version of you, you always wanted to see.",
     description: [
-    
-      "The Céleste package is a bridal experience built on the belief that the most beautiful version of you already exists.",
-      "Your skin, your features, your energy, that’s where this look begins.",
-      "Skin is deeply prepped, massage and nourished for a finish that’s luminous, and alive. From there, the look is yours, finalizing with a soft and timeless finish",
+      "The Céleste package is for the bride who yearns a seamless experience, ensuring she looks radiant and flawless.",
+      "This package is suitable for your engagement, wedding, Muslim wedding or court wedding.",
+    ],
+    bullets: [
+      "Virtual consultations",
+      "Skin is deeply prepped, massage and nourished for a finish that's luminous, and alive.",
+      "Detailed makeup application, finalizing with a soft and timeless finish.",
+      "Bridal touch up kit",
+  
     ],
   },
   {
     id: "la-mariee",
     roman: "II",
-    name: "La Mariée (package) - 2 events in 1 day",
-    subtitle: "2hr for  each event",
-    investment: "Inquire",
-    investmentNote: "Starting investment",
+    name: "LA MARIÉE - 2 looks same day",
+    subtitle: "2hrs each",
+    investment: "GHS 6,500",
+    investmentNote: "Made to be remembered",
     description: [
-      "enjoy the luxury of 2 unique bridal looks tailored to each segment of your big day. Starting off with an in-depth skin prep for a flawless canvas. Before I proceed to create a luxurious makeup look that celebrates your unique style and personality.",
-      "From rich, saturated tones to soft, understated finishes, every look is tailored around your vision. As you move from your traditional ceremony into your white wedding, I’ll refresh and elevate your look so you feel effortless and radiant from the aisle to the very last dance. Promising a picture perfect finish.",
+      "Enjoy the luxury of 2 unique bridal looks tailored to each segments of your event.",
+    ],
+    bullets: [
+      "Virtual consultation",
+      "In-depth skin prep with a relaxing massage",
+      "Seamless bridal transition for two separate looks, 2 hours per event",
+      "Looks tailored to your traditional and white or reception look",
+      "Bridal touch up Kit",
+      "A dedicated team on standby for touch-ups any beauty emergencies throughout the day",
+      
     ],
   },
   {
     id: "ivoire",
     roman: "III",
-    name: "Ivoire",
-    subtitle: "2hr 30 mins per day",
-    investment: "Inquire",
-    investmentNote: "Starting investment",
+    name: "IVORY - 2 looks different days",
+    subtitle: "2HR 30 MINS PER DAY",
+    investment: "GHS 7,500",
+    investmentNote: "Beauty that lives in every photograph. Every memory. Forever.",
     description: [
-      "Two days, two looks  each one detailed, intentional, and entirely yours.",
-      "Day One — Traditional Ceremony",
-      "Your traditional look is crafted to honour the occasion and complement the richness of your Kente. Bold, radiant, and deeply personal. Making sure you look regal and Queenly.",
+      "Two days, two looks each one detailed, intentional, and entirely yours.",
+      "Day One- Traditional Ceremony",
+      "Your traditional look is crafted to honour the occasion and complement the richness of your Kente.",
       "Day Two — White Wedding",
-      "As you walk down the aisle, your look shifts into something softer, luminous, romantic, and quietly breathtaking. Elegance without effort. Beauty that stays with you from the first kiss to the final dance.",
+      "As you walk down the aisle, your look shifts into something softer, luminous, romantic, and quietly breathtaking. Elegance without effort.",
+    ],
+    bullets: [
+      "Everything in above package",
+      "A dedicated team on standby for touch-ups any beauty emergencies throughout the day",
     ],
   },
   {
     id: "grand-affair",
     roman: "IV",
-    name: "Grand affair",
+    name: "Grand Affair",
     subtitle: "full day package",
-    investment: "14,000 cedis",
-    investmentNote: "Investment",
+    investment: "$1200",
+    investmentNote: "Stand by presence to refresh your looks to ensure Beauty outlasts the day. ",
     description: [
-      "Your events deserve more than a single look, you deserve an entire experience. The Grand Affair is a full-day package designed for the bride who wants her  beauty to be celebrated in different tones, looks that evolves alongside every moment of her celebration. From the first look to the final hour, I’m on-site with you refreshing, adjusting, and creating with no creative limits and no corners cut. This closes all future bookings, so the day is completely yours.",
+      "Your events deserve more than a single look, you deserve an entire experience. The Grand Affair is a full-day package designed for the bride who wants her beauty to be celebrated in different tones and looks that evolves alongside every moment of her celebration.",
+      "From the first look to the final hour, I’m on-site with you refreshing, adjusting, and creating with no creative limits. This closes off all future bookings, so the day is completely yours.",
       "What’s included:",
     ],
     bullets: [
-      "Up to 8 hours of on-site presence",
+      "Up to 9 hours of on-site presence",
       "Multiple curated looks across your event",
       "A dedicated team on standby for touch-ups and beauty emergencies throughout the day",
     ],
   },
   {
-    id: "couture-day",
-    roman: "V",
-    name: "The Couture Day",
-    subtitle: "The Premium Experience",
-    investment: "$2,200",
-    investmentNote: "When only exceptional will do",
-    bullets: [
-      "Everything in The Grand Affair",
-      "Dedicated second makeup artist on the team",
-      "Bridal trial session fully included",
-      "Full editorial glam — no limits on creativity",
-      "Pre-application hydration treatment & facial massage",
-      "Bespoke look curation board created just for you",
-      "Up to 10 hours on-site",
-    ],
-  },
-  {
     id: "voyage-edit",
     roman: "VI",
-    name: "The Voyage Edit",
+    name: "The voyage Bride",
     subtitle: "Travel package",
-    investment: "prices quoted in package",
-    investmentNote: "please read travel terms & conditions",
+    investment: "Inquire",
+    investmentNote: "Transportation and hotel to be taken care of by the bride.",
     description: [
-      "If your celebration is taking place outside Accra entirely. this Travel Package will bring the full experience directly to you. Every detail is handled with the same precision and intentionality you’d expect on home ground, wherever in the world your day unfolds.",
+      "For the Ziva bride whose celebration is taking place outside Accra entirely. this Travel Package will bring the full experience directly to you. Every detail is handled with the same precision and intentionality you’d expect on home ground, wherever your day unfolds.",
     ],
     bullets: [
       "on-site presence of upto 3hrs with a same day return - 5000 cedis",
       "Full service for multiple days is billed individually as a full day service.",
       "Each day - 10000 cedis",
-      "Full onsite presence for up to 12 hrs each day.",
     ],
   },
+];
+
+const WEDDINGS_ADD_ONS = [
+  {
+    id: "consultation-before-booking",
+    title: "Bridal Consultation before booking",
+    price: "GHS 700.00",
+  },
+  {
+    id: "trial-in-studio",
+    title: "Pre-Wedding Makeup / Bridal Trial In-Studio",
+    price: "GHS 1500.00",
+  },
+  {
+    id: "trial-location",
+    title:
+      "Pre-Wedding Makeup / Bridal Trial Location of Choice within Accra/ out of Accra excludes flight or transport fares",
+    price: "GHS 2,200.00 / GHS 3,500.00",
+  },
+  {
+    id: "look-swap",
+    title: "look swap for reception (for Ziva  brides who are not booking full day service)",
+    price: "GHS 2000.00",
+  },
+  { id: "stay-on-per-hour", title: "Stay on per hour", price: "GHS 1000.00" },
+  { id: "extra-head", title: "Makeup for an Extra head", price: "GHS 1500.00" },
+  { id: "delay-fee", title: "Delay fee", price: "750 cedis per 30 mins" },
+  { id: "bridesmaids-with-bride", title: "Bridesmaid including Bride", price: "900 cedis each" },
+  { id: "bridesmaids-without-bride", title: "Brides maid without bride", price: "1400 cedis each" },
 ];
 
 /**
@@ -162,10 +190,6 @@ const WEDDINGS_TIER_CARD_MEDIA = {
     src: "/ekay/IMG_0582.jpg",
     alt: "Bridal makeup — Grand Affair package",
   },
-  "couture-day": {
-    src: "/ekay/IMG_0583.jpg",
-    alt: "Bridal makeup — The Couture Day package",
-  },
   "voyage-edit": {
     src: "/ekay/bridal5.jpg",
     alt: "Bridal makeup — The Voyage Edit travel package",
@@ -190,7 +214,7 @@ const WEDDINGS_HERO_SLIDES = [
     id: "hero-celeste",
     image: "/ekay/bridal.JPG",
     eyebrow: "Bridal beauty with Ziva by Ekay",
-    title: "Soft Timeless Bridal Beauty",
+    title: "Your wedding day \nbegins  here",
     tierId: "celeste",
   },
   {
@@ -215,21 +239,21 @@ const TESTIMONIALS = [
     quote:
       "Ekay listened to exactly what I wanted and made me feel like the best version of myself. Calm, professional, and somehow made a hectic morning feel peaceful.",
     name: "Sarah M.",
-    detail: "Summer wedding",
+    detail: "",
   },
   {
     id: 2,
     quote:
-      "My makeup lasted through tears, heat, and hours of dancing. The trial gave me so much confidence—I knew I was in good hands.",
+      "My makeup lasted through tears, heat, and hours of dancing. The trial gave me so much confidence I knew I was in good hands.",
     name: "Jessica L.",
-    detail: "Outdoor ceremony",
+    detail: "",
   },
   {
     id: 3,
     quote:
-      "From first email to the last touch-up, everything felt luxury without being stuffy. I’ve never felt more beautiful.",
+      "From first email to the last touch up, everything felt luxury without being stuffy. I’ve never felt more beautiful.",
     name: "Amara K.",
-    detail: "City wedding",
+    detail: "",
   },
 ];
 
@@ -311,58 +335,91 @@ const CLIENT_SERVICE_AGREEMENT = {
 
 const TERMS_AND_CONDITIONS = [
   {
-    id: "booking",
-    title: "Booking confirmation",
-    text:
-      "Your date is only confirmed upon receipt of a signed agreement AND retainer payment. An unsigned booking is not a confirmed booking.",
+    id: "comfort-area",
+    title: "2. COMFORTABLE WORKING AREA:",
+    items: [
+      "a. The client agrees to provide a spacious and well-ventilated working area for the makeup artist’s services",
+      "b. The working area should be maintained at a comfortable temperature, either through air conditioning or proper ventilation, to ensure optimal working conditions.",
+    ],
   },
   {
-    id: "trials",
-    title: "Trial sessions",
-    text:
-      "Trials are conducted 4–8 weeks before the wedding. They are included in Tier V and Tier VI; available as an add-on for Tiers I–IV at $150.",
+    id: "transportation",
+    title: "3. TRANSPORTATION:",
+    items: [
+      "a. For destination weddings within Ghana, the client is responsible for covering the flight fare or transportation expenses for the makeup artist.",
+      "b. Transportation fees for destination weddings will be billed separately and must be paid in full prior to the event.",
+      "c. Transportation within Accra will calculated based on distance.",
+    ],
   },
   {
-    id: "scheduling",
-    title: "Group scheduling",
-    text:
-      "The Client is responsible for ensuring all bridal party members are present at their allotted times. Delays caused by late sitters may result in incomplete services without refund.",
+    id: "accommodation",
+    title: "5. ACCOMMODATION:",
+    items: [
+      "a. The client agrees to provide comfortable hotel accommodation for the makeup artist when traveling for bookings outside of Accra.",
+      "b. Accommodation must include amenities that prioritize safety and comfort, with a breakfast in bed option.",
+      "c. The makeup artist reserves the right to decline accommodation that does not meet safety and comfort standards.",
+    ],
   },
   {
-    id: "products",
-    title: "Product requests",
-    text:
-      "Clients wishing to have specific products used must provide them no later than 5 days before the wedding and in advance of any trial.",
+    id: "force-majeure",
+    title: "7. FORCE MAJEURE:",
+    items: [
+      "a. The makeup artist shall not be liable for any failure or delay in performing her obligations under this agreement if such failure or delay is caused by circumstances beyond their reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, or government regulations.",
+    ],
   },
   {
-    id: "space",
-    title: "Preparation space",
-    text:
-      "Out of respect for the artistry process, only bridal party members and immediate family are asked to be present during application.",
+    id: "dressing-room",
+    title: "8. DRESSING ROOM POLICY:",
+    items: [
+      "a. The client agrees to limit the number of individuals present in the dressing room during the makeup session to a maximum of 1 person, excluding other wedding vendors.",
+      "b. Excessive presence in the dressing room may interfere with the makeup artist’s ability to provide quality service and may disrupt the atmosphere necessary for a successful makeup application.",
+      "c. It is the client’s responsibility to communicate and enforce the dressing room policy with their guests. The client acknowledges that failure to comply with this policy may result in delays or suboptimal makeup application for which the makeup artist shall not be held responsible.",
+    ],
   },
   {
-    id: "pricing",
-    title: "Pricing",
-    text:
-      "Quoted prices are guaranteed for 30 days from issue. Confirmed bookings with paid retainers lock in the quoted price entirely.",
+    id: "full-day-glam",
+    title: "9.FULL DAY GLAM",
+    items: [
+      "a. The Artist shall be available for the agreed-upon duration of the ceremony as specified in the package booked.",
+      "b. Meals and Resting Area: The Client shall ensure that adequate provisions are made for the Artist’s meals, including breakfast, water and a suitable resting area or a seat shall be reserved for the Artist at the wedding venue.",
+    ],
   },
   {
-    id: "gratuity",
-    title: "Gratuity",
+    id: "delay",
+    title: "10. DELAY",
+    paragraphs: [
+      "A charge of GH₵750.00 will apply for every 30 minutes of delay. Delays are calculated from the agreed start time, not from when the artist arrives or sets up. Delay charges will apply if the bride is not ready for services to begin upon the artist’s arrival.",
+    ],
+  },
+];
+
+const TERMS_AND_CONDITIONS_ACKNOWLEDGEMENT =
+  "By booking makeup services provided, the client acknowledges that they have read, understood, and agreed to abide by these terms and conditions.";
+
+const TRAVEL_TERMS = [
+  {
+    id: "travel-fees",
+    title: "Travel fees & logistics",
     text:
-      "Gratuity is not included and is entirely at the Client’s discretion. When offered, it is received with deep gratitude.",
+      "Travel fees vary by location, dates, time requirements, and logistics. A custom travel quote is provided before booking is confirmed.",
   },
   {
-    id: "law",
-    title: "Governing law",
+    id: "accommodation",
+    title: "Accommodation (when required)",
     text:
-      "This agreement is governed by the laws of [your state / country]. Disputes shall be resolved through good-faith mediation before any legal proceedings are initiated.",
+      "For early call times, long distances, multi-day events, or when a same-day return is not feasible, accommodation may be required. Accommodation must be confirmed before the booking is finalized.",
   },
   {
-    id: "entire",
-    title: "Entire agreement",
+    id: "multi-day",
+    title: "Multi-day celebrations",
     text:
-      "This document and the attached quote constitute the entire agreement between both parties, superseding all prior discussions.",
+      "Multi-day bookings are billed per day and outlined in writing as part of your quote. Dates are reserved only after the agreement is signed and retainer is paid.",
+  },
+  {
+    id: "schedule",
+    title: "Schedule changes",
+    text:
+      "Any changes to travel timing, location, or event schedule must be communicated as soon as possible. Last-minute changes may require additional fees if they affect travel arrangements.",
   },
 ];
 
@@ -386,12 +443,12 @@ const ZIVA_PRODUCTS = {
 
 const Weddings = () => {
   const galleryImages = [
-    { id: 1, src: "/ekay/0T2A2099.JPEG", alt: "Bridal makeup by Ekay" },
-    { id: 2, src: "/ekay/0T2A2123.JPEG", alt: "Bridal look" },
-    { id: 3, src: "/ekay/IMG_9388.JPG", alt: "Wedding beauty" },
-    { id: 4, src: "/ekay/IMG_7714.JPG", alt: "Bridal glamour" },
-    { id: 5, src: "/ekay/IMG_7871.JPG", alt: "Ekay bridal" },
-    { id: 6, src: "/ekay/IMG_7841.JPG", alt: "Wedding day makeup" },
+    { id: 1, src: "/ekay/IMG_0582.jpg", alt: "Bridal makeup by Ekay" },
+    { id: 2, src: "/ekay/IMG_0580.jpg", alt: "Bridal look" },
+    { id: 3, src: "/ekay/IMG_0583.jpg", alt: "Wedding beauty" },
+    { id: 4, src: "/ekay/IMG_0589.jpg", alt: "Bridal glamour" },
+    { id: 5, src: "/ekay/IMG_0583.jpg", alt: "Ekay bridal" },
+    { id: 6, src: "/ekay/IMG_0585.jpg", alt: "Wedding day makeup" },
     { id: 7, src: "/ekay/IMG_7663.JPG", alt: "Bridal artistry" },
     { id: 8, src: "/ekay/IMG_0458.JPG", alt: "Bridal style" },
     { id: 9, src: "/ekay/IMG_1442.PNG", alt: "Wedding makeup" },
@@ -407,20 +464,58 @@ const Weddings = () => {
     email: "",
   });
   const [sigSubmitted, setSigSubmitted] = useState(false);
+  const [sigError, setSigError] = useState("");
+  const [sigSending, setSigSending] = useState(false);
   const [heroSlide, setHeroSlide] = useState(0);
   const [legalModal, setLegalModal] = useState(null);
+  const [paymentCopied, setPaymentCopied] = useState(false);
+  const [paymentCopiedField, setPaymentCopiedField] = useState(null);
+
+  const PAYMENT_DETAILS_TEXT =
+    "STANBIC BANK\nZiva by Ekay Ltd\nAcc No: 0150445111000\nBranch: East Legon\n\nMOBILE MONEY\nMTN: 0247584910\nAccount: Ziva by Ekay Ltd";
+
+  const copyText = async (text, field = "all") => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const el = document.createElement("textarea");
+      el.value = text;
+      el.setAttribute("readonly", "true");
+      el.style.position = "fixed";
+      el.style.left = "-9999px";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
+
+    if (field === "all") {
+      setPaymentCopied(true);
+      window.setTimeout(() => setPaymentCopied(false), 2200);
+      return;
+    }
+
+    setPaymentCopiedField(field);
+    window.setTimeout(() => setPaymentCopiedField(null), 1600);
+  };
+
+  const copyPaymentDetails = async () => {
+    await copyText(PAYMENT_DETAILS_TEXT, "all");
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mq.matches) return undefined;
     const id = window.setInterval(() => {
       setHeroSlide((s) => (s + 1) % WEDDINGS_HERO_SLIDES.length);
-    }, 6500);
+    }, 5500);
     return () => window.clearInterval(id);
   }, []);
 
   useEffect(() => {
     if (!legalModal) return undefined;
+    setPaymentCopied(false);
+    setPaymentCopiedField(null);
     const onKeyDown = (e) => {
       if (e.key === "Escape") setLegalModal(null);
     };
@@ -433,10 +528,30 @@ const Weddings = () => {
     };
   }, [legalModal]);
 
-  const handleSignatureSubmit = (e) => {
+  const handleSignatureSubmit = async (e) => {
     e.preventDefault();
-    if (!sigForm.agreed || !sigForm.name.trim() || !sigForm.date.trim()) return;
-    setSigSubmitted(true);
+    setSigError("");
+    if (!sigForm.agreed || !sigForm.name.trim() || !sigForm.date.trim() || !sigForm.email.trim()) return;
+    setSigSending(true);
+    try {
+      const res = await fetch("/api/send-acknowledgement", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: sigForm.name.trim(),
+          date: sigForm.date.trim(),
+          email: sigForm.email.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed");
+      setSigSubmitted(true);
+    } catch (err) {
+      const msg = typeof err?.message === "string" ? err.message : "";
+      setSigError(msg || "We couldn’t send the confirmation email. Please try again in a moment.");
+    } finally {
+      setSigSending(false);
+    }
   };
 
   return (
@@ -605,25 +720,32 @@ const Weddings = () => {
                   </h2>
                 </div>
               </header>
+              <p>Welcome, Bride.</p>
               <p>
-                I started this journey with the belief that every woman, on every skin tone, in every shape and size
-                deserves to feel like the most beautiful version of herself on her wedding day. Not a version curated for the
-                camera. but Her, Alive. Glowing. Undeniable.
+                I started this journey with one belief, that every bride, in every skin tone, every shape and size, deserves
+                to feel like the most beautiful version of herself on her wedding day.
               </p>
               <p>
-                I have spent years perfecting my bridalcraft, studying skin, and mastering the balance between longevity and
-                luminosity so that when you sit in my chair, you do not have to worry about anything except the love waiting
-                for you at the end of the aisle. we take on a limited number of weddings each year. Intentionally. Because
-                your wedding is not just a booking on the calendar to us, it is a covenant we make with you. our full attention.
-                our full heart. and our full artistry. Always.
+                Not a version curated for the camera. But the version of yourself you have always known was inside you.
+              </p>
+              <p>You, my bride, deserve an experience that is calm and uniquely yours.</p>
+              <p>
+                I have spent years perfecting my bridal craft, mastering the balance between longevity and luminosity, and
+                through all of it, carrying you in my heart. The bride I had not yet met. The face I had not yet touched.
               </p>
               <p>
-                I cannot wait to meet you, to hear about your vision, your story, the tiny details that make your love
+                So that when you finally sit in my chair, you do not have to worry about a single thing, except the love
+                waiting for you at the end of the aisle.
+              </p>
+              <p>
+                Your wedding is not just a booking on our calendar. It is a covenant we make with you, to give you our full
+                attention, our full heart, and our full artistry. Always.
+              </p>
+              <p>
+                I cannot wait to meet you. To hear your vision, your story, and the tiny details that make your love
                 completely your own.
               </p>
-              <p>
-                Thank you for considering us. It is a privilege we do not take lightly, not for a single moment.
-              </p>
+              <p>I Do Starts Here.</p>
               <footer className="weddings-note-footer">
                 <p className="weddings-note-signoff">— Ekay Gabriel</p>
               </footer>
@@ -711,10 +833,28 @@ const Weddings = () => {
           </div>
         </section>
 
+        <section className="weddings-addons" id="addons" aria-labelledby="addons-heading">
+          <span className="weddings-tiers-icon" aria-hidden>◆</span>
+          <h2 id="addons-heading" className="weddings-section-title weddings-section-title--rate-card weddings-section-title--tier-name">
+            Add-ons
+          </h2>
+          <p className="weddings-tiers-intro">
+            Enhance your bridal experience with additional services.
+          </p>
+          <div className="weddings-addons-list" role="list">
+            {WEDDINGS_ADD_ONS.map((a) => (
+              <div key={a.id} className="weddings-addon" role="listitem">
+                <p className="weddings-addon-title">{a.title}</p>
+                <p className="weddings-addon-price">{a.price}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="weddings-experience" id="experience" aria-labelledby="experience-heading">
           <div className="weddings-experience-rule" aria-hidden />
-          <h2 id="experience-heading" className="weddings-section-title weddings-section-title--rate-card">
-            The Ziva experience
+          <h2 id="experience-heading" className="weddings-section-title weddings-section-title--rate-card weddings-section-title--tier-name">
+            What to expect
           </h2>
           <p className="weddings-experience-sublead">What every bride receives, without exception</p>
           <ul className="weddings-experience-list">
@@ -741,23 +881,6 @@ const Weddings = () => {
           </div> */}
           <div className="weddings-experience-rule" aria-hidden />
         </section>
-
-        {/*
-        <section className="weddings-testimonials" id="testimonials" aria-labelledby="testimonials-heading">
-          <h2 id="testimonials-heading" className="weddings-section-title">What our brides say</h2>
-          <div className="weddings-testimonials-grid">
-            {TESTIMONIALS.map((t) => (
-              <blockquote key={t.id} className="weddings-quote">
-                <p className="weddings-quote-text">&ldquo;{t.quote}&rdquo;</p>
-                <footer className="weddings-quote-meta">
-                  <cite className="weddings-quote-name">{t.name}</cite>
-                  <span className="weddings-quote-detail">{t.detail}</span>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        </section>
-        */}
 
         {/* <section className="weddings-gallery" aria-label="Bridal gallery">
           <div className="weddings-gallery-grid">
@@ -828,6 +951,20 @@ const Weddings = () => {
             >
               View terms &amp; conditions
             </button>
+            <button
+              type="button"
+              className="weddings-legal-open-btn"
+              onClick={() => setLegalModal("travel")}
+            >
+              View travel terms
+            </button>
+            <button
+              type="button"
+              className="weddings-legal-open-btn"
+              onClick={() => setLegalModal("payment")}
+            >
+              View payment details
+            </button>
           </div>
         </section>
 
@@ -842,7 +979,13 @@ const Weddings = () => {
               role="dialog"
               aria-modal="true"
               aria-labelledby={
-                legalModal === "agreement" ? "weddings-modal-agreement-title" : "weddings-modal-terms-title"
+                legalModal === "agreement"
+                  ? "weddings-modal-agreement-title"
+                  : legalModal === "terms"
+                    ? "weddings-modal-terms-title"
+                    : legalModal === "travel"
+                      ? "weddings-modal-travel-title"
+                      : "weddings-modal-payment-title"
               }
               onClick={(e) => e.stopPropagation()}
             >
@@ -851,9 +994,17 @@ const Weddings = () => {
                   <h2 id="weddings-modal-agreement-title" className="weddings-modal-title">
                     Client service agreement
                   </h2>
-                ) : (
+                ) : legalModal === "terms" ? (
                   <h2 id="weddings-modal-terms-title" className="weddings-modal-title">
-                    Terms &amp; conditions
+                    Makeup booking policy
+                  </h2>
+                ) : legalModal === "travel" ? (
+                  <h2 id="weddings-modal-travel-title" className="weddings-modal-title">
+                    Travel terms
+                  </h2>
+                ) : (
+                  <h2 id="weddings-modal-payment-title" className="weddings-modal-title">
+                    Payment details
                   </h2>
                 )}
                 <button
@@ -892,13 +1043,42 @@ const Weddings = () => {
                       ))}
                     </div>
                   </>
-                ) : (
+                ) : legalModal === "terms" ? (
                   <>
                     <p className="weddings-legal-intro weddings-legal-intro--modal">
-                      Additional terms that apply together with your client service agreement and quote.
+                      MAKEUP BOOKING POLICY
                     </p>
                     <div className="weddings-legal-box weddings-legal-box--modal" tabIndex={0}>
                       {TERMS_AND_CONDITIONS.map((term) => (
+                        <div key={term.id} className="weddings-legal-term">
+                          <h3 className="weddings-legal-term-title">{term.title}</h3>
+                          {term.paragraphs?.map((para) => (
+                            <p key={para}>{para}</p>
+                          ))}
+                          {term.items ? (
+                            <ul className="weddings-legal-list">
+                              {term.items.map((item) => (
+                                <li key={item}>{item}</li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </div>
+                      ))}
+                      <p className="weddings-legal-contact">{TERMS_AND_CONDITIONS_ACKNOWLEDGEMENT}</p>
+                      <p className="weddings-legal-contact">
+                        This page does not replace your signed contract. For questions, contact{" "}
+                        <a href="mailto:sooziva@gmail.com">sooziva@gmail.com</a>.
+                      </p>
+                    </div>
+                  </>
+                ) : legalModal === "travel" ? (
+                  <>
+                    <p className="weddings-legal-intro weddings-legal-intro--modal">
+                      Travel terms apply when your booking requires travel outside Accra or when logistics require
+                      accommodation or multi-day service. Your final travel quote is confirmed in writing.
+                    </p>
+                    <div className="weddings-legal-box weddings-legal-box--modal" tabIndex={0}>
+                      {TRAVEL_TERMS.map((term) => (
                         <div key={term.id} className="weddings-legal-term">
                           <h3 className="weddings-legal-term-title">{term.title}</h3>
                           <p>{term.text}</p>
@@ -906,10 +1086,66 @@ const Weddings = () => {
                       ))}
                       <p className="weddings-legal-contact">
                         This page does not replace your signed contract. For questions, contact{" "}
-                        <a href="mailto:hello@zivabyekay.com">hello@zivabyekay.com</a>.
+                        <a href="mailto:sooziva@gmail.com">sooziva@gmail.com</a>.
                       </p>
                     </div>
                   </>
+                ) : (
+                  <div className="weddings-payment">
+                    <p className="weddings-legal-intro weddings-legal-intro--modal">
+                      Use the details below to complete your payment. Tap the button to copy everything.
+                    </p>
+                    <button type="button" className="weddings-payment-btn" onClick={copyPaymentDetails}>
+                      {paymentCopied ? "Payment details copied" : "Copy payment details"}
+                    </button>
+                    <div className="weddings-payment-card" aria-label="Payment details">
+                      <div className="weddings-payment-block">
+                        <h3>Stanbic Bank</h3>
+                        <p>
+                          <strong>Ziva by Ekay Ltd</strong>
+                          <br />
+                          <span className="weddings-payment-line">
+                            <span>Acc No: 0150445111000</span>
+                            <button
+                              type="button"
+                              className="weddings-payment-copy"
+                              onClick={() => copyText("0150445111000", "bank")}
+                              aria-label="Copy bank account number"
+                              title="Copy"
+                            >
+                              <IoIosCopy size={18} />
+                            </button>
+                          </span>
+                          <br />
+                          Branch: East Legon
+                        </p>
+                      </div>
+                      <div className="weddings-payment-block">
+                        <h3>Mobile Money</h3>
+                        <p>
+                          <span className="weddings-payment-line">
+                            <span>MTN: 0247584910</span>
+                            <button
+                              type="button"
+                              className="weddings-payment-copy"
+                              onClick={() => copyText("0247584910", "mtn")}
+                              aria-label="Copy MTN number"
+                              title="Copy"
+                            >
+                              <IoIosCopy size={18} />
+                            </button>
+                          </span>
+                          <br />
+                          Account: <strong>Ziva by Ekay Ltd</strong>
+                        </p>
+                        {paymentCopiedField ? (
+                          <p className="weddings-payment-copied" role="status">
+                            {paymentCopiedField === "bank" ? "Bank number copied" : "MTN number copied"}
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -920,7 +1156,7 @@ const Weddings = () => {
           <h2 id="signature-heading" className="weddings-section-title">Agreement acknowledgement</h2>
           <p className="weddings-section-lead">
             For active bookings, you will receive a formal contract. Use this section to acknowledge you have read the
-            summaries above (demo only—your official signature happens on the contract we send you).
+            summaries above.
           </p>
           {sigSubmitted ? (
             <p className="weddings-sig-success" role="status">
@@ -951,13 +1187,14 @@ const Weddings = () => {
                 />
               </label>
               <label className="weddings-sig-field">
-                <span className="weddings-sig-label">Email (optional)</span>
+                <span className="weddings-sig-label">Email</span>
                 <input
                   type="email"
                   name="email"
                   autoComplete="email"
                   value={sigForm.email}
                   onChange={(e) => setSigForm((f) => ({ ...f, email: e.target.value }))}
+                  required
                 />
               </label>
               <label className="weddings-sig-check">
@@ -972,10 +1209,30 @@ const Weddings = () => {
                 </span>
               </label>
               <button type="submit" className="weddings-cta weddings-cta--primary weddings-cta--block weddings-sig-submit">
-                Submit acknowledgement
+                {sigSending ? "Sending..." : "Submit acknowledgement"}
               </button>
+              {sigError ? (
+                <p className="weddings-sig-error" role="status">
+                  {sigError}
+                </p>
+              ) : null}
             </form>
           )}
+        </section>
+
+        <section className="weddings-testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+          <h2 id="testimonials-heading" className="weddings-section-title">What our brides say</h2>
+          <div className="weddings-testimonials-grid">
+            {TESTIMONIALS.map((t) => (
+              <blockquote key={t.id} className="weddings-quote">
+                <p className="weddings-quote-text">&ldquo;{t.quote}&rdquo;</p>
+                <footer className="weddings-quote-meta">
+                  <cite className="weddings-quote-name">{t.name}</cite>
+                  <span className="weddings-quote-detail">{t.detail}</span>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
         </section>
 
         <section className="weddings-faq" id="faq" aria-labelledby="faq-heading">
@@ -1010,6 +1267,30 @@ const Weddings = () => {
             })}
           </div>
         </section>
+
+        <section className="weddings-gallery" id="gallery" aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading" className="weddings-section-title">Gallery</h2>
+          <div className="weddings-gallery-grid" aria-hidden="true">
+            {galleryImages.slice(0, 6).map((img) => (
+              <div key={img.id} className="weddings-gallery-item">
+                <img src={img.src} alt={img.alt} loading="lazy" />
+              </div>
+            ))}
+          </div>
+
+          <div className="weddings-gallery-marquee" aria-label="Bridal gallery marquee">
+            <div className="weddings-gallery-marquee-track">
+              {galleryImages
+                .slice(0, 6)
+                .concat(galleryImages.slice(0, 6))
+                .map((img, idx) => (
+                  <div key={`${img.id}-${idx}`} className="weddings-gallery-marquee-item">
+                    <img src={img.src} alt={img.alt} loading="lazy" />
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
         </div>
       </main>
 
@@ -1023,4 +1304,4 @@ const Weddings = () => {
   );
 };
 
-export default Transition(Weddings);
+export default Weddings;

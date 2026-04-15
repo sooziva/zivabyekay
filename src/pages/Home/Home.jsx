@@ -7,7 +7,6 @@ import HeroGradient from "../../components/HeroGradient/HeroGradient";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import SoozivaHeader from "../../components/SoozivaHeader/SoozivaHeader";
 import Cursor from "../../components/Cursor/Cursor";
-import Transition from "../../components/Transition/Transition";
 
 import { projects } from "./projects";
 import { beautyProducts } from "../BeautyStore/products";
@@ -968,4 +967,4 @@ const Home = () => {
   );
 };
 
-export default Transition(Home);
+export default Home;

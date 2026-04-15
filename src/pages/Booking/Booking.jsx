@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosCalendar, IoIosTime } from "react-icons/io";
 import { HiCheck, HiX } from "react-icons/hi";
 import SoozivaHeader from "../../components/SoozivaHeader/SoozivaHeader";
-import Transition from "../../components/Transition/Transition";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -550,5 +549,5 @@ const Booking = () => {
   );
 };
 
-export default Transition(Booking);
+export default Booking;
 

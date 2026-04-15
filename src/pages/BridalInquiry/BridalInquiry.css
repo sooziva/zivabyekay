@@ -22,20 +22,21 @@
 
 .bridal-inquiry-brand {
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 400;
+  font-weight: 300;
   margin: 0 0 0.5rem;
-  letter-spacing: 0.02em;
-}
-
-.bridal-inquiry-brand-ziva {
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-.bridal-inquiry-brand-ekay {
-  font-family: Georgia, "Times New Roman", serif;
-  font-style: italic;
-  font-size: 0.75em;
-  color: #ddc8b6;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-transform: uppercase;
+  font-family:
+    "Didot",
+    "Bodoni 72",
+    "Bodoni MT",
+    "Bodoni Moda",
+    "Playfair Display",
+    "Libre Bodoni",
+    "Hoefler Text",
+    "Times New Roman",
+    serif;
 }
 
 .bridal-inquiry-header-location {
@@ -320,8 +321,8 @@ button.bridal-inquiry-progress-step {
   align-items: center;
   gap: 0.5rem;
   padding: 0.9rem 1.75rem;
-  background: #ddc8b6;
-  color: #1a1a1a;
+  background: #2a2622;
+  color: #faf9f7;
   border: none;
   border-radius: 8px;
   font-size: 0.75rem;
@@ -332,8 +333,30 @@ button.bridal-inquiry-progress-step {
 }
 
 .bridal-inquiry-submit:hover {
-  background: #d4bda8;
+  background: #1a1816;
   transform: translateY(-1px);
+}
+
+.bridal-inquiry-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.bridal-inquiry-submit-status {
+  margin: 0.85rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #aaa;
+  text-align: center;
+}
+
+.bridal-inquiry-submit-status--success {
+  color: #cfe7d5;
+}
+
+.bridal-inquiry-submit-status--error {
+  color: #f2b8b5;
 }
 
 /* Footer */

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
 import "./KellsieBain.css";
 
 const KellsieBain = () => {
@@ -146,4 +145,4 @@ const KellsieBain = () => {
   );
 };
 
-export default Transition(KellsieBain);
+export default KellsieBain;

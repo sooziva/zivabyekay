@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { IoIosSearch, IoIosPerson, IoIosCart } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
 import "../KellsieBain/KellsieBain.css";
 import "./Education.css";
 
@@ -86,4 +85,4 @@ const Education = () => {
   );
 };
 
-export default Transition(Education);
+export default Education;

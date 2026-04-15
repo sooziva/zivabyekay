@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
 import "../KellsieBain/KellsieBain.css";
 import "./Masterclasses.css";
 
@@ -161,4 +160,4 @@ const Masterclasses = () => {
   );
 };
 
-export default Transition(Masterclasses);
+export default Masterclasses;

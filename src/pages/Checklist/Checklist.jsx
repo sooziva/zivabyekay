@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart, IoIosCheckmark } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
 import "../KellsieBain/KellsieBain.css";
 import "./Checklist.css";
 
@@ -209,4 +208,4 @@ const Checklist = () => {
   );
 };
 
-export default Transition(Checklist);
+export default Checklist;

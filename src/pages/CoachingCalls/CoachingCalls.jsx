@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
 import "../KellsieBain/KellsieBain.css";
 import "./CoachingCalls.css";
 
@@ -129,4 +128,4 @@ const CoachingCalls = () => {
   );
 };
 
-export default Transition(CoachingCalls);
+export default CoachingCalls;

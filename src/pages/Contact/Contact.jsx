@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosSearch, IoIosPerson, IoIosCart } from "react-icons/io";
-import Transition from "../../components/Transition/Transition";
 import "../KellsieBain/KellsieBain.css";
 import "./Contact.css";
 
@@ -16,7 +15,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = `From: ${formData.name} (${formData.email})\n\n${formData.message}`;
-    window.location.href = `mailto:hello@zivabyekay.com?subject=Enquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:sooziva@gmail.com?subject=Enquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -64,8 +63,8 @@ const Contact = () => {
               <p className="contact-text">
                 For wedding enquiries, education, or collaborations—reach out. We’d love to hear from you.
               </p>
-              <a href="mailto:hello@zivabyekay.com" className="contact-email">
-                hello@zivabyekay.com
+              <a href="mailto:sooziva@gmail.com" className="contact-email">
+                sooziva@gmail.com
               </a>
             </div>
           </div>
@@ -130,4 +129,4 @@ const Contact = () => {
   );
 };
 
-export default Transition(Contact);
+export default Contact;

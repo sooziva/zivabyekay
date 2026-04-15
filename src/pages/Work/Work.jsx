@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import Cursor from "../../components/Cursor/Cursor";
-import Transition from "../../components/Transition/Transition";
 import BackButton from "../../components/BackButton/BackButton";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
@@ -346,4 +345,4 @@ const Work = () => {
   );
 };
 
-export default Transition(Work);
+export default Work;

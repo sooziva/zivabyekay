@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { HiStar } from "react-icons/hi";
-import Transition from "../../components/Transition/Transition";
 import "./BridalInquiry.css";
 
 const STEPS = [
   { id: 1, label: "ABOUT YOU" },
   { id: 2, label: "YOUR WEDDING" },
-  { id: 3, label: "BRIDAL PARTY" },
-  { id: 4, label: "YOUR VISION" },
-  { id: 5, label: "FINALISE" },
+  { id: 3, label: "YOUR VISION" },
+  { id: 4, label: "FINALISE" },
 ];
 
 const REFERRAL_OPTIONS = [
@@ -25,6 +23,7 @@ const BridalInquiry = () => {
   const [searchParams] = useSearchParams();
   const selectedTier = (searchParams.get("tier") || "").trim();
   const [step, setStep] = useState(1);
+  const [submitState, setSubmitState] = useState({ status: "idle", message: "" });
   const [formData, setFormData] = useState({
     tier: "",
     firstName: "",
@@ -35,7 +34,6 @@ const BridalInquiry = () => {
     weddingDate: "",
     venue: "",
     weddingTime: "",
-    bridalPartySize: "",
     bridesmaidsMakeup: "",
     stylePreference: "",
     skinType: "",
@@ -52,16 +50,29 @@ const BridalInquiry = () => {
   };
 
   const goToStep = (nextStep) => {
-    if (nextStep >= 1 && nextStep <= 5) setStep(nextStep);
+    if (nextStep >= 1 && nextStep <= 4) setStep(nextStep);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (step < 5) {
+    if (step < 4) {
       setStep(step + 1);
     } else {
-      // TODO: Submit form to backend
-      console.log("Form submitted:", formData);
+      try {
+        setSubmitState({ status: "loading", message: "" });
+        const res = await fetch("/api/bridal-inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json?.ok) {
+          throw new Error(json?.error || "Failed to send inquiry");
+        }
+        setSubmitState({ status: "success", message: "Sent. We’ll be in touch soon." });
+      } catch (err) {
+        setSubmitState({ status: "error", message: err?.message || "Failed to send inquiry" });
+      }
     }
   };
 
@@ -69,11 +80,8 @@ const BridalInquiry = () => {
     <div className="bridal-inquiry-page">
       <header className="bridal-inquiry-header">
         <p className="bridal-inquiry-header-badge">BRIDAL INQUIRY 2026</p>
-        <h1 className="bridal-inquiry-brand">
-          <span className="bridal-inquiry-brand-ziva">Ziva</span>
-          <span className="bridal-inquiry-brand-ekay"> by Ekay</span>
-        </h1>
-        <p className="bridal-inquiry-header-location">GLOBAL MAKEUP ARTIST ACCRA, GHANA</p>
+        <h1 className="bridal-inquiry-brand">ZIVA BY EKAY</h1>
+        <p className="bridal-inquiry-header-location"></p>
         <p className="bridal-inquiry-tagline">
           Tell us about your special day — every detail helps us craft a truly bespoke experience for you.
         </p>
@@ -94,7 +102,7 @@ const BridalInquiry = () => {
                 className={`bridal-inquiry-progress-step${isActive ? " bridal-inquiry-progress-step--active" : ""}${isComplete ? " bridal-inquiry-progress-step--complete" : ""}`}
                 onClick={() => goToStep(s.id)}
                 aria-current={isActive ? "step" : undefined}
-                aria-label={`${s.label}, step ${s.id} of 5`}
+                aria-label={`${s.label}, step ${s.id} of 4`}
               >
                 <span className="bridal-inquiry-progress-num" aria-hidden>
                   {s.id}
@@ -111,7 +119,15 @@ const BridalInquiry = () => {
         <form onSubmit={handleSubmit} className="bridal-inquiry-form">
           <div className="bridal-inquiry-form-card">
             <input type="hidden" name="tier" value={formData.tier} />
-            <p className="bridal-inquiry-step-label">STEP {String(step).padStart(2, "0")} OF 05</p>
+            <p className="bridal-inquiry-step-label">STEP {String(step).padStart(2, "0")} OF 04</p>
+            {submitState.status !== "idle" ? (
+              <p
+                className={`bridal-inquiry-submit-status bridal-inquiry-submit-status--${submitState.status}`}
+                role={submitState.status === "error" ? "alert" : "status"}
+              >
+                {submitState.status === "loading" ? "Sending…" : submitState.message}
+              </p>
+            ) : null}
 
             {step === 1 && (
               <>
@@ -212,33 +228,12 @@ const BridalInquiry = () => {
                     />
                   </div>
                   <div className="bridal-inquiry-field">
-                    <label htmlFor="weddingTime">CEREMONY OR GET-READY TIME</label>
+                    <label htmlFor="weddingTime">ARRIVAL TIME</label>
                     <input
                       id="weddingTime"
                       type="time"
                       value={formData.weddingTime}
                       onChange={(e) => updateField("weddingTime", e.target.value)}
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
-            {step === 3 && (
-              <>
-                <h2 className="bridal-inquiry-form-title">Bridal party</h2>
-                <p className="bridal-inquiry-form-subtitle">
-                  Let us know about your bridal party makeup needs.
-                </p>
-                <div className="bridal-inquiry-fields">
-                  <div className="bridal-inquiry-field">
-                    <label htmlFor="bridalPartySize">BRIDAL PARTY SIZE</label>
-                    <input
-                      id="bridalPartySize"
-                      type="text"
-                      value={formData.bridalPartySize}
-                      onChange={(e) => updateField("bridalPartySize", e.target.value)}
-                      placeholder="e.g. 5 bridesmaids"
                     />
                   </div>
                   <div className="bridal-inquiry-field bridal-inquiry-field--full">
@@ -255,7 +250,7 @@ const BridalInquiry = () => {
               </>
             )}
 
-            {step === 4 && (
+            {step === 3 && (
               <>
                 <h2 className="bridal-inquiry-form-title">Your vision</h2>
                 <p className="bridal-inquiry-form-subtitle">
@@ -291,7 +286,7 @@ const BridalInquiry = () => {
               </>
             )}
 
-            {step === 5 && (
+            {step === 4 && (
               <>
                 <h2 className="bridal-inquiry-form-title">Finalise</h2>
                 <p className="bridal-inquiry-form-subtitle">
@@ -324,10 +319,10 @@ const BridalInquiry = () => {
                   </button>
                 )}
               </div>
-              <span className="bridal-inquiry-form-pagination">{step} of 5</span>
+              <span className="bridal-inquiry-form-pagination">{step} of 4</span>
               <div className="bridal-inquiry-form-footer-end">
-                <button type="submit" className="bridal-inquiry-submit">
-                  {step === 5 ? "Submit" : "Continue"}
+                <button type="submit" className="bridal-inquiry-submit" disabled={submitState.status === "loading"}>
+                  {step === 4 ? "Submit" : "Continue"}
                   <HiStar size={14} />
                 </button>
               </div>
@@ -346,4 +341,4 @@ const BridalInquiry = () => {
   );
 };
 
-export default Transition(BridalInquiry);
+export default BridalInquiry;
