@@ -22,11 +22,23 @@ const app = express();
 const devFrontendOrigin = "http://localhost:5173";
 const configuredFrontendOrigin = process.env.FRONTEND_ORIGIN;
 
+function parseAllowedOrigins(value) {
+  if (!value) return [];
+  return String(value)
+    .split(",")
+    .map((x) => x.trim())
+    .filter(Boolean);
+}
+
+const configuredOrigins = parseAllowedOrigins(configuredFrontendOrigin);
+const defaultProdOrigins = ["https://sooziva.com", "https://www.sooziva.com", "https://dashboard.sooziva.com"];
+const allowedOrigins = configuredOrigins.length ? configuredOrigins : defaultProdOrigins;
+
 app.use(
   cors({
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
-      if (configuredFrontendOrigin) return cb(null, origin === configuredFrontendOrigin);
+      if (allowedOrigins.includes(origin)) return cb(null, true);
       if (origin === devFrontendOrigin) return cb(null, true);
       if (/^http:\/\/localhost:517\d$/.test(origin)) return cb(null, true);
       return cb(null, false);

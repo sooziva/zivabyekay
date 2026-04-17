@@ -559,9 +559,6 @@ const Weddings = () => {
       <a href="#main-content" className="weddings-skip-link">
         Skip to content
       </a>
-      <Link to="/beauty-store" className="kellsie-top-banner">
-        Get Access To My Free Guides→
-      </Link>
 
       <header className="ekay-page-header">
         <div className="ekay-header-inner">
