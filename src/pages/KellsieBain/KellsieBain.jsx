@@ -30,7 +30,7 @@ const KellsieBain = () => {
         <nav className="ekay-nav">
           <Link to="/ekay" className="ekay-nav-link active">Home</Link>
           <Link to="/ekay/about" className="ekay-nav-link">About</Link>
-          <Link to="/sooziva/wedding" className="ekay-nav-link">Weddings</Link>
+          <Link to="/wedding" className="ekay-nav-link">Weddings</Link>
           <Link to="/education" className="ekay-nav-link">Education</Link>
           <Link to="/ekay/ema" className="ekay-nav-link">EMA</Link>
           <Link to="/ekay/contact" className="ekay-nav-link">Contact</Link>
@@ -59,7 +59,7 @@ const KellsieBain = () => {
             <p className="ekay-weddings-text">
               Ekay and her team have a global reach and are available to provide beauty services for a variety of events including engagements, elopements, weddings and other special occasions. With a presence across multiple regions, Ekay is recognized for her expertise in creating a natural, understated makeup look that highlights each individual's unique beauty. Her unwavering commitment to her clients and her calm demeanor make her an ideal choice for your wedding day.
             </p>
-            <Link to="/sooziva/wedding" className="ekay-weddings-btn">
+            <Link to="/wedding" className="ekay-weddings-btn">
               WEDDINGS
             </Link>
           </div>
@@ -110,7 +110,7 @@ const KellsieBain = () => {
           <div className="kellsie-footer-col">
             <h4>Quick links</h4>
             <ul>
-              <li><Link to="/sooziva/wedding">Weddings</Link></li>
+              <li><Link to="/wedding">Weddings</Link></li>
               <li><Link to="/education">Education</Link></li>
               <li><Link to="/ekay/ema">EMA</Link></li>
               <li><Link to="/sooziva">FAQs</Link></li>

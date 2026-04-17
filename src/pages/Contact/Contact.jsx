@@ -45,7 +45,7 @@ const Contact = () => {
         <nav className="ekay-nav">
           <Link to="/ekay" className="ekay-nav-link">Home</Link>
           <Link to="/ekay/about" className="ekay-nav-link">About</Link>
-          <Link to="/sooziva/wedding" className="ekay-nav-link">Weddings</Link>
+          <Link to="/wedding" className="ekay-nav-link">Weddings</Link>
           <Link to="/education" className="ekay-nav-link">Education</Link>
           <Link to="/ekay/ema" className="ekay-nav-link">EMA</Link>
           <Link to="/ekay/contact" className="ekay-nav-link active">Contact</Link>

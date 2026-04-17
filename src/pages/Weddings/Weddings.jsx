@@ -584,7 +584,7 @@ const Weddings = () => {
         <nav className="ekay-nav">
           <Link to="/ekay" className="ekay-nav-link">Home</Link>
           <Link to="/ekay/about" className="ekay-nav-link">About</Link>
-          <Link to="/sooziva/wedding" className="ekay-nav-link active">Weddings</Link>
+          <Link to="/wedding" className="ekay-nav-link active">Weddings</Link>
           <Link to="/education" className="ekay-nav-link">Education</Link>
           <Link to="/ekay/ema" className="ekay-nav-link">EMA</Link>
           <Link to="/ekay/contact" className="ekay-nav-link">Contact</Link>
@@ -621,19 +621,11 @@ const Weddings = () => {
                   <h1 className="weddings-hero-title">{slide.title}</h1>
                   <div className="weddings-hero-line" aria-hidden />
                   <Link
-                    to={`/sooziva/wedding/inquiry?tier=${encodeURIComponent(slide.tierId)}`}
+                    to={`/wedding/inquiry?tier=${encodeURIComponent(slide.tierId)}`}
                     className="weddings-hero-cta"
                   >
                     Book bridal experience
                   </Link>
-                  <a
-                    className="weddings-hero-cta weddings-hero-cta--secondary"
-                    href="/api/weddings-pdf?path=/sooziva/wedding&mode=a4&sections=hero,note,tiers,addons,experience,book,testimonials,gallery"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Download PDF
-                  </a>
                 </div>
               </div>
             ))}
@@ -661,7 +653,7 @@ const Weddings = () => {
             natural, refined beauty meets the calm you deserve on your day.
           </p>
           <div className="weddings-cta-group">
-            <Link to="/sooziva/wedding/inquiry" className="weddings-cta weddings-cta--primary">
+            <Link to="/wedding/inquiry" className="weddings-cta weddings-cta--primary">
               Bridal inquiry
             </Link>
             <a href="#book" className="weddings-cta">How to book</a>
@@ -845,7 +837,7 @@ const Weddings = () => {
                       {tier.investmentNote ? (
                         <p className="weddings-tier-card-invest-note">{tier.investmentNote}</p>
                       ) : null}
-                      <Link to={`/sooziva/wedding/inquiry?tier=${encodeURIComponent(tier.id)}`} className="weddings-tier-card-cta">
+                      <Link to={`/wedding/inquiry?tier=${encodeURIComponent(tier.id)}`} className="weddings-tier-card-cta">
                         Book package
                       </Link>
                     </div>
@@ -942,7 +934,7 @@ const Weddings = () => {
             </div>
             */}
             <div className="weddings-book-cta">
-              <Link to="/sooziva/wedding/inquiry" className="weddings-cta weddings-cta--primary">
+              <Link to="/wedding/inquiry" className="weddings-cta weddings-cta--primary">
                 Start your bridal inquiry
               </Link>
               {/* <Link to="/ekay/contact" className="weddings-cta">
@@ -1329,6 +1321,17 @@ const Weddings = () => {
                 ))}
             </div>
           </div>
+        </section>
+
+        <section className="weddings-download" aria-label="Download weddings PDF">
+          <a
+            className="weddings-cta weddings-cta--primary weddings-cta--block"
+            href="/api/weddings-pdf?path=/wedding&mode=a4&sections=hero,note,tiers,addons,experience,book,testimonials,gallery"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Download PDF
+          </a>
         </section>
         </div>
       </main>

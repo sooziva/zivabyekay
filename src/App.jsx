@@ -65,8 +65,8 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/ekay" element={<KellsieBain />} />
             <Route path="/ekay/about" element={<About />} />
-            <Route path="/sooziva/wedding" element={<Weddings />} />
-            <Route path="/sooziva/wedding/inquiry" element={<BridalInquiry />} />
+            <Route path="/wedding" element={<Weddings />} />
+            <Route path="/wedding/inquiry" element={<BridalInquiry />} />
             <Route path="/ekay/ema" element={<EMA />} />
             <Route path="/ekay/contact" element={<Contact />} />
             <Route path="/education" element={<Education />} />
