@@ -335,7 +335,7 @@ const BridalInquiry = () => {
         <span>@ziva_byekay</span>
         <span>+233 208 888 305</span>
         <span>Accra, Ghana</span>
-        <Link to="/ekay/weddings" className="bridal-inquiry-back-link">← Back to Weddings</Link>
+        <Link to="/sooziva/wedding" className="bridal-inquiry-back-link">← Back to Weddings</Link>
       </footer>
     </div>
   );

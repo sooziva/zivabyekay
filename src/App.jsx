@@ -24,7 +24,16 @@ import BridalInquiry from "./pages/BridalInquiry/BridalInquiry";
 import EMA from "./pages/EMA/EMA";
 
 import DashboardLayout from "./dashboard/layout/DashboardLayout";
-import Dashboard from "./dashboard/pages/Dashboard/Dashboard";
+import OverviewPage from "./dashboard/pages/Overview/OverviewPage";
+import ClassesPage from "./dashboard/pages/Classes/ClassesPage";
+import WalkInPage from "./dashboard/pages/WalkIn/WalkInPage";
+import HomeServicePage from "./dashboard/pages/HomeService/HomeServicePage";
+import ProductsPage from "./dashboard/pages/Products/ProductsPage";
+import ExpensesPage from "./dashboard/pages/Expenses/ExpensesPage";
+import SalaryPage from "./dashboard/pages/Salary/SalaryPage";
+import ReportsPage from "./dashboard/pages/Reports/ReportsPage";
+import RequireDashboardAuth from "./dashboard/RequireDashboardAuth";
+import DashboardLogin from "./dashboard/pages/Login/DashboardLogin";
 
 function App() {
   const location = useLocation();
@@ -56,8 +65,8 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/ekay" element={<KellsieBain />} />
             <Route path="/ekay/about" element={<About />} />
-            <Route path="/ekay/weddings" element={<Weddings />} />
-            <Route path="/ekay/weddings/inquiry" element={<BridalInquiry />} />
+            <Route path="/sooziva/wedding" element={<Weddings />} />
+            <Route path="/sooziva/wedding/inquiry" element={<BridalInquiry />} />
             <Route path="/ekay/ema" element={<EMA />} />
             <Route path="/ekay/contact" element={<Contact />} />
             <Route path="/education" element={<Education />} />
@@ -69,8 +78,19 @@ function App() {
             <Route path="/education/resources/checklist" element={<Checklist />} />
 
             <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              <Route path="login" element={<DashboardLogin />} />
+              <Route element={<RequireDashboardAuth />}>
+                <Route index element={<Navigate to="/dashboard/overview" replace />} />
+                <Route path="overview" element={<OverviewPage />} />
+                <Route path="classes" element={<ClassesPage />} />
+                <Route path="walk-in" element={<WalkInPage />} />
+                <Route path="home-service" element={<HomeServicePage />} />
+                <Route path="products" element={<ProductsPage />} />
+                <Route path="expenses" element={<ExpensesPage />} />
+                <Route path="salary" element={<SalaryPage />} />
+                <Route path="reports" element={<ReportsPage />} />
+                <Route path="*" element={<Navigate to="/dashboard/overview" replace />} />
+              </Route>
             </Route>
           </Routes>
         </AnimatePresence>

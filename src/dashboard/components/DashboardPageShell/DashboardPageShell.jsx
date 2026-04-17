@@ -2,7 +2,7 @@ import "./DashboardPageShell.css";
 
 export default function DashboardPageShell({ title, subtitle, children, actions }) {
   return (
-    <section className="zb-dpage">
+    <div className="zb-dpage">
       <header className="zb-dpage__header">
         <div className="zb-dpage__titleWrap">
           <h1 className="zb-dpage__title">{title}</h1>
@@ -11,7 +11,7 @@ export default function DashboardPageShell({ title, subtitle, children, actions 
         {actions ? <div className="zb-dpage__actions">{actions}</div> : null}
       </header>
       <div className="zb-dpage__body">{children}</div>
-    </section>
+    </div>
   );
 }
 

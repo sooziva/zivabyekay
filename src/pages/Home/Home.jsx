@@ -885,7 +885,7 @@ const Home = () => {
 
             <div className="footer-email">
               <p>We'd love to hear from you</p>
-              <h2>hello@zivabyekay.com</h2>
+              <h2>sooziva@gmail.com</h2>
             </div>
 
             <div className="footer-content">

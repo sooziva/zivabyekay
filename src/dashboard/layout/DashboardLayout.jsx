@@ -1,56 +1,54 @@
-import { Outlet } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "./DashboardLayout.css";
 
 const NAV_ITEMS = [
-  { id: "overview", label: "Overview" },
-  { id: "classes", label: "Classes" },
-  { id: "walk-in", label: "Walk-in" },
-  { id: "home-service", label: "Home Service" },
-  { id: "products", label: "Product" },
-  { id: "expenses", label: "Expenses" },
-  { id: "salary", label: "Salary" },
-  { id: "reports", label: "Reports" },
+  { id: "overview", label: "Overview", to: "/dashboard/overview" },
+  { id: "classes", label: "Classes", to: "/dashboard/classes" },
+  { id: "walk-in", label: "Walk-in", to: "/dashboard/walk-in" },
+  { id: "home-service", label: "Home Service", to: "/dashboard/home-service" },
+  { id: "products", label: "Product", to: "/dashboard/products" },
+  { id: "expenses", label: "Expenses", to: "/dashboard/expenses" },
+  { id: "salary", label: "Salary", to: "/dashboard/salary" },
+  { id: "reports", label: "Reports", to: "/dashboard/reports" },
 ];
 
 export default function DashboardLayout() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const sectionIds = useMemo(() => NAV_ITEMS.map((x) => x.id), []);
   const [activeId, setActiveId] = useState(sectionIds[0] ?? "overview");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const contentRef = useRef(null);
 
   useEffect(() => {
-    const els = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
+    const match = NAV_ITEMS.find((x) => location.pathname.startsWith(x.to));
+    setActiveId(match?.id || "overview");
+  }, [location.pathname, sectionIds]);
 
-    if (!els.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0));
-        if (visible[0]?.target?.id) setActiveId(visible[0].target.id);
-      },
-      {
-        root: null,
-        threshold: [0.2, 0.35, 0.5, 0.65],
-      }
-    );
-
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [sectionIds]);
-
-  const jumpTo = (id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(null, "", `#${id}`);
-  };
+  useEffect(() => {
+    // Reset scroll to top on page change.
+    if (contentRef.current) contentRef.current.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    setSidebarOpen(false);
+  }, [location.pathname]);
 
   return (
     <div className="zb-dashboard">
-      <aside className="zb-dashboard__sidebar" aria-label="Dashboard navigation">
+      <div
+        className={`zb-dashboard__overlay${sidebarOpen ? " zb-dashboard__overlay--open" : ""}`}
+        role="button"
+        tabIndex={sidebarOpen ? 0 : -1}
+        aria-label="Close navigation"
+        onClick={() => setSidebarOpen(false)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") setSidebarOpen(false);
+        }}
+      />
+
+      <aside
+        className={`zb-dashboard__sidebar${sidebarOpen ? " zb-dashboard__sidebar--open" : ""}`}
+        aria-label="Dashboard navigation"
+      >
         <div className="zb-dashboard__brand">
           <p className="zb-dashboard__brandTitle">Ziva by Ekay</p>
           <p className="zb-dashboard__brandSub">Dashboard</p>
@@ -58,16 +56,21 @@ export default function DashboardLayout() {
 
         <nav className="zb-dashboard__nav">
           {NAV_ITEMS.map((item) => (
-            <button
+            <NavLink
               key={item.id}
-              type="button"
-              onClick={() => jumpTo(item.id)}
+              to={item.to}
+              onClick={(e) => {
+                // allow ctrl/cmd click to open new tab
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                e.preventDefault();
+                navigate(item.to);
+              }}
               className={`zb-dashboard__navItem zb-dashboard__navButton${
                 activeId === item.id ? " zb-dashboard__navItem--active" : ""
               }`}
             >
               {item.label}
-            </button>
+            </NavLink>
           ))}
         </nav>
 
@@ -79,7 +82,15 @@ export default function DashboardLayout() {
       <div className="zb-dashboard__main">
         <header className="zb-dashboard__topbar">
           <div className="zb-dashboard__topbarLeft">
-            <p className="zb-dashboard__pageKicker">dashboard.sooziva</p>
+            <button
+              className="zb-dashboard__menuBtn"
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Open navigation"
+            >
+              Menu
+            </button>
+            <p className="zb-dashboard__pageKicker"></p>
           </div>
           <div className="zb-dashboard__topbarRight">
             <button className="zb-dashboard__chip" type="button">
@@ -91,8 +102,10 @@ export default function DashboardLayout() {
           </div>
         </header>
 
-        <main className="zb-dashboard__content">
-          <Outlet />
+        <main className="zb-dashboard__content" ref={contentRef}>
+          <div className="zb-dashboard__contentInner">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

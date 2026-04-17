@@ -584,7 +584,7 @@ const Weddings = () => {
         <nav className="ekay-nav">
           <Link to="/ekay" className="ekay-nav-link">Home</Link>
           <Link to="/ekay/about" className="ekay-nav-link">About</Link>
-          <Link to="/ekay/weddings" className="ekay-nav-link active">Weddings</Link>
+          <Link to="/sooziva/wedding" className="ekay-nav-link active">Weddings</Link>
           <Link to="/education" className="ekay-nav-link">Education</Link>
           <Link to="/ekay/ema" className="ekay-nav-link">EMA</Link>
           <Link to="/ekay/contact" className="ekay-nav-link">Contact</Link>
@@ -602,20 +602,38 @@ const Weddings = () => {
               <div
                 key={slide.id}
                 className={`weddings-hero-slide${i === heroSlide ? " weddings-hero-slide--active" : ""}`}
-                style={{ backgroundImage: `url("${slide.image}")` }}
                 aria-hidden={i !== heroSlide}
               >
+                <img
+                  className="weddings-hero-bg"
+                  src={slide.image}
+                  alt=""
+                  aria-hidden="true"
+                  loading="eager"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.src = "/site-icon.png";
+                  }}
+                />
                 <div className="weddings-hero-overlay" aria-hidden />
                 <div className="weddings-hero-content">
                   <p className="weddings-hero-eyebrow">{slide.eyebrow}</p>
                   <h1 className="weddings-hero-title">{slide.title}</h1>
                   <div className="weddings-hero-line" aria-hidden />
                   <Link
-                    to={`/ekay/weddings/inquiry?tier=${encodeURIComponent(slide.tierId)}`}
+                    to={`/sooziva/wedding/inquiry?tier=${encodeURIComponent(slide.tierId)}`}
                     className="weddings-hero-cta"
                   >
                     Book bridal experience
                   </Link>
+                  <a
+                    className="weddings-hero-cta weddings-hero-cta--secondary"
+                    href="/api/weddings-pdf?path=/sooziva/wedding&mode=a4&sections=hero,note,tiers,addons,experience,book,testimonials,gallery"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Download PDF
+                  </a>
                 </div>
               </div>
             ))}
@@ -643,7 +661,7 @@ const Weddings = () => {
             natural, refined beauty meets the calm you deserve on your day.
           </p>
           <div className="weddings-cta-group">
-            <Link to="/ekay/weddings/inquiry" className="weddings-cta weddings-cta--primary">
+            <Link to="/sooziva/wedding/inquiry" className="weddings-cta weddings-cta--primary">
               Bridal inquiry
             </Link>
             <a href="#book" className="weddings-cta">How to book</a>
@@ -778,7 +796,15 @@ const Weddings = () => {
                   }${tier.highlight ? " weddings-tier-card--featured" : ""}`}
                 >
                   <div className="weddings-tier-card-media">
-                    <img src={imgSrc} alt={imgAlt} loading="lazy" />
+                    <img
+                      src={imgSrc}
+                      alt={imgAlt}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.currentTarget.src = "/site-icon.png";
+                      }}
+                    />
                   </div>
                   <div className="weddings-tier-card-main">
                     {tier.highlight ? (
@@ -819,10 +845,7 @@ const Weddings = () => {
                       {tier.investmentNote ? (
                         <p className="weddings-tier-card-invest-note">{tier.investmentNote}</p>
                       ) : null}
-                      <Link
-                        to={`/ekay/weddings/inquiry?tier=${encodeURIComponent(tier.id)}`}
-                        className="weddings-tier-card-cta"
-                      >
+                      <Link to={`/sooziva/wedding/inquiry?tier=${encodeURIComponent(tier.id)}`} className="weddings-tier-card-cta">
                         Book package
                       </Link>
                     </div>
@@ -919,7 +942,7 @@ const Weddings = () => {
             </div>
             */}
             <div className="weddings-book-cta">
-              <Link to="/ekay/weddings/inquiry" className="weddings-cta weddings-cta--primary">
+              <Link to="/sooziva/wedding/inquiry" className="weddings-cta weddings-cta--primary">
                 Start your bridal inquiry
               </Link>
               {/* <Link to="/ekay/contact" className="weddings-cta">
@@ -1273,7 +1296,15 @@ const Weddings = () => {
           <div className="weddings-gallery-grid" aria-hidden="true">
             {galleryImages.slice(0, 6).map((img) => (
               <div key={img.id} className="weddings-gallery-item">
-                <img src={img.src} alt={img.alt} loading="lazy" />
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.src = "/site-icon.png";
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -1285,7 +1316,15 @@ const Weddings = () => {
                 .concat(galleryImages.slice(0, 6))
                 .map((img, idx) => (
                   <div key={`${img.id}-${idx}`} className="weddings-gallery-marquee-item">
-                    <img src={img.src} alt={img.alt} loading="lazy" />
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.currentTarget.src = "/site-icon.png";
+                      }}
+                    />
                   </div>
                 ))}
             </div>
@@ -1294,12 +1333,7 @@ const Weddings = () => {
         </div>
       </main>
 
-      <footer className="weddings-footer">
-        <Link to="/sooziva" className="weddings-back">
-          <IoIosArrowBack size={18} />
-          Back to Ziva by Ekay
-        </Link>
-      </footer>
+      {/* footer removed */}
     </div>
   );
 };

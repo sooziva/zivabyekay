@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model WalkIn {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  client    String?
+  service   String?
+  amountGhs Float
+  notes     String?
+}
+
+model Expense {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  category  String
+  amountGhs Float
+  notes     String?
+}
+
+model Product {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  name      String
+  sku       String?
+  priceGhs  Float?
+  stock     Int      @default(0)
+}
+
+model ClassSession {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  title     String
+  date      DateTime?
+  priceGhs  Float?
+  notes     String?
+}
+
+model HomeServiceBooking {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+
+  client    String
+  date      DateTime?
+  service   String?
+  amountGhs Float?
+
+  address   String?
+  city      String?
+  staff     String?
+  status    String?  // e.g. pending, confirmed, completed, cancelled
+  notes     String?
+}
+
+model SalaryPayment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+
+  staff     String
+  period    String?  // e.g. "Apr 2026" or "2026-04"
+  date      DateTime?
+  amountGhs Float
+  method    String?  // cash, momo, bank
+  notes     String?
+}
+

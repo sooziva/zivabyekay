@@ -117,12 +117,20 @@
 .weddings-hero-slide {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center 28%;
-  background-repeat: no-repeat;
+  background: #1a1512;
   opacity: 0;
   transition: opacity 0.55s var(--wedding-ease);
   z-index: 0;
+}
+
+.weddings-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  display: block;
 }
 
 .weddings-hero-slide--active {
@@ -218,6 +226,16 @@
 .weddings-hero-cta:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
+}
+
+.weddings-hero-cta--secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.weddings-hero-cta--secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .weddings-hero-controls {
@@ -2727,5 +2745,79 @@
 
   .weddings-gallery-marquee-item {
     scroll-snap-align: start;
+  }
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* Hide UI-only elements */
+  .ekay-page-header,
+  .weddings-modal-backdrop,
+  .weddings-legal-triggers-row,
+  .weddings-book-cta,
+  .weddings-hero-cta,
+  .weddings-hero-controls,
+  .weddings-gallery-marquee,
+  .weddings-tier-card-cta,
+  .weddings-payment-btn,
+  .weddings-payment-copy {
+    display: none !important;
+  }
+
+  /* Make content print-friendly */
+  .weddings-page-main,
+  .weddings-main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .weddings-note-image-wrap--video,
+  video {
+    display: none !important;
+  }
+
+  .weddings-gallery-grid {
+    display: grid !important;
+  }
+
+  .weddings-gallery-item:hover img,
+  .weddings-quote:hover {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  /* Avoid cutting long tier copy across pages */
+  .weddings-tier-card--split,
+  .weddings-quote,
+  .weddings-addon,
+  .weddings-payment-card,
+  .weddings-legal-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Let tier cards expand naturally when printing */
+  .weddings-tier-card--split {
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .weddings-tier-card-media,
+  .weddings-tier-card--split .weddings-tier-card-media {
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+  .weddings-tier-card-main {
+    height: auto !important;
   }
 }
