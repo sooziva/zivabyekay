@@ -60,6 +60,19 @@
   border-bottom: 1px solid var(--wedding-border);
 }
 
+.weddings-page .ekay-page-header .ekay-header-icon,
+.weddings-page .ekay-page-header .ekay-header-icons {
+  display: none;
+}
+
+.weddings-page .ekay-page-header .ekay-header-inner {
+  justify-content: center;
+}
+
+.weddings-page .ekay-page-header .ekay-nav {
+  display: none;
+}
+
 .weddings-page .ekay-nav-link:focus-visible,
 .weddings-page .ekay-logo:focus-visible,
 .weddings-page .ekay-header-icon:focus-visible {

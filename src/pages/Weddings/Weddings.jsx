@@ -566,7 +566,7 @@ const Weddings = () => {
             <IoIosSearch size={22} />
           </button>
           <Link to="/ekay" className="ekay-logo">
-            <span className="ekay-logo-name">EKAY</span>
+            <span className="ekay-logo-name">Ziva by Ekay</span>
             <span className="ekay-logo-tagline">MAKEUP</span>
           </Link>
           <div className="ekay-header-icons">
