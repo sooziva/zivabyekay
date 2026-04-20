@@ -11,7 +11,7 @@ import {
   parseSectionsParam,
   waitForImagesAndScroll,
 } from "../lib/weddings-pdf-shared.js";
-import { auth } from "./auth.js";
+import { getAuth, getAuthInitError } from "./auth.js";
 import { prisma } from "./prisma.js";
 
 dotenv.config({ path: ".env" });
@@ -49,7 +49,17 @@ app.use(
 );
 
 // Better Auth handler must be mounted BEFORE express.json().
-app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.all("/api/auth/{*any}", async (req, res) => {
+  const auth = await getAuth();
+  if (!auth) {
+    const err = getAuthInitError();
+    return res.status(503).json({
+      ok: false,
+      error: err?.message || "Auth service unavailable",
+    });
+  }
+  return toNodeHandler(auth)(req, res);
+});
 
 // Apply JSON parsing only for non-auth routes.
 app.use(express.json({ limit: "1mb" }));
@@ -60,6 +70,11 @@ app.get("/api/health", (_req, res) => {
 
 app.get("/api/dashboard/session", async (req, res) => {
   try {
+    const auth = await getAuth();
+    if (!auth) {
+      const err = getAuthInitError();
+      return res.status(503).json({ ok: false, error: err?.message || "Auth service unavailable" });
+    }
     const session = await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
     });
@@ -70,6 +85,12 @@ app.get("/api/dashboard/session", async (req, res) => {
 });
 
 async function requireDashboardSession(req, res) {
+  const auth = await getAuth();
+  if (!auth) {
+    const err = getAuthInitError();
+    res.status(503).json({ ok: false, error: err?.message || "Auth service unavailable" });
+    return null;
+  }
   const session = await auth.api.getSession({ headers: fromNodeHeaders(req.headers) });
   if (!session) {
     res.status(401).json({ ok: false, error: "Unauthorized" });
@@ -279,15 +300,21 @@ app.post("/api/bridal-inquiry", async (req, res) => {
       .join("\n");
 
     const resend = new Resend(apiKey);
-    const result = await resend.emails.send({
+    const recipients = String(to)
+      .split(",")
+      .map((x) => x.trim())
+      .filter(Boolean);
+
+    const { data: sent, error } = await resend.emails.send({
       from,
-      to,
+      to: recipients.length ? recipients : [to],
       replyTo: data.email ? [data.email] : undefined,
       subject,
       text: lines || "New bridal inquiry received.",
     });
 
-    return res.json({ ok: true, id: result?.data?.id ?? null });
+    if (error) return res.status(502).json({ ok: false, error: error.message || "Resend error" });
+    return res.json({ ok: true, id: sent?.id ?? null });
   } catch (err) {
     return res.status(500).json({ ok: false, error: err?.message || "Unknown error" });
   }
