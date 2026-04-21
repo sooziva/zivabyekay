@@ -31,10 +31,9 @@ export default function DashboardLogin() {
     );
   }
 
-  if (session) {
-    navigate("/dashboard", { replace: true });
-    return null;
-  }
+  // Do NOT auto-redirect when a session exists.
+  // In production, if auth endpoints are down or cookies are stale, an automatic redirect can trap users
+  // in a loop and prevent them from seeing the login form.
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -118,6 +117,14 @@ export default function DashboardLogin() {
           </p>
           <p className="zb-dashLogin__sub">Ziva by Ekay</p>
         </div>
+
+        {session?.user ? (
+          <p className="zb-dashLogin__success" role="status">
+            You’re currently signed in as {session.user.email || session.user.name || "a user"}.
+            <br />
+            If you want to switch accounts, sign out from the dashboard and return here.
+          </p>
+        ) : null}
 
         {mode === "signup" ? (
           <label className="zb-dashLogin__field">

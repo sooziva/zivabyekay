@@ -78,10 +78,11 @@ function App() {
             <Route path="/education/resources/guide-text" element={<GuideText />} />
             <Route path="/education/resources/checklist" element={<Checklist />} />
 
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route path="login" element={<DashboardLogin />} />
-              <Route path="reset-password" element={<DashboardResetPassword />} />
-              <Route element={<RequireDashboardAuth />}>
+            <Route path="/dashboard/login" element={<DashboardLogin />} />
+            <Route path="/dashboard/reset-password" element={<DashboardResetPassword />} />
+
+            <Route path="/dashboard" element={<RequireDashboardAuth />}>
+              <Route element={<DashboardLayout />}>
                 <Route index element={<Navigate to="/dashboard/overview" replace />} />
                 <Route path="overview" element={<OverviewPage />} />
                 <Route path="classes" element={<ClassesPage />} />
