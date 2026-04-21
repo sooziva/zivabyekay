@@ -43,3 +43,25 @@ export async function postJson(endpoint, body) {
   return json;
 }
 
+export async function patchJson(endpoint, body) {
+  const res = await fetch(endpoint, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(body),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json?.error || `Request failed (${res.status})`);
+  return json;
+}
+
+export async function deleteJson(endpoint) {
+  const res = await fetch(endpoint, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json?.error || `Request failed (${res.status})`);
+  return json;
+}
+

@@ -301,6 +301,10 @@
     transition: transform 220ms ease;
     z-index: 10;
     border-right: 1px solid var(--zb-border);
+    /* On mobile the drawer must be opaque (no bleed-through). */
+    background: rgba(11, 11, 15, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .zb-dashboard__navButton {

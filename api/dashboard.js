@@ -28,6 +28,12 @@ function resourceFromUrl(req) {
   return clean.split("/")[0] || "";
 }
 
+function getIdFromUrl(req) {
+  const url = new URL(String(req.url || "/"), "http://localhost");
+  const id = url.searchParams.get("id");
+  return id ? String(id) : "";
+}
+
 export default async function handler(req, res) {
   try {
     const session = await requireDashboardSession(req, res);
@@ -41,6 +47,7 @@ export default async function handler(req, res) {
     }
 
     if (resource === "walkins") {
+      const id = getIdFromUrl(req);
       if (req.method === "GET") {
         const items = await prisma.walkIn.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
         return sendJson(res, 200, { ok: true, items });
@@ -62,6 +69,32 @@ export default async function handler(req, res) {
           },
         });
         return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "PATCH") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        const body = req.body || {};
+        const date = body.date ? new Date(String(body.date)) : body.date === null ? null : undefined;
+        if (date && Number.isNaN(date.getTime())) return sendJson(res, 400, { ok: false, error: "Invalid date" });
+        const amountGhs = body.amountGhs != null ? Number(body.amountGhs) : undefined;
+        if (amountGhs !== undefined && !Number.isFinite(amountGhs))
+          return sendJson(res, 400, { ok: false, error: "Invalid amountGhs" });
+        const item = await prisma.walkIn.update({
+          where: { id },
+          data: {
+            date,
+            staff: body.staff != null ? String(body.staff) : undefined,
+            client: body.client != null ? String(body.client) : undefined,
+            service: body.service != null ? String(body.service) : undefined,
+            amountGhs,
+            notes: body.notes != null ? String(body.notes) : undefined,
+          },
+        });
+        return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "DELETE") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        await prisma.walkIn.delete({ where: { id } });
+        return sendJson(res, 200, { ok: true });
       }
       return methodNotAllowed(res);
     }
@@ -86,6 +119,7 @@ export default async function handler(req, res) {
     }
 
     if (resource === "products") {
+      const id = getIdFromUrl(req);
       if (req.method === "GET") {
         const items = await prisma.product.findMany({ orderBy: { createdAt: "desc" }, take: 100 });
         return sendJson(res, 200, { ok: true, items });
@@ -105,10 +139,37 @@ export default async function handler(req, res) {
         });
         return sendJson(res, 200, { ok: true, item });
       }
+      if (req.method === "PATCH") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        const body = req.body || {};
+        const shades = body.shades != null ? String(body.shades) : undefined;
+        const priceGhs = body.priceGhs === "" ? null : body.priceGhs != null ? Number(body.priceGhs) : undefined;
+        if (priceGhs !== undefined && priceGhs !== null && !Number.isFinite(priceGhs))
+          return sendJson(res, 400, { ok: false, error: "Invalid priceGhs" });
+        const stock = body.stock === "" ? 0 : body.stock != null ? Number(body.stock) : undefined;
+        if (stock !== undefined && !Number.isFinite(stock)) return sendJson(res, 400, { ok: false, error: "Invalid stock" });
+
+        const item = await prisma.product.update({
+          where: { id },
+          data: {
+            name: body.name != null ? String(body.name) : undefined,
+            shades: shades === undefined ? undefined : shades.trim() ? shades.trim() : null,
+            priceGhs,
+            stock,
+          },
+        });
+        return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "DELETE") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        await prisma.product.delete({ where: { id } });
+        return sendJson(res, 200, { ok: true });
+      }
       return methodNotAllowed(res);
     }
 
     if (resource === "classes") {
+      const id = getIdFromUrl(req);
       if (req.method === "GET") {
         const items = await prisma.classSession.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
         return sendJson(res, 200, { ok: true, items });
@@ -131,10 +192,39 @@ export default async function handler(req, res) {
         });
         return sendJson(res, 200, { ok: true, item });
       }
+      if (req.method === "PATCH") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        const body = req.body || {};
+        const course = body.course != null ? String(body.course).trim() : undefined;
+        const studentName = body.studentName != null ? String(body.studentName).trim() : undefined;
+        const date = body.date ? new Date(String(body.date)) : body.date === null ? null : undefined;
+        if (date && Number.isNaN(date.getTime())) return sendJson(res, 400, { ok: false, error: "Invalid date" });
+        const priceGhs = body.priceGhs === "" ? null : body.priceGhs != null ? Number(body.priceGhs) : undefined;
+        if (priceGhs !== undefined && priceGhs !== null && !Number.isFinite(priceGhs))
+          return sendJson(res, 400, { ok: false, error: "Invalid priceGhs" });
+        const item = await prisma.classSession.update({
+          where: { id },
+          data: {
+            studentName,
+            course,
+            title: course === undefined ? undefined : course,
+            date,
+            priceGhs,
+            notes: body.notes != null ? String(body.notes) : undefined,
+          },
+        });
+        return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "DELETE") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        await prisma.classSession.delete({ where: { id } });
+        return sendJson(res, 200, { ok: true });
+      }
       return methodNotAllowed(res);
     }
 
     if (resource === "home-services") {
+      const id = getIdFromUrl(req);
       if (req.method === "GET") {
         const items = await prisma.homeServiceBooking.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
         return sendJson(res, 200, { ok: true, items });
@@ -166,6 +256,35 @@ export default async function handler(req, res) {
           },
         });
         return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "PATCH") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        const body = req.body || {};
+        const date = body.date ? new Date(String(body.date)) : body.date === null ? null : undefined;
+        if (date && Number.isNaN(date.getTime())) return sendJson(res, 400, { ok: false, error: "Invalid date" });
+        const amountGhs =
+          body.amountGhs === "" ? null : body.amountGhs != null ? Number(body.amountGhs) : undefined;
+        if (amountGhs !== undefined && amountGhs !== null && !Number.isFinite(amountGhs))
+          return sendJson(res, 400, { ok: false, error: "Invalid amountGhs" });
+
+        const item = await prisma.homeServiceBooking.update({
+          where: { id },
+          data: {
+            client: body.client != null ? String(body.client) : undefined,
+            date,
+            service: body.service != null ? String(body.service) : undefined,
+            amountGhs,
+            staff: body.staff != null ? String(body.staff) : undefined,
+            status: body.status != null ? String(body.status) : undefined,
+            notes: body.notes != null ? String(body.notes) : undefined,
+          },
+        });
+        return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "DELETE") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        await prisma.homeServiceBooking.delete({ where: { id } });
+        return sendJson(res, 200, { ok: true });
       }
       return methodNotAllowed(res);
     }

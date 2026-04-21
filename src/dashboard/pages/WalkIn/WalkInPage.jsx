@@ -1,13 +1,27 @@
 import { useMemo, useState } from "react";
 import DashboardPageShell from "../../components/DashboardPageShell/DashboardPageShell";
-import { postJson, useAuthedJson } from "../_shared/dashboardData";
+import { deleteJson, patchJson, postJson, useAuthedJson } from "../_shared/dashboardData";
 import "../_shared/DashboardPages.css";
+import { Check, Pencil, Trash2, X } from "lucide-react";
+
+function toDateInputValue(value) {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  const yyyy = String(d.getFullYear());
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
 
 export default function WalkInPage() {
   const walkins = useAuthedJson("/api/dashboard/walkins", []);
   const [form, setForm] = useState({ date: "", staff: "", client: "", service: "", amountGhs: "", notes: "" });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [editingId, setEditingId] = useState("");
+  const [draft, setDraft] = useState({ date: "", staff: "", client: "", service: "", amountGhs: "", notes: "" });
+  const [rowSaving, setRowSaving] = useState(false);
 
   const total = useMemo(() => {
     const items = walkins.data?.items || [];
@@ -87,17 +101,171 @@ export default function WalkInPage() {
                   <th>Service</th>
                   <th>Amount</th>
                   <th>Notes</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {(walkins.data?.items || []).slice(0, 50).map((x) => (
                   <tr key={x.id}>
-                    <td>{x.date ? new Date(x.date).toLocaleDateString() : x.createdAt ? new Date(x.createdAt).toLocaleDateString() : "—"}</td>
-                    <td>{x.staff || "—"}</td>
-                    <td>{x.client || "—"}</td>
-                    <td>{x.service || "—"}</td>
-                    <td>{typeof x.amountGhs === "number" ? `GHS ${x.amountGhs.toFixed(2)}` : "—"}</td>
-                    <td>{x.notes || "—"}</td>
+                    <td>
+                      {editingId === x.id ? (
+                        <input
+                          className="zb-tableInput"
+                          type="date"
+                          value={draft.date}
+                          onChange={(e) => setDraft((p) => ({ ...p, date: e.target.value }))}
+                        />
+                      ) : x.date ? (
+                        new Date(x.date).toLocaleDateString()
+                      ) : x.createdAt ? (
+                        new Date(x.createdAt).toLocaleDateString()
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                    <td>
+                      {editingId === x.id ? (
+                        <input
+                          className="zb-tableInput"
+                          value={draft.staff}
+                          onChange={(e) => setDraft((p) => ({ ...p, staff: e.target.value }))}
+                        />
+                      ) : (
+                        x.staff || "—"
+                      )}
+                    </td>
+                    <td>
+                      {editingId === x.id ? (
+                        <input
+                          className="zb-tableInput"
+                          value={draft.client}
+                          onChange={(e) => setDraft((p) => ({ ...p, client: e.target.value }))}
+                        />
+                      ) : (
+                        x.client || "—"
+                      )}
+                    </td>
+                    <td>
+                      {editingId === x.id ? (
+                        <input
+                          className="zb-tableInput"
+                          value={draft.service}
+                          onChange={(e) => setDraft((p) => ({ ...p, service: e.target.value }))}
+                        />
+                      ) : (
+                        x.service || "—"
+                      )}
+                    </td>
+                    <td>
+                      {editingId === x.id ? (
+                        <input
+                          className="zb-tableInput"
+                          type="number"
+                          step="0.01"
+                          inputMode="decimal"
+                          value={draft.amountGhs}
+                          onChange={(e) => setDraft((p) => ({ ...p, amountGhs: e.target.value }))}
+                        />
+                      ) : typeof x.amountGhs === "number" ? (
+                        `GHS ${x.amountGhs.toFixed(2)}`
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                    <td>
+                      {editingId === x.id ? (
+                        <input
+                          className="zb-tableInput"
+                          value={draft.notes}
+                          onChange={(e) => setDraft((p) => ({ ...p, notes: e.target.value }))}
+                        />
+                      ) : (
+                        x.notes || "—"
+                      )}
+                    </td>
+                    <td>
+                      <div className="zb-rowActions">
+                        {editingId === x.id ? (
+                          <>
+                            <button
+                              type="button"
+                              className="zb-iconBtn"
+                              aria-label="Save"
+                              disabled={rowSaving}
+                              onClick={async () => {
+                                setRowSaving(true);
+                                try {
+                                  const json = await patchJson(`/api/dashboard/walkins?id=${encodeURIComponent(x.id)}`, {
+                                    ...draft,
+                                    amountGhs: draft.amountGhs === "" ? null : Number(draft.amountGhs),
+                                  });
+                                  walkins.setData((prev) => ({
+                                    ...prev,
+                                    items: (prev?.items || []).map((it) => (it.id === x.id ? json.item : it)),
+                                  }));
+                                  setEditingId("");
+                                } finally {
+                                  setRowSaving(false);
+                                }
+                              }}
+                            >
+                              <Check size={18} />
+                            </button>
+                            <button
+                              type="button"
+                              className="zb-iconBtn"
+                              aria-label="Cancel"
+                              disabled={rowSaving}
+                              onClick={() => setEditingId("")}
+                            >
+                              <X size={18} />
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              type="button"
+                              className="zb-iconBtn"
+                              aria-label="Edit"
+                              onClick={() => {
+                                setEditingId(x.id);
+                                setDraft({
+                                  date: toDateInputValue(x.date || x.createdAt),
+                                  staff: x.staff || "",
+                                  client: x.client || "",
+                                  service: x.service || "",
+                                  amountGhs: x.amountGhs == null ? "" : String(x.amountGhs),
+                                  notes: x.notes || "",
+                                });
+                              }}
+                            >
+                              <Pencil size={18} />
+                            </button>
+                            <button
+                              type="button"
+                              className="zb-iconBtn zb-iconBtn--danger"
+                              aria-label="Delete"
+                              onClick={async () => {
+                                const ok = window.confirm("Delete this walk-in entry?");
+                                if (!ok) return;
+                                setRowSaving(true);
+                                try {
+                                  await deleteJson(`/api/dashboard/walkins?id=${encodeURIComponent(x.id)}`);
+                                  walkins.setData((prev) => ({
+                                    ...prev,
+                                    items: (prev?.items || []).filter((it) => it.id !== x.id),
+                                  }));
+                                } finally {
+                                  setRowSaving(false);
+                                }
+                              }}
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>

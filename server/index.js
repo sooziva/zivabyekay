@@ -128,6 +128,41 @@ app.post("/api/dashboard/walkins", async (req, res) => {
   res.json({ ok: true, item });
 });
 
+app.patch("/api/dashboard/walkins", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+
+  const body = req.body || {};
+  const date = body.date ? new Date(String(body.date)) : body.date === null ? null : undefined;
+  if (date && Number.isNaN(date.getTime())) return res.status(400).json({ ok: false, error: "Invalid date" });
+  const amountGhs = body.amountGhs != null ? Number(body.amountGhs) : undefined;
+  if (amountGhs !== undefined && !Number.isFinite(amountGhs)) return res.status(400).json({ ok: false, error: "Invalid amountGhs" });
+
+  const item = await prisma.walkIn.update({
+    where: { id },
+    data: {
+      date,
+      staff: body.staff != null ? String(body.staff) : undefined,
+      client: body.client != null ? String(body.client) : undefined,
+      service: body.service != null ? String(body.service) : undefined,
+      amountGhs,
+      notes: body.notes != null ? String(body.notes) : undefined,
+    },
+  });
+  res.json({ ok: true, item });
+});
+
+app.delete("/api/dashboard/walkins", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+  await prisma.walkIn.delete({ where: { id } });
+  res.json({ ok: true });
+});
+
 app.get("/api/dashboard/expenses", async (req, res) => {
   const session = await requireDashboardSession(req, res);
   if (!session) return;
@@ -174,6 +209,41 @@ app.post("/api/dashboard/products", async (req, res) => {
   res.json({ ok: true, item });
 });
 
+app.patch("/api/dashboard/products", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+
+  const body = req.body || {};
+  const shades = body.shades != null ? String(body.shades) : undefined;
+  const priceGhs = body.priceGhs === "" ? null : body.priceGhs != null ? Number(body.priceGhs) : undefined;
+  if (priceGhs !== undefined && priceGhs !== null && !Number.isFinite(priceGhs))
+    return res.status(400).json({ ok: false, error: "Invalid priceGhs" });
+  const stock = body.stock === "" ? 0 : body.stock != null ? Number(body.stock) : undefined;
+  if (stock !== undefined && !Number.isFinite(stock)) return res.status(400).json({ ok: false, error: "Invalid stock" });
+
+  const item = await prisma.product.update({
+    where: { id },
+    data: {
+      name: body.name != null ? String(body.name) : undefined,
+      shades: shades === undefined ? undefined : shades.trim() ? shades.trim() : null,
+      priceGhs,
+      stock,
+    },
+  });
+  res.json({ ok: true, item });
+});
+
+app.delete("/api/dashboard/products", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+  await prisma.product.delete({ where: { id } });
+  res.json({ ok: true });
+});
+
 app.get("/api/dashboard/classes", async (req, res) => {
   const session = await requireDashboardSession(req, res);
   if (!session) return;
@@ -200,6 +270,44 @@ app.post("/api/dashboard/classes", async (req, res) => {
     },
   });
   res.json({ ok: true, item });
+});
+
+app.patch("/api/dashboard/classes", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+
+  const body = req.body || {};
+  const course = body.course != null ? String(body.course).trim() : undefined;
+  const studentName = body.studentName != null ? String(body.studentName).trim() : undefined;
+  const date = body.date ? new Date(String(body.date)) : body.date === null ? null : undefined;
+  if (date && Number.isNaN(date.getTime())) return res.status(400).json({ ok: false, error: "Invalid date" });
+  const priceGhs = body.priceGhs === "" ? null : body.priceGhs != null ? Number(body.priceGhs) : undefined;
+  if (priceGhs !== undefined && priceGhs !== null && !Number.isFinite(priceGhs))
+    return res.status(400).json({ ok: false, error: "Invalid priceGhs" });
+
+  const item = await prisma.classSession.update({
+    where: { id },
+    data: {
+      studentName,
+      course,
+      title: course === undefined ? undefined : course,
+      date,
+      priceGhs,
+      notes: body.notes != null ? String(body.notes) : undefined,
+    },
+  });
+  res.json({ ok: true, item });
+});
+
+app.delete("/api/dashboard/classes", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+  await prisma.classSession.delete({ where: { id } });
+  res.json({ ok: true });
 });
 
 app.get("/api/dashboard/home-services", async (req, res) => {
@@ -239,6 +347,43 @@ app.post("/api/dashboard/home-services", async (req, res) => {
   });
 
   res.json({ ok: true, item });
+});
+
+app.patch("/api/dashboard/home-services", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+
+  const body = req.body || {};
+  const date = body.date ? new Date(String(body.date)) : body.date === null ? null : undefined;
+  if (date && Number.isNaN(date.getTime())) return res.status(400).json({ ok: false, error: "Invalid date" });
+  const amountGhs = body.amountGhs === "" ? null : body.amountGhs != null ? Number(body.amountGhs) : undefined;
+  if (amountGhs !== undefined && amountGhs !== null && !Number.isFinite(amountGhs))
+    return res.status(400).json({ ok: false, error: "Invalid amountGhs" });
+
+  const item = await prisma.homeServiceBooking.update({
+    where: { id },
+    data: {
+      client: body.client != null ? String(body.client) : undefined,
+      date,
+      service: body.service != null ? String(body.service) : undefined,
+      amountGhs,
+      staff: body.staff != null ? String(body.staff) : undefined,
+      status: body.status != null ? String(body.status) : undefined,
+      notes: body.notes != null ? String(body.notes) : undefined,
+    },
+  });
+  res.json({ ok: true, item });
+});
+
+app.delete("/api/dashboard/home-services", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+  await prisma.homeServiceBooking.delete({ where: { id } });
+  res.json({ ok: true });
 });
 
 app.get("/api/dashboard/salary", async (req, res) => {
