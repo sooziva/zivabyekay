@@ -20,8 +20,19 @@ async function createAuth() {
   const db = client.db(mongoDbName);
 
   return betterAuth({
-    baseURL: process.env.BETTER_AUTH_URL,
+    baseURL: {
+      allowedHosts: ["sooziva.com", "www.sooziva.com", "dashboard.sooziva.com"],
+      protocol: "https",
+      fallback: "https://sooziva.com",
+    },
     secret: process.env.BETTER_AUTH_SECRET,
+    trustedOrigins: ["https://sooziva.com", "https://www.sooziva.com", "https://dashboard.sooziva.com"],
+    advanced: {
+      crossSubDomainCookies: {
+        enabled: true,
+        domain: "sooziva.com",
+      },
+    },
     emailAndPassword: {
       enabled: true,
       sendResetPassword: async ({ user, url }, _request) => {
