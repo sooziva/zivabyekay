@@ -10,8 +10,6 @@ export default function HomeServicePage() {
     date: "",
     service: "",
     amountGhs: "",
-    address: "",
-    city: "",
     staff: "",
     status: "",
     notes: "",
@@ -58,8 +56,6 @@ export default function HomeServicePage() {
                   date: "",
                   service: "",
                   amountGhs: "",
-                  address: "",
-                  city: "",
                   staff: "",
                   status: "",
                   notes: "",
@@ -87,8 +83,6 @@ export default function HomeServicePage() {
               value={form.amountGhs}
               onChange={(e) => setForm((p) => ({ ...p, amountGhs: e.target.value }))}
             />
-            <input placeholder="Address" value={form.address} onChange={(e) => setForm((p) => ({ ...p, address: e.target.value }))} />
-            <input placeholder="City" value={form.city} onChange={(e) => setForm((p) => ({ ...p, city: e.target.value }))} />
             <input placeholder="Staff (optional)" value={form.staff} onChange={(e) => setForm((p) => ({ ...p, staff: e.target.value }))} />
             <input
               placeholder="Status (pending/confirmed/completed)"
@@ -104,19 +98,33 @@ export default function HomeServicePage() {
           {error ? <p className="zb-card__meta">{error}</p> : null}
 
           <p className="zb-card__meta">{bookings.error ? bookings.error : "Latest bookings"}</p>
-          <div className="zb-list">
-            {(bookings.data?.items || []).slice(0, 25).map((x) => (
-              <div key={x.id} className="zb-listItem">
-                <p className="zb-listItem__title">{x.client}</p>
-                <p className="zb-listItem__meta">
-                  {x.date ? `${new Date(x.date).toLocaleString()} • ` : ""}
-                  {x.service ? `${x.service} • ` : ""}
-                  {typeof x.amountGhs === "number" ? `GHS ${x.amountGhs.toFixed(2)}` : ""}
-                  {x.city ? ` • ${x.city}` : ""}
-                  {x.status ? ` • ${x.status}` : ""}
-                </p>
-              </div>
-            ))}
+          <div className="zb-tableWrap" role="region" aria-label="Home service bookings table" tabIndex={0}>
+            <table className="zb-table" aria-label="Home service bookings">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Client</th>
+                  <th>Service</th>
+                  <th>Staff</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(bookings.data?.items || []).slice(0, 50).map((x) => (
+                  <tr key={x.id}>
+                    <td>{x.date ? new Date(x.date).toLocaleString() : "—"}</td>
+                    <td>{x.client || "—"}</td>
+                    <td>{x.service || "—"}</td>
+                    <td>{x.staff || "—"}</td>
+                    <td>{x.status || "—"}</td>
+                    <td>{typeof x.amountGhs === "number" ? `GHS ${x.amountGhs.toFixed(2)}` : "—"}</td>
+                    <td>{x.notes || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </DashboardPageShell>

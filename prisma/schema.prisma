@@ -10,8 +10,10 @@ datasource db {
 model WalkIn {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
+  date      DateTime?
   client    String?
   service   String?
+  staff     String?
   amountGhs Float
   notes     String?
 }
@@ -28,7 +30,7 @@ model Product {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   name      String
-  sku       String?
+  shades    String?  @map("sku")
   priceGhs  Float?
   stock     Int      @default(0)
 }
@@ -37,6 +39,8 @@ model ClassSession {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   title     String
+  studentName String?
+  course      String?
   date      DateTime?
   priceGhs  Float?
   notes     String?

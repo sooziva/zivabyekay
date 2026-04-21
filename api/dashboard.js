@@ -49,10 +49,14 @@ export default async function handler(req, res) {
         const body = req.body || {};
         const amountGhs = Number(body.amountGhs);
         if (!Number.isFinite(amountGhs)) return sendJson(res, 400, { ok: false, error: "Invalid amountGhs" });
+        const date = body.date ? new Date(String(body.date)) : null;
+        if (date && Number.isNaN(date.getTime())) return sendJson(res, 400, { ok: false, error: "Invalid date" });
         const item = await prisma.walkIn.create({
           data: {
+            date,
             client: body.client ? String(body.client) : null,
             service: body.service ? String(body.service) : null,
+            staff: body.staff ? String(body.staff) : null,
             amountGhs,
             notes: body.notes ? String(body.notes) : null,
           },
@@ -90,10 +94,11 @@ export default async function handler(req, res) {
         const body = req.body || {};
         const name = String(body.name || "").trim();
         if (!name) return sendJson(res, 400, { ok: false, error: "Missing name" });
+        const shades = body.shades != null ? String(body.shades) : body.sku != null ? String(body.sku) : "";
         const item = await prisma.product.create({
           data: {
             name,
-            sku: body.sku ? String(body.sku) : null,
+            shades: shades.trim() ? shades.trim() : null,
             priceGhs: body.priceGhs === "" || body.priceGhs == null ? null : Number(body.priceGhs),
             stock: body.stock == null || body.stock === "" ? 0 : Number(body.stock),
           },
@@ -110,11 +115,15 @@ export default async function handler(req, res) {
       }
       if (req.method === "POST") {
         const body = req.body || {};
-        const title = String(body.title || "").trim();
-        if (!title) return sendJson(res, 400, { ok: false, error: "Missing title" });
+        const studentName = String(body.studentName || "").trim();
+        const course = String(body.course || body.title || "").trim();
+        if (!studentName) return sendJson(res, 400, { ok: false, error: "Missing studentName" });
+        if (!course) return sendJson(res, 400, { ok: false, error: "Missing course" });
         const item = await prisma.classSession.create({
           data: {
-            title,
+            title: course,
+            studentName,
+            course,
             date: body.date ? new Date(String(body.date)) : null,
             priceGhs: body.priceGhs === "" || body.priceGhs == null ? null : Number(body.priceGhs),
             notes: body.notes ? String(body.notes) : null,

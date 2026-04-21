@@ -5,7 +5,7 @@ import "../_shared/DashboardPages.css";
 
 export default function ProductsPage() {
   const products = useAuthedJson("/api/dashboard/products", []);
-  const [form, setForm] = useState({ name: "", sku: "", priceGhs: "", stock: "" });
+  const [form, setForm] = useState({ name: "", shades: "", priceGhs: "", stock: "" });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -23,7 +23,7 @@ export default function ProductsPage() {
               try {
                 const json = await postJson("/api/dashboard/products", form);
                 products.setData((prev) => ({ ...prev, items: [json.item, ...(prev?.items || [])] }));
-                setForm({ name: "", sku: "", priceGhs: "", stock: "" });
+                setForm({ name: "", shades: "", priceGhs: "", stock: "" });
               } catch (err) {
                 setError(err?.message || "Failed to save");
               } finally {
@@ -32,7 +32,11 @@ export default function ProductsPage() {
             }}
           >
             <input placeholder="Name" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} />
-            <input placeholder="SKU" value={form.sku} onChange={(e) => setForm((p) => ({ ...p, sku: e.target.value }))} />
+            <input
+              placeholder="Shades (optional)"
+              value={form.shades}
+              onChange={(e) => setForm((p) => ({ ...p, shades: e.target.value }))}
+            />
             <input
               type="number"
               inputMode="decimal"
@@ -56,16 +60,27 @@ export default function ProductsPage() {
           {error ? <p className="zb-card__meta">{error}</p> : null}
           <p className="zb-card__meta">{products.error ? products.error : `${(products.data?.items || []).length} products`}</p>
 
-          <div className="zb-list">
-            {(products.data?.items || []).slice(0, 30).map((x) => (
-              <div key={x.id} className="zb-listItem">
-                <p className="zb-listItem__title">{x.name}</p>
-                <p className="zb-listItem__meta">
-                  {x.sku ? `${x.sku} • ` : ""}Stock {x.stock}
-                  {x.priceGhs != null ? ` • GHS ${Number(x.priceGhs).toFixed(2)}` : ""}
-                </p>
-              </div>
-            ))}
+          <div className="zb-tableWrap" role="region" aria-label="Products table" tabIndex={0}>
+            <table className="zb-table" aria-label="Products">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Shades</th>
+                  <th>Stock</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(products.data?.items || []).slice(0, 100).map((x) => (
+                  <tr key={x.id}>
+                    <td>{x.name}</td>
+                    <td>{x.shades || "—"}</td>
+                    <td>{typeof x.stock === "number" ? x.stock : "—"}</td>
+                    <td>{x.priceGhs != null ? `GHS ${Number(x.priceGhs).toFixed(2)}` : "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </DashboardPageShell>

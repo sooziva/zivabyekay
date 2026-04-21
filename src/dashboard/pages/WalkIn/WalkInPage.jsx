@@ -5,7 +5,7 @@ import "../_shared/DashboardPages.css";
 
 export default function WalkInPage() {
   const walkins = useAuthedJson("/api/dashboard/walkins", []);
-  const [form, setForm] = useState({ client: "", service: "", amountGhs: "", notes: "" });
+  const [form, setForm] = useState({ date: "", staff: "", client: "", service: "", amountGhs: "", notes: "" });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -40,7 +40,7 @@ export default function WalkInPage() {
               try {
                 const json = await postJson("/api/dashboard/walkins", { ...form, amountGhs: Number(form.amountGhs) });
                 walkins.setData((prev) => ({ ...prev, items: [json.item, ...(prev?.items || [])] }));
-                setForm({ client: "", service: "", amountGhs: "", notes: "" });
+                setForm({ date: "", staff: "", client: "", service: "", amountGhs: "", notes: "" });
               } catch (err) {
                 setError(err?.message || "Failed to save");
               } finally {
@@ -48,6 +48,17 @@ export default function WalkInPage() {
               }
             }}
           >
+            <input
+              type="date"
+              placeholder="Date"
+              value={form.date}
+              onChange={(e) => setForm((p) => ({ ...p, date: e.target.value }))}
+            />
+            <input
+              placeholder="Staff"
+              value={form.staff}
+              onChange={(e) => setForm((p) => ({ ...p, staff: e.target.value }))}
+            />
             <input placeholder="Client" value={form.client} onChange={(e) => setForm((p) => ({ ...p, client: e.target.value }))} />
             <input placeholder="Service" value={form.service} onChange={(e) => setForm((p) => ({ ...p, service: e.target.value }))} />
             <input
@@ -66,16 +77,31 @@ export default function WalkInPage() {
           {error ? <p className="zb-card__meta">{error}</p> : null}
 
           <p className="zb-card__meta">{walkins.error ? walkins.error : "Latest entries"}</p>
-          <div className="zb-list">
-            {(walkins.data?.items || []).slice(0, 20).map((x) => (
-              <div key={x.id} className="zb-listItem">
-                <p className="zb-listItem__title">{x.client || "Walk-in"}</p>
-                <p className="zb-listItem__meta">
-                  {x.service ? `${x.service} • ` : ""}
-                  {typeof x.amountGhs === "number" ? `GHS ${x.amountGhs.toFixed(2)}` : ""}
-                </p>
-              </div>
-            ))}
+          <div className="zb-tableWrap" role="region" aria-label="Walk-ins table" tabIndex={0}>
+            <table className="zb-table" aria-label="Walk-ins">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Staff</th>
+                  <th>Client</th>
+                  <th>Service</th>
+                  <th>Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(walkins.data?.items || []).slice(0, 50).map((x) => (
+                  <tr key={x.id}>
+                    <td>{x.date ? new Date(x.date).toLocaleDateString() : x.createdAt ? new Date(x.createdAt).toLocaleDateString() : "—"}</td>
+                    <td>{x.staff || "—"}</td>
+                    <td>{x.client || "—"}</td>
+                    <td>{x.service || "—"}</td>
+                    <td>{typeof x.amountGhs === "number" ? `GHS ${x.amountGhs.toFixed(2)}` : "—"}</td>
+                    <td>{x.notes || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </DashboardPageShell>

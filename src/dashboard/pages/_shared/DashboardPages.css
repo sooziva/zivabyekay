@@ -82,5 +82,9 @@
   .zb-form {
     grid-template-columns: 1fr;
   }
+
+  .zb-form button {
+    grid-column: auto;
+  }
 }
 
