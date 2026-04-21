@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "concurrently -n web,api -c cyan,magenta \"vite\" \"node --watch server/index.js\"",
     "build": "vite build",
+    "postinstall": "prisma generate",
+    "vercel-build": "prisma generate && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
