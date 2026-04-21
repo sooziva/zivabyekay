@@ -11,6 +11,7 @@ import {
   parseSectionsParam,
   waitForImagesAndScroll,
 } from "../lib/weddings-pdf-shared.js";
+import { buildAcknowledgementEmail, buildBridalInquiryOwnerEmail } from "../lib/email-templates.js";
 import { getAuth, getAuthInitError } from "./auth.js";
 import { prisma } from "./prisma.js";
 
@@ -278,26 +279,7 @@ app.post("/api/bridal-inquiry", async (req, res) => {
 
     const data = req.body || {};
 
-    const subject = `Bridal inquiry — ${data.firstName || "New lead"}${data.weddingDate ? ` (${data.weddingDate})` : ""}`;
-
-    const lines = [
-      ["Tier", data.tier],
-      ["Name", data.firstName],
-      ["WhatsApp", data.whatsapp],
-      ["Email", data.email],
-      ["City / Country", data.cityCountry],
-      ["Referral", data.referral],
-      ["Wedding date", data.weddingDate],
-      ["Venue", data.venue],
-      ["Arrival time", data.weddingTime],
-      ["Bridesmaids makeup needs", data.bridesmaidsMakeup],
-      ["Style preference", data.stylePreference],
-      ["Skin type", data.skinType],
-      ["Additional notes", data.notes],
-    ]
-      .filter(([, v]) => String(v || "").trim().length)
-      .map(([k, v]) => `${k}: ${v}`)
-      .join("\n");
+    const email = buildBridalInquiryOwnerEmail(data);
 
     const resend = new Resend(apiKey);
     const recipients = String(to)
@@ -309,8 +291,9 @@ app.post("/api/bridal-inquiry", async (req, res) => {
       from,
       to: recipients.length ? recipients : [to],
       replyTo: data.email ? [data.email] : undefined,
-      subject,
-      text: lines || "New bridal inquiry received.",
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
     });
 
     if (error) return res.status(502).json({ ok: false, error: error.message || "Resend error" });
@@ -340,22 +323,14 @@ app.post("/api/send-acknowledgement", async (req, res) => {
     }
 
     const resend = new Resend(apiKey);
-    const subject = "Wedding agreement acknowledgement confirmation";
-    const text = [
-      "Agreement acknowledgement received.",
-      "",
-      `Name: ${name}`,
-      `Date: ${date}`,
-      `Client email: ${clientEmail}`,
-      "",
-      "Ziva by Ekay",
-    ].join("\n");
+    const email = buildAcknowledgementEmail({ name, date, clientEmail });
 
     const { data: sent, error } = await resend.emails.send({
       from,
       to: [clientEmail, ownerEmail],
-      subject,
-      text,
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
     });
 
     if (error) return res.status(502).json({ ok: false, error: error.message || "Resend error" });

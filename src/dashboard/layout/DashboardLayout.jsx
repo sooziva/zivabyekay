@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { authClient } from "../../lib/auth-client";
 import "./DashboardLayout.css";
 
 const NAV_ITEMS = [
@@ -98,6 +99,16 @@ export default function DashboardLayout() {
             </button>
             <button className="zb-dashboard__chip zb-dashboard__chip--primary" type="button">
               New entry
+            </button>
+            <button
+              className="zb-dashboard__chip zb-dashboard__chip--danger"
+              type="button"
+              onClick={async () => {
+                await authClient.signOut();
+                navigate("/dashboard/login", { replace: true });
+              }}
+            >
+              Sign out
             </button>
           </div>
         </header>

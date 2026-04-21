@@ -196,6 +196,17 @@
   background: rgba(209, 176, 122, 0.14);
 }
 
+.zb-dashboard__chip--danger {
+  border-color: rgba(255, 120, 120, 0.35);
+  background: rgba(255, 70, 70, 0.08);
+  color: rgba(255, 220, 220, 0.95);
+}
+
+.zb-dashboard__chip--danger:hover {
+  border-color: rgba(255, 120, 120, 0.55);
+  background: rgba(255, 70, 70, 0.12);
+}
+
 .zb-dashboard__content {
   padding: 22px;
   width: 100%;

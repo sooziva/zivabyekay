@@ -69,7 +69,11 @@ const BridalInquiry = () => {
         if (!res.ok || !json?.ok) {
           throw new Error(json?.error || "Failed to send inquiry");
         }
-        setSubmitState({ status: "success", message: "Sent. We’ll be in touch soon." });
+        setSubmitState({
+          status: "success",
+          message:
+            "Inquiry received. You’ll get a reply within 24–48 hours (Mon–Fri). If it’s urgent, WhatsApp us with your name + wedding date.",
+        });
       } catch (err) {
         setSubmitState({ status: "error", message: err?.message || "Failed to send inquiry" });
       }
@@ -127,6 +131,27 @@ const BridalInquiry = () => {
               >
                 {submitState.status === "loading" ? "Sending…" : submitState.message}
               </p>
+            ) : null}
+
+            {submitState.status === "success" ? (
+              <div className="bridal-inquiry-fields" aria-label="Next steps">
+                <div className="bridal-inquiry-field bridal-inquiry-field--full">
+                  <p style={{ margin: 0, lineHeight: 1.7 }}>
+                    Next steps:
+                    <br />
+                    - We review your details and confirm availability for your date.
+                    <br />
+                    - If available, we’ll send your quote + booking instructions.
+                    <br />
+                    - Your date is only secured once the retainer is paid.
+                  </p>
+                </div>
+                <div className="bridal-inquiry-field bridal-inquiry-field--full">
+                  <Link to="/wedding" className="bridal-inquiry-back-link">
+                    ← Back to Weddings
+                  </Link>
+                </div>
+              </div>
             ) : null}
 
             {step === 1 && (

@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { buildBridalInquiryOwnerEmail } from "../lib/email-templates.js";
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -34,26 +35,7 @@ export default async function handler(req, res) {
     const from = getRequiredEnv("RESEND_FROM");
     const to = getRequiredEnv("RESEND_TO");
 
-    const subject = `Bridal inquiry — ${data?.firstName || "New lead"}${data?.weddingDate ? ` (${data.weddingDate})` : ""}`;
-
-    const lines = [
-      ["Tier", data?.tier],
-      ["Name", data?.firstName],
-      ["WhatsApp", data?.whatsapp],
-      ["Email", data?.email],
-      ["City / Country", data?.cityCountry],
-      ["Referral", data?.referral],
-      ["Wedding date", data?.weddingDate],
-      ["Venue", data?.venue],
-      ["Arrival time", data?.weddingTime],
-      ["Bridesmaids makeup needs", data?.bridesmaidsMakeup],
-      ["Style preference", data?.stylePreference],
-      ["Skin type", data?.skinType],
-      ["Additional notes", data?.notes],
-    ]
-      .filter(([, v]) => String(v || "").trim().length)
-      .map(([k, v]) => `${k}: ${v}`)
-      .join("\n");
+    const email = buildBridalInquiryOwnerEmail(data);
 
     const resend = new Resend(apiKey);
     const recipients = parseRecipients(to);
@@ -61,8 +43,9 @@ export default async function handler(req, res) {
       from,
       to: recipients.length ? recipients : [to],
       replyTo: data?.email ? [String(data.email).trim()] : undefined,
-      subject,
-      text: lines || "New bridal inquiry received.",
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
     });
 
     if (error) return json(res, 502, { ok: false, error: error.message || "Resend error" });

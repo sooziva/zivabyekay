@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { buildAcknowledgementEmail } from "../lib/email-templates.js";
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -36,22 +37,14 @@ export default async function handler(req, res) {
     const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
     const from = (process.env.RESEND_FROM || "").toString().trim();
     if (!from) throw new Error("Missing env var: RESEND_FROM");
-    const subject = "Wedding agreement acknowledgement confirmation";
-    const text = [
-      "Agreement acknowledgement received.",
-      "",
-      `Name: ${name}`,
-      `Date: ${date}`,
-      `Client email: ${email}`,
-      "",
-      "Ziva by Ekay",
-    ].join("\n");
+    const emailTemplate = buildAcknowledgementEmail({ name, date, clientEmail: email });
 
     const { data: sent, error } = await resend.emails.send({
       from,
       to: [email, ownerEmail],
-      subject,
-      text,
+      subject: emailTemplate.subject,
+      text: emailTemplate.text,
+      html: emailTemplate.html,
     });
 
     if (error) return json(res, 502, { ok: false, error: error.message || "Resend error" });

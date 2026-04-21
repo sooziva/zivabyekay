@@ -1,16 +1,12 @@
-import dotenv from "dotenv";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 import { Resend } from "resend";
-import { buildPasswordResetEmail } from "../lib/email-templates.js";
-
-dotenv.config({ path: ".env" });
-dotenv.config({ path: ".env.local" });
+import { buildPasswordResetEmail } from "../../lib/email-templates.js";
 
 let authPromise;
-let lastAuthError = null;
 let authInstance = null;
+let lastAuthError = null;
 
 async function createAuth() {
   const mongoUrl = process.env.MONGODB_URI || process.env.DATABASE_URL;

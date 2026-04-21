@@ -34,6 +34,7 @@ import SalaryPage from "./dashboard/pages/Salary/SalaryPage";
 import ReportsPage from "./dashboard/pages/Reports/ReportsPage";
 import RequireDashboardAuth from "./dashboard/RequireDashboardAuth";
 import DashboardLogin from "./dashboard/pages/Login/DashboardLogin";
+import DashboardResetPassword from "./dashboard/pages/Login/DashboardResetPassword";
 
 function App() {
   const location = useLocation();
@@ -79,6 +80,7 @@ function App() {
 
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route path="login" element={<DashboardLogin />} />
+              <Route path="reset-password" element={<DashboardResetPassword />} />
               <Route element={<RequireDashboardAuth />}>
                 <Route index element={<Navigate to="/dashboard/overview" replace />} />
                 <Route path="overview" element={<OverviewPage />} />

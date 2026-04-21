@@ -129,6 +129,16 @@
   font-size: 0.95rem;
 }
 
+.zb-dashLogin__success {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(121, 232, 169, 0.3);
+  background: rgba(121, 232, 169, 0.08);
+  color: rgba(237, 231, 221, 0.95);
+  font-size: 0.95rem;
+}
+
 .zb-dashLogin__btn {
   margin-top: 14px;
   width: 100%;
@@ -146,5 +156,32 @@
 .zb-dashLogin__btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.zb-dashLogin__footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.zb-dashLogin__link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgba(237, 231, 221, 0.9);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.zb-dashLogin__link:hover {
+  color: #fff5e6;
+}
+
+.zb-dashLogin__link:focus-visible {
+  outline: 2px solid rgba(255, 219, 167, 0.65);
+  outline-offset: 4px;
+  border-radius: 8px;
 }
 

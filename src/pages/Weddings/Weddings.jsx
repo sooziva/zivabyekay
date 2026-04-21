@@ -1172,7 +1172,9 @@ const Weddings = () => {
           </p>
           {sigSubmitted ? (
             <p className="weddings-sig-success" role="status">
-              Thank you, {sigForm.name.trim()}. Your acknowledgement has been recorded for this session. We&apos;ll follow up by email for your official documents.
+              Thank you, {sigForm.name.trim()}. Your acknowledgement has been received.
+              <br />
+              We&apos;ll email your confirmation shortly, and follow up with your official contract documents for signature.
             </p>
           ) : (
             <form className="weddings-sig-form" onSubmit={handleSignatureSubmit} noValidate>
