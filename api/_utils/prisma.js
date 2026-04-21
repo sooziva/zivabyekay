@@ -1,4 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import prismaPkg from "@prisma/client";
+
+// Vercel can sometimes bundle `@prisma/client` as CJS. Support both CJS + ESM.
+const PrismaClient = prismaPkg?.PrismaClient || prismaPkg?.default?.PrismaClient;
+if (!PrismaClient) {
+  throw new Error("PrismaClient export not found. Ensure Prisma Client is generated during build.");
+}
 
 // Vercel serverless: reuse Prisma client across invocations when possible.
 const globalForPrisma = globalThis;
