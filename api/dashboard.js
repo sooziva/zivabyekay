@@ -1,7 +1,7 @@
-import { prisma } from "../_utils/prisma.js";
-import { methodNotAllowed, sendJson } from "../_utils/http.js";
+import { prisma } from "./_utils/prisma.js";
+import { methodNotAllowed, sendJson } from "./_utils/http.js";
 import { fromNodeHeaders } from "better-auth/node";
-import { getAuth, getAuthInitError } from "../_utils/auth.js";
+import { getAuth, getAuthInitError } from "./_utils/auth.js";
 
 async function requireDashboardSession(req, res) {
   const auth = await getAuth();
@@ -18,12 +18,14 @@ async function requireDashboardSession(req, res) {
   return session;
 }
 
-function getPathSegments(req) {
-  // Vercel catch-all routes provide `req.query.any`.
-  const any = req.query?.any;
-  if (Array.isArray(any)) return any.map(String);
-  if (typeof any === "string" && any.length) return [any];
-  return [];
+function resourceFromUrl(req) {
+  const url = String(req.url || "");
+  const path = url.split("?")[0] || "";
+  // path is like "/api/dashboard/walkins" (or "/api/dashboard")
+  const idx = path.indexOf("/api/dashboard");
+  const rest = idx >= 0 ? path.slice(idx + "/api/dashboard".length) : path;
+  const clean = rest.replace(/^\/+/, "");
+  return clean.split("/")[0] || "";
 }
 
 export default async function handler(req, res) {
@@ -31,9 +33,9 @@ export default async function handler(req, res) {
     const session = await requireDashboardSession(req, res);
     if (!session) return;
 
-    const [resource] = getPathSegments(req);
+    const resource = resourceFromUrl(req);
 
-    if (resource === "session") {
+    if (!resource || resource === "session") {
       if (req.method !== "GET") return methodNotAllowed(res);
       return sendJson(res, 200, { ok: true, session });
     }

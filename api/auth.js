@@ -1,6 +1,6 @@
 import { toNodeHandler } from "better-auth/node";
-import { getAuth, getAuthInitError } from "../_utils/auth.js";
-import { sendJson } from "../_utils/http.js";
+import { getAuth, getAuthInitError } from "./_utils/auth.js";
+import { sendJson } from "./_utils/http.js";
 
 export default async function handler(req, res) {
   const auth = await getAuth();

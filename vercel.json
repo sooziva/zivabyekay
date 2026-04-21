@@ -2,6 +2,8 @@
   "version": 2,
   "routes": [
     { "handle": "filesystem" },
+    { "src": "/api/auth(?:/.*)?", "dest": "/api/auth.js" },
+    { "src": "/api/dashboard(?:/.*)?", "dest": "/api/dashboard.js" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
