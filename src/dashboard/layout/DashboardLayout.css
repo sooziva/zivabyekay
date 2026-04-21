@@ -119,6 +119,51 @@
   font-size: var(--zb-fs-1);
 }
 
+.zb-dashboard__user {
+  margin: 10px 0 0;
+  color: var(--zb-text);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zb-dashboard__user--muted {
+  color: var(--zb-muted);
+}
+
+.zb-dashboard__signOut {
+  margin-top: 12px;
+  width: 100%;
+  border: 1px solid rgba(255, 120, 120, 0.28);
+  background: rgba(255, 70, 70, 0.08);
+  color: rgba(255, 220, 220, 0.95);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.zb-dashboard__signOut:hover {
+  border-color: rgba(255, 120, 120, 0.45);
+  background: rgba(255, 70, 70, 0.12);
+  transform: translateY(-1px);
+}
+
+.zb-dashboard__signOut:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.zb-dashboard__signOut:focus-visible {
+  outline: 2px solid rgba(255, 120, 120, 0.7);
+  outline-offset: 3px;
+}
+
 .zb-dashboard__main {
   min-width: 0;
   display: flex;

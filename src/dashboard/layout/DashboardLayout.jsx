@@ -17,9 +17,11 @@ const NAV_ITEMS = [
 export default function DashboardLayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { data: session } = authClient.useSession();
   const sectionIds = useMemo(() => NAV_ITEMS.map((x) => x.id), []);
   const [activeId, setActiveId] = useState(sectionIds[0] ?? "overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const contentRef = useRef(null);
 
   useEffect(() => {
@@ -77,6 +79,31 @@ export default function DashboardLayout() {
 
         <div className="zb-dashboard__sidebarFooter">
           <p className="zb-dashboard__hint">Admin/Staff</p>
+          {session?.user ? (
+            <p className="zb-dashboard__user" title={session.user.email || ""}>
+              {session.user.name || "Signed in"}{session.user.email ? ` · ${session.user.email}` : ""}
+            </p>
+          ) : (
+            <p className="zb-dashboard__user zb-dashboard__user--muted">Not signed in</p>
+          )}
+          <button
+            className="zb-dashboard__signOut"
+            type="button"
+            onClick={async () => {
+              setSigningOut(true);
+              try {
+                await authClient.signOut();
+              } catch {
+                // Ignore network/auth failures; still exit dashboard UI.
+              } finally {
+                setSigningOut(false);
+                navigate("/dashboard/login", { replace: true });
+              }
+            }}
+            disabled={signingOut}
+          >
+            {signingOut ? "Signing out…" : "Sign out"}
+          </button>
         </div>
       </aside>
 
@@ -99,16 +126,6 @@ export default function DashboardLayout() {
             </button>
             <button className="zb-dashboard__chip zb-dashboard__chip--primary" type="button">
               New entry
-            </button>
-            <button
-              className="zb-dashboard__chip zb-dashboard__chip--danger"
-              type="button"
-              onClick={async () => {
-                await authClient.signOut();
-                navigate("/dashboard/login", { replace: true });
-              }}
-            >
-              Sign out
             </button>
           </div>
         </header>
