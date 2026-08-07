@@ -12,8 +12,22 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await fetch("/api/form-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "contact",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+    } catch {
+      // Still open mailto as a fallback if the API is unreachable.
+    }
     const body = `From: ${formData.name} (${formData.email})\n\n${formData.message}`;
     window.location.href = `mailto:sooziva@gmail.com?subject=Enquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(body)}`;
   };

@@ -12,6 +12,9 @@ import {
   waitForImagesAndScroll,
 } from "../lib/weddings-pdf-shared.js";
 import { buildAcknowledgementEmail, buildBridalInquiryOwnerEmail } from "../lib/email-templates.js";
+import { captureEmailLead } from "../lib/email-leads.js";
+import { importEmailLeadsFromText, syncHistoricalEmailLeads } from "../lib/email-leads-sync.js";
+import { sendMarketingCampaign } from "../lib/email-marketing-send.js";
 import { getAuth, getAuthInitError } from "./auth.js";
 import { prisma } from "./prisma.js";
 
@@ -421,6 +424,104 @@ app.post("/api/dashboard/salary", async (req, res) => {
   res.json({ ok: true, item });
 });
 
+app.get("/api/dashboard/email-leads", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const items = await prisma.emailLead.findMany({ orderBy: { updatedAt: "desc" }, take: 2000 });
+  res.json({ ok: true, items });
+});
+
+app.post("/api/dashboard/email-leads", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  try {
+    const body = req.body || {};
+    const action = String(body.action || "import").trim();
+    if (action === "sync") {
+      const summary = await syncHistoricalEmailLeads(prisma);
+      const items = await prisma.emailLead.findMany({ orderBy: { updatedAt: "desc" }, take: 2000 });
+      return res.json({ ok: true, summary, items });
+    }
+    if (action === "import") {
+      const text = String(body.text || body.csv || "").trim();
+      if (!text) return res.status(400).json({ ok: false, error: "Paste emails or CSV text to import" });
+      const result = await importEmailLeadsFromText(prisma, text, body.source ? String(body.source) : "waitlist");
+      const items = await prisma.emailLead.findMany({ orderBy: { updatedAt: "desc" }, take: 2000 });
+      return res.json({ ok: true, ...result, items });
+    }
+    if (action === "send") {
+      let recipients = [];
+      if (Array.isArray(body.recipients) && body.recipients.length) {
+        recipients = body.recipients;
+      } else if (Array.isArray(body.ids) && body.ids.length) {
+        recipients = await prisma.emailLead.findMany({
+          where: { id: { in: body.ids.map(String) } },
+          select: { email: true, name: true },
+        });
+      } else if (Array.isArray(body.emails) && body.emails.length) {
+        const emails = body.emails.map(String);
+        const found = await prisma.emailLead.findMany({
+          where: { email: { in: emails.map((e) => e.trim().toLowerCase()) } },
+          select: { email: true, name: true },
+        });
+        const byEmail = new Map(found.map((x) => [x.email, x]));
+        recipients = emails.map((email) => {
+          const key = String(email).trim().toLowerCase();
+          return byEmail.get(key) || { email: key, name: null };
+        });
+      } else if (body.audience === "all") {
+        recipients = await prisma.emailLead.findMany({
+          select: { email: true, name: true },
+          take: 2000,
+        });
+      }
+      const result = await sendMarketingCampaign({
+        recipients,
+        subject: body.subject,
+        body: body.body,
+        previewTitle: body.previewTitle,
+        ctaLabel: body.ctaLabel,
+        ctaUrl: body.ctaUrl,
+        imageUrl: body.imageUrl,
+      });
+      return res.json({ ok: true, result });
+    }
+    return res.status(400).json({ ok: false, error: "Unknown action" });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err?.message || "Sync failed" });
+  }
+});
+
+app.delete("/api/dashboard/email-leads", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+  await prisma.emailLead.delete({ where: { id } });
+  res.json({ ok: true });
+});
+
+app.patch("/api/dashboard/email-leads", async (req, res) => {
+  const session = await requireDashboardSession(req, res);
+  if (!session) return;
+  const id = req.query?.id ? String(req.query.id) : "";
+  if (!id) return res.status(400).json({ ok: false, error: "Missing id" });
+  const body = req.body || {};
+  const emailRaw = body.email != null ? String(body.email).trim().toLowerCase() : undefined;
+  if (emailRaw !== undefined && (!emailRaw || !emailRaw.includes("@"))) {
+    return res.status(400).json({ ok: false, error: "Invalid email" });
+  }
+  const item = await prisma.emailLead.update({
+    where: { id },
+    data: {
+      email: emailRaw,
+      name: body.name != null ? String(body.name).trim() || null : undefined,
+      phone: body.phone != null ? String(body.phone).trim() || null : undefined,
+    },
+  });
+  res.json({ ok: true, item });
+});
+
 app.post("/api/bridal-inquiry", async (req, res) => {
   try {
     const apiKey = process.env.RESEND_API_KEY;
@@ -432,6 +533,17 @@ app.post("/api/bridal-inquiry", async (req, res) => {
     if (!to) return res.status(500).json({ ok: false, error: "Missing RESEND_TO" });
 
     const data = req.body || {};
+
+    await captureEmailLead(prisma, {
+      email: data?.email,
+      name: data?.firstName || data?.name || data?.fullName || data?.brideName,
+      phone: data?.whatsapp || data?.phone || null,
+      source: "bridal-inquiry",
+      meta: {
+        weddingDate: data?.weddingDate || data?.date || null,
+        tier: data?.tier || null,
+      },
+    });
 
     const email = buildBridalInquiryOwnerEmail(data);
 
@@ -457,6 +569,56 @@ app.post("/api/bridal-inquiry", async (req, res) => {
   }
 });
 
+app.post("/api/form-lead", async (req, res) => {
+  try {
+    const data = req.body || {};
+    const source = String(data.source || "").trim() || "form";
+    const email = String(data.email || "").trim();
+    const name = String(data.name || "").trim();
+    const message = String(data.message || "").trim();
+
+    if (!email) return res.status(400).json({ ok: false, error: "Missing email" });
+
+    await captureEmailLead(prisma, {
+      email,
+      name: name || null,
+      phone: data.phone || data.whatsapp || null,
+      source,
+      meta: {
+        message: message || null,
+        service: data.service || null,
+        date: data.date || null,
+        time: data.time || null,
+        phone: data.phone || null,
+      },
+    });
+
+    if (source === "contact" && message) {
+      const apiKey = process.env.RESEND_API_KEY;
+      const from = process.env.RESEND_FROM;
+      const to = process.env.RESEND_TO;
+      if (apiKey && from && to) {
+        const resend = new Resend(apiKey);
+        const recipients = String(to)
+          .split(",")
+          .map((x) => x.trim())
+          .filter(Boolean);
+        await resend.emails.send({
+          from,
+          to: recipients.length ? recipients : [to],
+          replyTo: [email],
+          subject: `New contact message from ${name || email}`,
+          text: [`Name: ${name || "—"}`, `Email: ${email}`, "", message].join("\n"),
+        });
+      }
+    }
+
+    return res.json({ ok: true });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err?.message || "Failed to save" });
+  }
+});
+
 app.post("/api/send-acknowledgement", async (req, res) => {
   try {
     const apiKey = process.env.RESEND_API_KEY;
@@ -475,6 +637,13 @@ app.post("/api/send-acknowledgement", async (req, res) => {
     if (!name || !date || !clientEmail) {
       return res.status(400).json({ ok: false, error: "Missing required fields" });
     }
+
+    await captureEmailLead(prisma, {
+      email: clientEmail,
+      name,
+      source: "acknowledgement",
+      meta: { date },
+    });
 
     const resend = new Resend(apiKey);
     const email = buildAcknowledgementEmail({ name, date, clientEmail });
@@ -569,5 +738,10 @@ const port = Number(process.env.PORT || 8787);
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`[api] listening on http://localhost:${port}`);
+  // Warm auth so the first browser request doesn't hit a cold Mongo connect.
+  getAuth().then((auth) => {
+    if (auth) console.log("[auth] ready");
+    else console.error("[auth] unavailable:", getAuthInitError()?.message || "unknown error");
+  });
 });
 

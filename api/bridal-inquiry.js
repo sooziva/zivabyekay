@@ -1,5 +1,7 @@
 import { Resend } from "resend";
 import { buildBridalInquiryOwnerEmail } from "../lib/email-templates.js";
+import { captureEmailLead } from "../lib/email-leads.js";
+import { prisma } from "./_utils/prisma.js";
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -35,6 +37,17 @@ export default async function handler(req, res) {
     const from = getRequiredEnv("RESEND_FROM");
     const to = getRequiredEnv("RESEND_TO");
 
+    await captureEmailLead(prisma, {
+      email: data?.email,
+      name: data?.firstName || data?.name || data?.fullName || data?.brideName,
+      phone: data?.whatsapp || data?.phone || null,
+      source: "bridal-inquiry",
+      meta: {
+        weddingDate: data?.weddingDate || data?.date || null,
+        tier: data?.tier || null,
+      },
+    });
+
     const email = buildBridalInquiryOwnerEmail(data);
 
     const resend = new Resend(apiKey);
@@ -54,4 +67,3 @@ export default async function handler(req, res) {
     return json(res, 500, { ok: false, error: err?.message || "Unknown error" });
   }
 }
-

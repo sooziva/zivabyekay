@@ -74,3 +74,16 @@ model SalaryPayment {
   notes     String?
 }
 
+/// Emails captured from public forms (bridal inquiry, acknowledgement, contact, booking, etc.)
+model EmailLead {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  email      String   @unique
+  name       String?
+  phone      String?
+  sources    String[]
+  lastSource String?
+  meta       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+

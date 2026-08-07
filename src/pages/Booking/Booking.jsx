@@ -123,15 +123,25 @@ const Booking = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the booking data to a backend
-    console.log("Booking submitted:", {
-      service: selectedService,
-      date: selectedDate,
-      time: selectedTime,
-      ...formData,
-    });
+    try {
+      await fetch("/api/form-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "booking",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: selectedService?.name || null,
+          date: selectedDate ? selectedDate.toISOString() : null,
+          time: selectedTime || null,
+        }),
+      });
+    } catch {
+      // Confirmation still proceeds even if lead capture fails.
+    }
     setBookingConfirmed(true);
   };
 

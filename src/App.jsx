@@ -32,6 +32,7 @@ import ProductsPage from "./dashboard/pages/Products/ProductsPage";
 import ExpensesPage from "./dashboard/pages/Expenses/ExpensesPage";
 import SalaryPage from "./dashboard/pages/Salary/SalaryPage";
 import ReportsPage from "./dashboard/pages/Reports/ReportsPage";
+import EmailMarketingPage from "./dashboard/pages/EmailMarketing/EmailMarketingPage";
 import RequireDashboardAuth from "./dashboard/RequireDashboardAuth";
 import DashboardLogin from "./dashboard/pages/Login/DashboardLogin";
 import DashboardResetPassword from "./dashboard/pages/Login/DashboardResetPassword";
@@ -91,6 +92,7 @@ function App() {
                 <Route path="products" element={<ProductsPage />} />
                 <Route path="expenses" element={<ExpensesPage />} />
                 <Route path="salary" element={<SalaryPage />} />
+                <Route path="email-marketing" element={<EmailMarketingPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="*" element={<Navigate to="/dashboard/overview" replace />} />
               </Route>

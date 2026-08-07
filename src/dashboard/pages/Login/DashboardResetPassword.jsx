@@ -55,32 +55,41 @@ export default function DashboardResetPassword() {
   return (
     <div className="zb-dashLogin">
       <form className="zb-dashLogin__card" onSubmit={onSubmit}>
-        <div className="zb-dashLogin__header">
-          <p className="zb-dashLogin__title">Reset password</p>
-          <p className="zb-dashLogin__sub">Ziva by Ekay</p>
+        <div className="zb-dashLogin__brand">
+          <p className="zb-dashLogin__brandName">Ziva by Ekay</p>
+          <p className="zb-dashLogin__brandTag">Dashboard</p>
         </div>
 
-        <label className="zb-dashLogin__field">
-          <span>New password</span>
-          <input
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            type="password"
-            autoComplete="new-password"
-            required
-          />
-        </label>
+        <div className="zb-dashLogin__header">
+          <p className="zb-dashLogin__title">Choose a new password</p>
+          <p className="zb-dashLogin__sub">Enter a new password for your account.</p>
+        </div>
 
-        <label className="zb-dashLogin__field">
-          <span>Confirm new password</span>
-          <input
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            type="password"
-            autoComplete="new-password"
-            required
-          />
-        </label>
+        <div className="zb-dashLogin__fields">
+          <label className="zb-dashLogin__field">
+            <span>New password</span>
+            <input
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              type="password"
+              autoComplete="new-password"
+              placeholder="••••••••"
+              required
+            />
+          </label>
+
+          <label className="zb-dashLogin__field">
+            <span>Confirm password</span>
+            <input
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              type="password"
+              autoComplete="new-password"
+              placeholder="••••••••"
+              required
+            />
+          </label>
+        </div>
 
         {errorMsg ? <p className="zb-dashLogin__error">{errorMsg}</p> : null}
         {successMsg ? <p className="zb-dashLogin__success">{successMsg}</p> : null}
@@ -98,4 +107,3 @@ export default function DashboardResetPassword() {
     </div>
   );
 }
-

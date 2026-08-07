@@ -23,10 +23,22 @@ export default function DashboardLogin() {
     return true;
   }, [email, password, name, mode, submitting]);
 
+  const switchMode = (next) => {
+    setMode(next);
+    setErrorMsg("");
+    setSuccessMsg("");
+  };
+
   if (isPending) {
     return (
       <div className="zb-dashLogin">
-        <div className="zb-dashLogin__card">Loading…</div>
+        <div className="zb-dashLogin__card" aria-live="polite">
+          <div className="zb-dashLogin__brand">
+            <p className="zb-dashLogin__brandName">Ziva by Ekay</p>
+            <p className="zb-dashLogin__brandTag">Dashboard</p>
+          </div>
+          <p className="zb-dashLogin__sub">Loading…</p>
+        </div>
       </div>
     );
   }
@@ -79,21 +91,31 @@ export default function DashboardLogin() {
     }
   };
 
+  const title =
+    mode === "signup" ? "Create your account" : mode === "forgot" ? "Reset password" : "Welcome back";
+  const subtitle =
+    mode === "signup"
+      ? "Set up access to the studio dashboard."
+      : mode === "forgot"
+        ? "We’ll email you a secure reset link."
+        : "Sign in to manage classes, bookings, and more.";
+
   return (
     <div className="zb-dashLogin">
       <form className="zb-dashLogin__card" onSubmit={onSubmit}>
-        <div className="zb-dashLogin__header">
+        <div className="zb-dashLogin__brand">
+          <p className="zb-dashLogin__brandName">Ziva by Ekay</p>
+          <p className="zb-dashLogin__brandTag">Dashboard</p>
+        </div>
+
+        {mode !== "forgot" ? (
           <div className="zb-dashLogin__tabs" role="tablist" aria-label="Dashboard authentication">
             <button
               type="button"
               role="tab"
               aria-selected={mode === "signin"}
               className={`zb-dashLogin__tab${mode === "signin" ? " zb-dashLogin__tab--active" : ""}`}
-              onClick={() => {
-                setMode("signin");
-                setErrorMsg("");
-                setSuccessMsg("");
-              }}
+              onClick={() => switchMode("signin")}
             >
               Sign in
             </button>
@@ -102,77 +124,77 @@ export default function DashboardLogin() {
               role="tab"
               aria-selected={mode === "signup"}
               className={`zb-dashLogin__tab${mode === "signup" ? " zb-dashLogin__tab--active" : ""}`}
-              onClick={() => {
-                setMode("signup");
-                setErrorMsg("");
-                setSuccessMsg("");
-              }}
+              onClick={() => switchMode("signup")}
             >
               Sign up
             </button>
           </div>
+        ) : null}
 
-          <p className="zb-dashLogin__title">
-            {mode === "signup" ? "Create dashboard account" : mode === "forgot" ? "Reset your password" : "Dashboard sign in"}
-          </p>
-          <p className="zb-dashLogin__sub">Ziva by Ekay</p>
+        <div className="zb-dashLogin__header">
+          <p className="zb-dashLogin__title">{title}</p>
+          <p className="zb-dashLogin__sub">{subtitle}</p>
         </div>
 
         {session?.user ? (
           <p className="zb-dashLogin__success" role="status">
-            You’re currently signed in as {session.user.email || session.user.name || "a user"}.
-            <br />
-            If you want to switch accounts, sign out from the dashboard and return here.
+            You’re signed in as {session.user.email || session.user.name || "a user"}. Open the dashboard, or sign
+            out there to switch accounts.
           </p>
         ) : null}
 
-        {mode === "signup" ? (
+        <div className="zb-dashLogin__fields">
+          {mode === "signup" ? (
+            <label className="zb-dashLogin__field">
+              <span>Name</span>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                autoComplete="name"
+                placeholder="Your name"
+                required
+              />
+            </label>
+          ) : null}
+
           <label className="zb-dashLogin__field">
-            <span>Name</span>
+            <span>Email</span>
             <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              autoComplete="name"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              autoComplete="email"
+              placeholder="you@email.com"
               required
             />
           </label>
-        ) : null}
 
-        <label className="zb-dashLogin__field">
-          <span>Email</span>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            autoComplete="email"
-            required
-          />
-        </label>
-
-        {mode !== "forgot" ? (
-          <label className="zb-dashLogin__field">
-            <span>Password</span>
-            <div className="zb-dashLogin__pw">
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type={showPassword ? "text" : "password"}
-                autoComplete={mode === "signup" ? "new-password" : "current-password"}
-                required
-              />
-              <button
-                className="zb-dashLogin__pwToggle"
-                type="button"
-                onClick={() => setShowPassword((v) => !v)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                aria-pressed={showPassword}
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-            </div>
-          </label>
-        ) : null}
+          {mode !== "forgot" ? (
+            <label className="zb-dashLogin__field">
+              <span>Password</span>
+              <div className="zb-dashLogin__pw">
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  autoComplete={mode === "signup" ? "new-password" : "current-password"}
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  className="zb-dashLogin__pwToggle"
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+            </label>
+          ) : null}
+        </div>
 
         {errorMsg ? <p className="zb-dashLogin__error">{errorMsg}</p> : null}
         {successMsg ? <p className="zb-dashLogin__success">{successMsg}</p> : null}
@@ -193,33 +215,20 @@ export default function DashboardLogin() {
 
         <div className="zb-dashLogin__footer">
           {mode === "signin" ? (
-            <button
-              type="button"
-              className="zb-dashLogin__link"
-              onClick={() => {
-                setMode("forgot");
-                setErrorMsg("");
-                setSuccessMsg("");
-              }}
-            >
+            <button type="button" className="zb-dashLogin__link" onClick={() => switchMode("forgot")}>
               Forgot password?
             </button>
           ) : mode === "forgot" ? (
-            <button
-              type="button"
-              className="zb-dashLogin__link"
-              onClick={() => {
-                setMode("signin");
-                setErrorMsg("");
-                setSuccessMsg("");
-              }}
-            >
+            <button type="button" className="zb-dashLogin__link" onClick={() => switchMode("signin")}>
               Back to sign in
             </button>
-          ) : null}
+          ) : (
+            <button type="button" className="zb-dashLogin__link" onClick={() => switchMode("signin")}>
+              Already have an account?
+            </button>
+          )}
         </div>
       </form>
     </div>
   );
 }
-

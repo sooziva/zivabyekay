@@ -1,5 +1,7 @@
 import { Resend } from "resend";
 import { buildAcknowledgementEmail } from "../lib/email-templates.js";
+import { captureEmailLead } from "../lib/email-leads.js";
+import { prisma } from "./_utils/prisma.js";
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -34,6 +36,13 @@ export default async function handler(req, res) {
   const ownerEmail = (process.env.RESEND_TO || process.env.OWNER_EMAIL || "sooziva@gmail.com").toString().trim();
 
   try {
+    await captureEmailLead(prisma, {
+      email,
+      name,
+      source: "acknowledgement",
+      meta: { date },
+    });
+
     const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
     const from = (process.env.RESEND_FROM || "").toString().trim();
     if (!from) throw new Error("Missing env var: RESEND_FROM");
@@ -53,4 +62,3 @@ export default async function handler(req, res) {
     return json(res, 500, { ok: false, error: err?.message || "Email failed to send" });
   }
 }
-

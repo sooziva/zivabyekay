@@ -2,6 +2,8 @@ import { prisma } from "./_utils/prisma.js";
 import { methodNotAllowed, sendJson } from "./_utils/http.js";
 import { fromNodeHeaders } from "better-auth/node";
 import { getAuth, getAuthInitError } from "./_utils/auth.js";
+import { importEmailLeadsFromText, syncHistoricalEmailLeads } from "../lib/email-leads-sync.js";
+import { sendMarketingCampaign } from "../lib/email-marketing-send.js";
 
 async function requireDashboardSession(req, res) {
   const auth = await getAuth();
@@ -317,6 +319,91 @@ export default async function handler(req, res) {
           },
         });
         return sendJson(res, 200, { ok: true, item });
+      }
+      return methodNotAllowed(res);
+    }
+
+    if (resource === "email-leads") {
+      const id = getIdFromUrl(req);
+      if (req.method === "GET") {
+        const items = await prisma.emailLead.findMany({ orderBy: { updatedAt: "desc" }, take: 2000 });
+        return sendJson(res, 200, { ok: true, items });
+      }
+      if (req.method === "POST") {
+        const body = req.body || {};
+        const action = String(body.action || "import").trim();
+        if (action === "sync") {
+          const summary = await syncHistoricalEmailLeads(prisma);
+          const items = await prisma.emailLead.findMany({ orderBy: { updatedAt: "desc" }, take: 2000 });
+          return sendJson(res, 200, { ok: true, summary, items });
+        }
+        if (action === "import") {
+          const text = String(body.text || body.csv || "").trim();
+          if (!text) return sendJson(res, 400, { ok: false, error: "Paste emails or CSV text to import" });
+          const result = await importEmailLeadsFromText(prisma, text, body.source ? String(body.source) : "waitlist");
+          const items = await prisma.emailLead.findMany({ orderBy: { updatedAt: "desc" }, take: 2000 });
+          return sendJson(res, 200, { ok: true, ...result, items });
+        }
+        if (action === "send") {
+          let recipients = [];
+          if (Array.isArray(body.recipients) && body.recipients.length) {
+            recipients = body.recipients;
+          } else if (Array.isArray(body.ids) && body.ids.length) {
+            recipients = await prisma.emailLead.findMany({
+              where: { id: { in: body.ids.map(String) } },
+              select: { email: true, name: true },
+            });
+          } else if (Array.isArray(body.emails) && body.emails.length) {
+            const emails = body.emails.map(String);
+            const found = await prisma.emailLead.findMany({
+              where: { email: { in: emails.map((e) => e.trim().toLowerCase()) } },
+              select: { email: true, name: true },
+            });
+            const byEmail = new Map(found.map((x) => [x.email, x]));
+            recipients = emails.map((email) => {
+              const key = String(email).trim().toLowerCase();
+              return byEmail.get(key) || { email: key, name: null };
+            });
+          } else if (body.audience === "all") {
+            recipients = await prisma.emailLead.findMany({
+              select: { email: true, name: true },
+              take: 2000,
+            });
+          }
+          const result = await sendMarketingCampaign({
+            recipients,
+            subject: body.subject,
+            body: body.body,
+            previewTitle: body.previewTitle,
+            ctaLabel: body.ctaLabel,
+            ctaUrl: body.ctaUrl,
+            imageUrl: body.imageUrl,
+          });
+          return sendJson(res, 200, { ok: true, result });
+        }
+        return sendJson(res, 400, { ok: false, error: "Unknown action" });
+      }
+      if (req.method === "PATCH") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        const body = req.body || {};
+        const emailRaw = body.email != null ? String(body.email).trim().toLowerCase() : undefined;
+        if (emailRaw !== undefined && (!emailRaw || !emailRaw.includes("@"))) {
+          return sendJson(res, 400, { ok: false, error: "Invalid email" });
+        }
+        const item = await prisma.emailLead.update({
+          where: { id },
+          data: {
+            email: emailRaw,
+            name: body.name != null ? String(body.name).trim() || null : undefined,
+            phone: body.phone != null ? String(body.phone).trim() || null : undefined,
+          },
+        });
+        return sendJson(res, 200, { ok: true, item });
+      }
+      if (req.method === "DELETE") {
+        if (!id) return sendJson(res, 400, { ok: false, error: "Missing id" });
+        await prisma.emailLead.delete({ where: { id } });
+        return sendJson(res, 200, { ok: true });
       }
       return methodNotAllowed(res);
     }

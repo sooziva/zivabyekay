@@ -1,6 +1,8 @@
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import { authClient } from "../../lib/auth-client";
+import { getStoredTheme, storeTheme } from "../theme";
 import "./DashboardLayout.css";
 
 const NAV_ITEMS = [
@@ -11,6 +13,7 @@ const NAV_ITEMS = [
   { id: "products", label: "Product", to: "/dashboard/products" },
   { id: "expenses", label: "Expenses", to: "/dashboard/expenses" },
   { id: "salary", label: "Salary", to: "/dashboard/salary" },
+  { id: "email-marketing", label: "Email marketing", to: "/dashboard/email-marketing" },
   { id: "reports", label: "Reports", to: "/dashboard/reports" },
 ];
 
@@ -22,6 +25,7 @@ export default function DashboardLayout() {
   const [activeId, setActiveId] = useState(sectionIds[0] ?? "overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
+  const [theme, setTheme] = useState(() => getStoredTheme());
   const contentRef = useRef(null);
 
   useEffect(() => {
@@ -30,13 +34,16 @@ export default function DashboardLayout() {
   }, [location.pathname, sectionIds]);
 
   useEffect(() => {
-    // Reset scroll to top on page change.
     if (contentRef.current) contentRef.current.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setSidebarOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    storeTheme(theme);
+  }, [theme]);
+
   return (
-    <div className="zb-dashboard">
+    <div className="zb-dashboard" data-theme={theme}>
       <div
         className={`zb-dashboard__overlay${sidebarOpen ? " zb-dashboard__overlay--open" : ""}`}
         role="button"
@@ -63,7 +70,6 @@ export default function DashboardLayout() {
               key={item.id}
               to={item.to}
               onClick={(e) => {
-                // allow ctrl/cmd click to open new tab
                 if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
                 e.preventDefault();
                 navigate(item.to);
@@ -81,7 +87,8 @@ export default function DashboardLayout() {
           <p className="zb-dashboard__hint">Admin/Staff</p>
           {session?.user ? (
             <p className="zb-dashboard__user" title={session.user.email || ""}>
-              {session.user.name || "Signed in"}{session.user.email ? ` · ${session.user.email}` : ""}
+              {session.user.name || "Signed in"}
+              {session.user.email ? ` · ${session.user.email}` : ""}
             </p>
           ) : (
             <p className="zb-dashboard__user zb-dashboard__user--muted">Not signed in</p>
@@ -121,11 +128,15 @@ export default function DashboardLayout() {
             <p className="zb-dashboard__pageKicker"></p>
           </div>
           <div className="zb-dashboard__topbarRight">
-            <button className="zb-dashboard__chip" type="button">
-              This week
-            </button>
-            <button className="zb-dashboard__chip zb-dashboard__chip--primary" type="button">
-              New entry
+            <button
+              className="zb-dashboard__themeBtn"
+              type="button"
+              onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+              title={theme === "dark" ? "Light theme" : "Dark theme"}
+            >
+              {theme === "dark" ? <Sun size={16} aria-hidden /> : <Moon size={16} aria-hidden />}
+              <span>{theme === "dark" ? "Light" : "Dark"}</span>
             </button>
           </div>
         </header>
@@ -139,4 +150,3 @@ export default function DashboardLayout() {
     </div>
   );
 }
-
